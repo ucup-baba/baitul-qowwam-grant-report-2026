@@ -1,0 +1,497 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Baitul Qowwam Grant Report 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column, figures first, then dormitory, money, proof, timeline, programs, next steps */
+:root{
+  --bg:#F5F7F3; --surface:#FFFFFF; --fg:#18231C; --muted:#5B6A60; --line:#DCE3DA;
+  --accent:#2C6A4C; --accent-soft:#E2EEE6; --gold:#B87A12; --gold-soft:#F6EAD2;
+  --plan:#C9D3CB;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111814; --surface:#18211B; --fg:#E4EBE6; --muted:#9AA9A0; --line:#2A362E;
+  --accent:#72C29A; --accent-soft:#1E3127; --gold:#E2AA45; --gold-soft:#33291A; --plan:#3A4A40; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111814; --surface:#18211B; --fg:#E4EBE6; --muted:#9AA9A0; --line:#2A362E;
+  --accent:#72C29A; --accent-soft:#1E3127; --gold:#E2AA45; --gold-soft:#33291A; --plan:#3A4A40; color-scheme:dark}
+
+/* language switching */
+:root:not([data-lang="id"]) [data-l="id"],
+:root:not([data-lang="jv"]) [data-l="jv"],
+:root[data-lang="id"] [data-l="en"],
+:root[data-lang="jv"] [data-l="en"]{display:none!important}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6;padding-inline:20px}
+.wrap{max-width:920px;margin-inline:auto;padding-block:24px 72px;display:grid;gap:64px}
+h1,h2,h3{font-family:var(--display);line-height:1.12;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.3rem,6vw,3.6rem);font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(1.55rem,3.4vw,2rem);font-weight:700;letter-spacing:-.01em}
+h3{font-size:1.15rem;font-weight:700}
+p{margin:0;max-width:65ch}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+section{display:grid;gap:22px;scroll-margin-top:72px}
+.lead{font-size:1.2rem;color:var(--muted)}
+
+/* header + controls */
+header{display:grid;gap:18px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.controls{display:flex;gap:10px;flex-wrap:wrap}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
+.seg button{all:unset;cursor:pointer;font:600 .82rem var(--body);color:var(--muted);padding:5px 12px;border-radius:999px;display:inline-flex;align-items:center;gap:6px}
+.seg button:hover{color:var(--fg)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--bg)}
+.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.seg svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.meta{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:.95rem;color:var(--muted)}
+.meta b{color:var(--fg);font-weight:600}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin-inline:-20px;padding:10px 20px;display:flex;gap:6px;overflow-x:auto}
+nav a{font-weight:600;font-size:.95rem;text-decoration:none;color:var(--muted);padding:6px 12px;border-radius:999px;white-space:nowrap}
+nav a:hover{color:var(--fg);background:var(--accent-soft)}
+
+/* figures */
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.fig{background:var(--surface);padding:18px 18px 16px;display:grid;gap:4px;align-content:start}
+.fig .n{font-family:var(--display);font-size:2.4rem;font-weight:800;line-height:1;color:var(--accent)}
+.fig .l{font-size:.95rem;color:var(--muted)}
+.callout{background:var(--gold-soft);border-radius:12px;padding:16px 18px;display:grid;gap:4px}
+.callout b{color:var(--gold)}
+
+/* budget bars */
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.9rem;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.sw{width:14px;height:10px;border-radius:2px;display:inline-block}
+.rows{display:grid;gap:18px}
+.row{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr);gap:6px 18px;align-items:center}
+.row .name{font-weight:600;line-height:1.3}
+.row .name small{display:block;font-weight:400;color:var(--muted);font-size:.85rem}
+.bars{display:grid;gap:5px;min-width:0}
+.bar{display:flex;align-items:center;gap:10px;min-width:0}
+.bar i{display:block;height:12px;border-radius:3px;flex:none}
+.bar .v{font-size:.85rem;white-space:nowrap}
+.bar.plan i{background:var(--plan)}
+.bar.real i{background:var(--accent)}
+.diff{font-size:.82rem;font-family:var(--mono);padding:1px 6px;border-radius:4px;margin-left:2px}
+.diff.up{color:var(--gold);background:var(--gold-soft)}
+.diff.down{color:var(--accent);background:var(--accent-soft)}
+@media (max-width:560px){.row{grid-template-columns:1fr}}
+
+/* table */
+.tablebox{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:.95rem}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td.num,th.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+tfoot td{font-weight:700;border-bottom:none}
+tfoot tr.sub td{font-weight:600;color:var(--muted)}
+tfoot tr.bal td{color:var(--accent)}
+td .by{display:block;color:var(--muted);font-size:.85rem;font-weight:400}
+
+/* receipts */
+.receipts{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.rc{all:unset;cursor:zoom-in;display:grid;gap:8px;border-radius:10px}
+.rc img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;border-radius:10px;border:1px solid var(--line);background:var(--surface);transition:transform .2s}
+.rc:hover img{transform:translateY(-2px)}
+.rc .rl{font-size:.88rem;line-height:1.35}
+.rc small{display:block;color:var(--muted);font-family:var(--mono);font-size:.75rem}
+dialog{border:none;padding:0;background:transparent;max-width:min(92vw,900px);max-height:92vh}
+dialog::backdrop{background:rgba(8,12,10,.82)}
+dialog img{max-height:84vh;width:auto;border-radius:10px;display:block;margin-inline:auto}
+dialog p{color:#E4EBE6;text-align:center;margin:10px auto 0;font-size:.95rem}
+dialog .close{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));right:16px;background:#E4EBE6;color:#111814;border:none;border-radius:999px;padding:8px 14px;font:600 .9rem var(--body);cursor:pointer}
+
+/* before / after */
+.ba{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.ba button{all:unset;cursor:zoom-in;display:grid;gap:8px;min-width:0;border-radius:12px}
+.ba img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;border:1px solid var(--line);display:block}
+.ba .lbl{font-family:var(--mono);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+.ba .before .lbl{color:var(--muted)}
+.ba .after .lbl{color:var(--accent)}
+.ba .cap{font-size:.92rem;color:var(--muted);line-height:1.4}
+@media (max-width:560px){.ba{grid-template-columns:1fr}}
+
+/* dorm life gallery */
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;margin-top:4px}
+.gallery-card{all:unset;cursor:zoom-in;display:grid;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;padding:12px;transition:transform .2s,border-color .2s,box-shadow .2s}
+.gallery-card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 8px 24px rgba(0,0,0,.06)}
+.gallery-card img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:10px;display:block}
+.gallery-card .gmeta{display:grid;gap:4px}
+.gallery-card .gtitle{font-weight:700;font-size:1.02rem;line-height:1.3;color:var(--fg)}
+.gallery-card .gdesc{font-size:.88rem;color:var(--muted);line-height:1.45}
+.quote-card{background:var(--accent-soft);border-left:4px solid var(--accent);border-radius:0 14px 14px 0;padding:18px 22px;color:var(--fg);margin-top:10px;display:grid;gap:6px}
+.quote-card blockquote{margin:0;font-size:1.02rem;font-style:italic;line-height:1.55}
+.quote-card cite{display:block;font-style:normal;font-weight:700;font-size:.85rem;color:var(--accent);letter-spacing:.02em}
+
+/* timeline */
+.tl{list-style:none;margin:0;padding:0;display:grid;gap:0;border-left:2px solid var(--line);margin-left:6px}
+.tl li{position:relative;padding:0 0 20px 22px;display:grid;gap:2px}
+.tl li::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--muted)}
+.tl li.g26::before{border-color:var(--accent);background:var(--accent)}
+.tl li.due::before{border-color:var(--gold);background:var(--gold-soft)}
+.tl time{font-family:var(--mono);font-size:.8rem;color:var(--muted);letter-spacing:.04em}
+.tl .t{font-weight:600}
+
+/* programs */
+.progs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.prog{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:10px;align-content:start}
+.prog .tag{justify-self:start;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px}
+.tag.on{background:var(--accent-soft);color:var(--accent)}
+.tag.plan{background:var(--gold-soft);color:var(--gold)}
+.prog p{font-size:.98rem}
+.prog .uses{font-size:.88rem;color:var(--muted)}
+.prog .uses b{color:var(--fg);font-weight:600}
+
+ul.plain{margin:0;padding-left:1.1em;display:grid;gap:10px;max-width:65ch}
+ul.plain li::marker{color:var(--accent)}
+footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;font-size:.92rem;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header>
+  <div class="topbar">
+    <span class="eyebrow"><span data-l="en">Grant report · Attachment D, clause 4</span><span data-l="id">Laporan hibah · Lampiran D, poin 4</span><span data-l="jv">Laporan hibah · Lampiran D, poin 4</span></span>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="Language / Bahasa">
+        <button type="button" id="langEn" data-setlang="en" aria-pressed="true">EN</button>
+        <button type="button" id="langId" data-setlang="id" aria-pressed="false">ID</button>
+        <button type="button" id="langJv" data-setlang="jv" aria-pressed="false" title="Basa Jawa">JV</button>
+      </div>
+      <div class="seg" role="group" aria-label="Theme">
+        <button type="button" id="themeLight" data-settheme="light" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span data-l="en">Light</span><span data-l="id">Terang</span><span data-l="jv">Padhang</span></button>
+        <button type="button" id="themeDark" data-settheme="dark" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span data-l="en">Dark</span><span data-l="id">Gelap</span><span data-l="jv">Peteng</span></button>
+      </div>
+    </div>
+  </div>
+  <h1><span data-l="en">Baitul Qowwam Orphanage<br>Grant Report 2026</span><span data-l="id">Panti Asuhan Baitul Qowwam<br>Laporan Hibah 2026</span><span data-l="jv">Panti Asuhan Baitul Qowwam<br>Laporan Hibah 2026</span></h1>
+  <p class="lead"><span data-l="en">How the USD 5,000 grant from GM Children Foundation was spent on the girls' dormitory, documentation cameras and AI learning tools, and what comes next.</span><span data-l="id">Penggunaan hibah USD 5.000 dari GM Children Foundation untuk asrama putri, kamera dokumentasi, dan perangkat belajar AI, serta rencana berikutnya.</span><span data-l="jv">Panganggening hibah USD 5.000 saking GM Children Foundation kangge asrama putri, kamera dokumentasi, saha piranti sinau AI, ugi rancangan salajengipun.</span></p>
+  <div class="meta">
+    <span><span data-l="en">Grantee</span><span data-l="id">Penerima</span><span data-l="jv">Ingkang nampi</span> <b>Panti Asuhan Baitul Qowwam</b>, Tempel, Sleman, Yogyakarta</span>
+    <span><span data-l="en">Agreement <b>26 June 2026</b></span><span data-l="id">Perjanjian <b>26 Juni 2026</b></span><span data-l="jv">Prajanjian <b>26 Juni 2026</b></span></span>
+    <span><span data-l="en">Report due <b>15 December 2026</b></span><span data-l="id">Batas laporan <b>15 Desember 2026</b></span><span data-l="jv">Wates laporan <b>15 Desember 2026</b></span></span>
+  </div>
+</header>
+
+<nav aria-label="Sections">
+  <a href="#summary"><span data-l="en">Summary</span><span data-l="id">Ringkasan</span><span data-l="jv">Ringkesan</span></a>
+  <a href="#dormitory"><span data-l="en">Dormitory</span><span data-l="id">Asrama</span><span data-l="jv">Asrama</span></a>
+  <a href="#funds"><span data-l="en">Use of funds</span><span data-l="id">Penggunaan dana</span><span data-l="jv">Panganggening dana</span></a>
+  <a href="#receipts"><span data-l="en">Receipts</span><span data-l="id">Nota</span><span data-l="jv">Nota</span></a>
+  <a href="#timeline"><span data-l="en">Timeline</span><span data-l="id">Linimasa</span><span data-l="jv">Urutan wekdal</span></a>
+  <a href="#programs"><span data-l="en">In use</span><span data-l="id">Pemanfaatan</span><span data-l="jv">Pigunanipun</span></a>
+  <a href="#lessons"><span data-l="en">Lessons</span><span data-l="id">Evaluasi</span><span data-l="jv">Evaluasi</span></a>
+  <a href="#next"><span data-l="en">What's next</span><span data-l="id">Rencana</span><span data-l="jv">Rancangan</span></a>
+</nav>
+
+<section id="summary">
+  <span class="eyebrow"><span data-l="en">Summary</span><span data-l="id">Ringkasan</span><span data-l="jv">Ringkesan</span></span>
+  <div class="figs">
+    <div class="fig"><span class="n mono">15</span><span class="l"><span data-l="en">bunk beds for the girls' dormitory</span><span data-l="id">ranjang tingkat untuk asrama putri</span><span data-l="jv">ranjang susun kangge asrama putri</span></span></div>
+    <div class="fig"><span class="n mono">52</span><span class="l"><span data-l="en">mattresses, 30 foam + 22 folding</span><span data-l="id">kasur, 30 busa + 22 lipat</span><span data-l="jv">kasur, 30 busa + 22 lempit</span></span></div>
+    <div class="fig"><span class="n mono">2</span><span class="l"><span data-l="en">DJI Osmo Pocket cameras</span><span data-l="id">kamera DJI Osmo Pocket</span><span data-l="jv">kamera DJI Osmo Pocket</span></span></div>
+    <div class="fig"><span class="n mono">2</span><span class="l"><span data-l="en">one-year AI subscriptions</span><span data-l="id">langganan AI satu tahun</span><span data-l="jv">langganan AI setunggal taun</span></span></div>
+    <div class="fig"><span class="n mono">7</span><span class="l"><span data-l="en">TWS AI translation headsets</span><span data-l="id">headset TWS penerjemah AI</span><span data-l="jv">headset TWS panerjemah AI</span></span></div>
+  </div>
+  <div class="callout">
+    <p data-l="en"><b>All four grant purposes and extra AI tools are delivered.</b> The mattress count matches the 52 in the agreement, and the home received 15 bunk beds instead of the planned 12 within the same Rp42,000,000 line, plus 7 AI translation headsets. Total spending is Rp89,134,282, fully utilizing the funds with the Rp67,282 excess covered by Yusuf.</p>
+    <p data-l="id"><b>Keempat tujuan hibah serta alat bantu AI tambahan telah terpenuhi.</b> Jumlah kasur sesuai target 52 dalam perjanjian, dan panti mendapat 15 ranjang tingkat dari rencana 12 dengan anggaran Rp42.000.000 yang sama, ditambah 7 headset TWS penerjemah AI. Total belanja Rp89.134.282, dana terserap 100% tuntas dengan selisih lebih Rp67.282 ditalangi oleh Yusuf.</p><p data-l="jv"><b>Sekawan ancas hibah saha piranti tambahan AI sampun kaleksanan.</b> Cacahing kasur jumbuh kaliyan target 52 ing prajanjian, saha panti pikantuk 15 ranjang susun saking rancangan 12 kanthi anggaran Rp42.000.000 ingkang sami, katambahan 7 headset TWS panerjemah AI. Gunggung blanja Rp89.134.282, dana kaserep 100% kanthi kaluwihan Rp67.282 dipun talangi dening Yusuf.</p>
+  </div>
+</section>
+
+<section id="dormitory">
+  <span class="eyebrow"><span data-l="en">Girls' dormitory</span><span data-l="id">Asrama putri</span><span data-l="jv">Asrama putri</span></span>
+  <h2><span data-l="en">Before and after</span><span data-l="id">Sebelum dan sesudah</span><span data-l="jv">Saderengipun lan sasampunipun</span></h2>
+  <p data-l="en">The girls used to sleep on thin mattresses laid directly on the floor. The room now holds bunk beds with new foam mattresses, which frees floor space and keeps bedding off the ground.</p>
+  <p data-l="id">Sebelumnya santri putri tidur di atas kasur tipis yang digelar langsung di lantai. Sekarang kamar berisi ranjang tingkat dengan kasur busa baru, sehingga lantai lebih lega dan alas tidur tidak lagi menempel ke lantai.</p><p data-l="jv">Rumiyin santri putri tilem wonten ing kasur tipis ingkang dipun gelar langsung ing jogan. Sapunika kamar wonten ranjang susun kanthi kasur busa enggal, satemah jogan langkung lega lan alas tilem boten nempel jogan malih.</p>
+  <div class="ba">
+    <button class="before" data-src="photos/dorm-before.jpg" data-cap-en="Before: mattresses laid on the floor of the girls' dormitory" data-cap-id="Sebelum: kasur digelar di lantai asrama putri" data-cap-jv="Saderengipun: kasur dipun gelar ing jogan asrama putri"><img src="photos/dorm-before.jpg" alt="Mattresses with bedding laid on the dormitory floor"><span class="lbl"><span data-l="en">Before</span><span data-l="id">Sebelum</span><span data-l="jv">Saderengipun</span></span><span class="cap"><span data-l="en">Mattresses laid on the floor</span><span data-l="id">Kasur digelar di lantai</span><span data-l="jv">Kasur dipun gelar ing jogan</span></span></button>
+    <button class="after" data-src="photos/dorm-after.jpg" data-cap-en="After: new bunk beds with foam mattresses in the girls' dormitory" data-cap-id="Sesudah: ranjang tingkat baru dengan kasur busa di asrama putri" data-cap-jv="Sasampunipun: ranjang susun enggal kanthi kasur busa ing asrama putri"><img src="photos/dorm-after.jpg" alt="Black metal bunk beds with patterned foam mattresses and pillows"><span class="lbl"><span data-l="en">After</span><span data-l="id">Sesudah</span><span data-l="jv">Sasampunipun</span></span><span class="cap"><span data-l="en">New bunk beds with foam mattresses</span><span data-l="id">Ranjang tingkat baru dengan kasur busa</span><span data-l="jv">Ranjang susun enggal kanthi kasur busa</span></span></button>
+  </div>
+
+  <h2><span data-l="en">Daily life in the new dormitory</span><span data-l="id">Keseharian & keceriaan di asrama baru</span><span data-l="jv">Kahanan enggal & kabingahan santri putri</span></h2>
+  <p data-l="en">Beyond extra space, the bunk beds have created a cheerful, comfortable home environment. The girls now study, chat, and rest with better comfort and health.</p>
+  <p data-l="id">Lebih dari sekadar ruangan yang lebih lega, ranjang tingkat ini menghadirkan suasana asrama yang hangat, bersih, dan penuh keceriaan. Santri putri kini dapat belajar, beristirahat, dan berinteraksi dengan jauh lebih nyaman dan sehat.</p>
+  <p data-l="jv">Langkung saking ruangan ingkang wiyar, ranjang susun menika ndadosaken kahanan asrama tansah anget, resik, lan pinanggih kabingahan. Santri putri sapunika saged sinau, ngaso, lan sesarengan kanthi langkung kepenak saha sehat.</p>
+
+  <div class="gallery">
+    <button class="gallery-card" data-src="photos/dorm-life-1.jpg" data-cap-en="Girls enjoying the spacious room and studying on the new bunk beds" data-cap-id="Santri putri menikmati suasana kamar yang rapi dan deretan ranjang tingkat baru" data-cap-jv="Santri putri bingah pirsani kamar ingkang tumata rapi kanthi ranjang susun enggal">
+      <img src="photos/dorm-life-1.jpg" alt="Girls standing and sitting near the neat rows of bunk beds">
+      <div class="gmeta">
+        <span class="gtitle"><span data-l="en">Organized & spacious room</span><span data-l="id">Kamar tertata rapi & lebih leluasa</span><span data-l="jv">Kamar tumata rapi & langkung lega</span></span>
+        <span class="gdesc"><span data-l="en">15 bunk beds utilize vertical space, freeing the tiled floor for daily study and gathering.</span><span data-l="id">15 ranjang tingkat memanfaatkan ruang vertikal, membuat lantai bersih leluasa untuk belajar dan berkumpul.</span><span data-l="jv">15 ranjang susun ndadosaken jogan resik lan lega kangge sinau saha kempal sesarengan.</span></span>
+      </div>
+    </button>
+
+    <button class="gallery-card" data-src="photos/dorm-life-2.jpg" data-cap-en="Warm conversation and companionship on the upper bunk bed" data-cap-id="Keceriaan dan kebersamaan santri putri berbincang hangat di atas ranjang tingkat" data-cap-jv="Keceriaan lan guyub rukunipun santri putri imbal wacana ing ranjang susun">
+      <img src="photos/dorm-life-2.jpg" alt="Three smiling foster girls chatting together on the upper bunk">
+      <div class="gmeta">
+        <span class="gtitle"><span data-l="en">Warm camaraderie & smiles</span><span data-l="id">Kebersamaan & tawa santri</span><span data-l="jv">Paseduluran & guyub rukun</span></span>
+        <span class="gdesc"><span data-l="en">The upper and lower bunks provide cozy personal nooks where children share stories and laughter after school.</span><span data-l="id">Ranjang tingkat menjadi sudut nyaman untuk berbagi cerita, berdiskusi pelajaran, dan saling menyemangati.</span><span data-l="jv">Ranjang susun dados papan ingkang sae kangge cariyos, pirembagan pelajaran, lan paring semangat.</span></span>
+      </div>
+    </button>
+
+    <button class="gallery-card" data-src="photos/dorm-life-3.jpg" data-cap-en="Healthy, comfortable rest off the cold floor" data-cap-id="Istirahat lebih berkualitas dengan kasur busa tebal terlindung dari dingin lantai" data-cap-jv="Ngaso ingkang langkung sae kanthi kasur busa kandel tebih saking adhemipun jogan">
+      <img src="photos/dorm-life-3.jpg" alt="Girls sitting peacefully with comfortable pillows on the new mattress">
+      <div class="gmeta">
+        <span class="gtitle"><span data-l="en">Healthy & restful sleep</span><span data-l="id">Tidur sehat & berkualitas</span><span data-l="jv">Tilem ingkang sehat & sekeca</span></span>
+        <span class="gdesc"><span data-l="en">Thick foam mattresses on elevated frames protect children from damp floors, ensuring sound sleep.</span><span data-l="id">Kasur busa baru di atas rangka besi melindungi dari hawa dingin lantai, menjaga daya tahan tubuh anak-anak.</span><span data-l="jv">Kasur busa enggal ing dhuwur ranjang wesi njagi saking hawa adhem jogan, njagi kasarasanipun lare-lare.</span></span>
+      </div>
+    </button>
+  </div>
+
+  <div class="quote-card">
+    <blockquote data-l="en">“Alhamdulillah, our dormitory is now so neat and comfortable. We no longer sleep on the cold floor, and resting after school is much more refreshing. We are very grateful to GM Children Foundation.”</blockquote>
+    <blockquote data-l="id">“Alhamdulillah sekarang kamar kami jadi sangat rapi dan nyaman. Kami tidak lagi kedinginan tidur di lantai, dan istirahat sepulang sekolah terasa jauh lebih segar. Terima kasih banyak untuk GM Children Foundation.”</blockquote>
+    <blockquote data-l="jv">“Alhamdulillah sapunika kamar kula dados saestu rapi lan sekeca. Mboten asrep malih tilem wonten jogan, lan ngaso bibar sekolah rumaos langkung seger. Maturnuwun sanget katur GM Children Foundation.”</blockquote>
+    <cite><span data-l="en">— Santri Putri, Baitul Qowwam Orphanage</span><span data-l="id">— Santri Putri, Panti Asuhan Baitul Qowwam</span><span data-l="jv">— Santri Putri, Panti Asuhan Baitul Qowwam</span></cite>
+  </div>
+</section>
+
+<section id="funds">
+  <span class="eyebrow"><span data-l="en">Use of funds</span><span data-l="id">Penggunaan dana</span><span data-l="jv">Panganggening dana</span></span>
+  <h2><span data-l="en">Planned vs. actual</span><span data-l="id">Rencana vs. realisasi</span><span data-l="jv">Rancangan vs. kasunyatan</span></h2>
+  <p data-l="en">Planned amounts come from the appendix of the grant agreement. Bars are drawn to one scale.</p>
+  <p data-l="id">Angka rencana diambil dari lampiran perjanjian hibah. Semua batang digambar dengan skala yang sama.</p><p data-l="jv">Angka rancangan dipun pendhet saking lampiran prajanjian hibah. Sedaya grafik dipun gambar kanthi skala ingkang sami.</p>
+  <div class="legend"><span><i class="sw" style="background:var(--plan)"></i><span data-l="en">Planned</span><span data-l="id">Rencana</span><span data-l="jv">Rancangan</span></span><span><i class="sw" style="background:var(--accent)"></i><span data-l="en">Actual</span><span data-l="id">Realisasi</span><span data-l="jv">Kasunyatan</span></span></div>
+  <div class="rows" id="bars"></div>
+
+  <div class="tablebox">
+    <table>
+      <thead><tr>
+        <th><span data-l="en">Item</span><span data-l="id">Barang</span><span data-l="jv">Barang</span></th>
+        <th><span data-l="en">Specification / store</span><span data-l="id">Spesifikasi / toko</span><span data-l="jv">Spesifikasi / toko</span></th>
+        <th class="num"><span data-l="en">Qty</span><span data-l="id">Jml</span><span data-l="jv">Cacah</span></th>
+        <th class="num"><span data-l="en">Unit (Rp)</span><span data-l="id">Satuan (Rp)</span><span data-l="jv">Reregan (Rp)</span></th>
+        <th class="num">Total (Rp)</th>
+      </tr></thead>
+      <tbody>
+        <tr><td><span data-l="en">Bunk beds</span><span data-l="id">Ranjang tingkat</span><span data-l="jv">Ranjang susun</span><span class="by"><span data-l="en">Paid by Pak Aris</span><span data-l="id">Dibayar Pak Aris</span><span data-l="jv">Dipun bayar Pak Aris</span></span></td><td>Bed Activ Avanti Maldives BB 90 B Black, Margo Murah Baru</td><td class="num">15</td><td class="num" data-n="2800000"></td><td class="num" data-n="42000000"></td></tr>
+        <tr><td><span data-l="en">Foam mattresses</span><span data-l="id">Kasur busa</span><span data-l="jv">Kasur busa</span><span class="by"><span data-l="en">Paid by Pak Aris</span><span data-l="id">Dibayar Pak Aris</span><span data-l="jv">Dipun bayar Pak Aris</span></span></td><td>EON 90 × 10, Central-foam</td><td class="num">30</td><td class="num" data-n="500000"></td><td class="num" data-n="15000000"></td></tr>
+        <tr><td><span data-l="en">Mattress shipping</span><span data-l="id">Ongkir kasur busa</span><span data-l="jv">Ongkos kirim kasur busa</span><span class="by"><span data-l="en">Paid by Pak Aris</span><span data-l="id">Dibayar Pak Aris</span><span data-l="jv">Dipun bayar Pak Aris</span></span></td><td><span data-l="en">Central-foam, Tangerang to Yogyakarta</span><span data-l="id">Central-foam, Tangerang ke Yogyakarta</span><span data-l="jv">Central-foam, Tangerang dhateng Yogyakarta</span></td><td class="num">1</td><td class="num" data-n="1067000"></td><td class="num" data-n="1067000"></td></tr>
+        <tr><td><span data-l="en">Folding mattresses</span><span data-l="id">Kasur lipat</span><span data-l="jv">Kasur lempit</span><span class="by"><span data-l="en">Paid by Yusuf</span><span data-l="id">Dibayar Yusuf</span><span data-l="jv">Dipun bayar Yusuf</span></span></td><td>Olympic × Soteria, Soteria Official Store</td><td class="num">22</td><td class="num" data-n="142636"></td><td class="num" data-n="3138000"></td></tr>
+        <tr><td><span data-l="en">Camera</span><span data-l="id">Kamera</span><span data-l="jv">Kamera</span><span class="by"><span data-l="en">Paid by Yusuf</span><span data-l="id">Dibayar Yusuf</span><span data-l="jv">Dipun bayar Yusuf</span></span></td><td>DJI Osmo Pocket 4, Creator Combo</td><td class="num">1</td><td class="num" data-n="9311000"></td><td class="num" data-n="9311000"></td></tr>
+        <tr><td><span data-l="en">Camera</span><span data-l="id">Kamera</span><span data-l="jv">Kamera</span><span class="by"><span data-l="en">Paid by Yusuf</span><span data-l="id">Dibayar Yusuf</span><span data-l="jv">Dipun bayar Yusuf</span></span></td><td>DJI Osmo Pocket 4P, Vlog Combo</td><td class="num">1</td><td class="num" data-n="11001000"></td><td class="num" data-n="11001000"></td></tr>
+        <tr><td><span data-l="en">AI subscription, 1 year</span><span data-l="id">Langganan AI, 1 tahun</span><span data-l="jv">Langganan AI, 1 taun</span><span class="by"><span data-l="en">Paid by Yusuf</span><span data-l="id">Dibayar Yusuf</span><span data-l="jv">Dipun bayar Yusuf</span></span></td><td><span data-l="en">Claude Pro, via Google Play</span><span data-l="id">Claude Pro, lewat Google Play</span><span data-l="jv">Claude Pro, lumantar Google Play</span></td><td class="num">1</td><td class="num" data-n="4183812"></td><td class="num" data-n="4183812"></td></tr>
+        <tr><td><span data-l="en">AI subscription, 1 year</span><span data-l="id">Langganan AI, 1 tahun</span><span data-l="jv">Langganan AI, 1 taun</span><span class="by"><span data-l="en">Paid by Yusuf</span><span data-l="id">Dibayar Yusuf</span><span data-l="jv">Dipun bayar Yusuf</span></span></td><td><span data-l="en">Google AI Premium (Google One, family plan, 2 TB)</span><span data-l="id">Google AI Premium (Google One, paket keluarga, 2 TB)</span><span data-l="jv">Google AI Premium (Google One, paket kulawarga, 2 TB)</span></td><td class="num">1</td><td class="num" data-n="2551890"></td><td class="num" data-n="2551890"></td></tr>
+        <tr><td><span data-l="en">TWS AI headsets</span><span data-l="id">Headset TWS AI</span><span data-l="jv">Headset TWS AI</span><span class="by"><span data-l="en">Paid by Yusuf</span><span data-l="id">Dibayar Yusuf</span><span data-l="jv">Dipun bayar Yusuf</span></span></td><td>Aitu 06 Open Ear (AI translator, 3 silver + 4 black), Aitu Official Store</td><td class="num">7</td><td class="num" data-n="125940"></td><td class="num" data-n="881580"></td></tr>
+      </tbody>
+      <tfoot>
+        <tr><td colspan="4"><span data-l="en">Total spent</span><span data-l="id">Total belanja</span><span data-l="jv">Gunggung blanja</span></td><td class="num" data-n="89134282"></td></tr>
+        <tr class="sub"><td colspan="4"><span data-l="en">Funds received (Rp31,000,000 via Yusuf + Rp58,067,000 paid directly to stores by Pak Aris)</span><span data-l="id">Dana diterima (Rp31.000.000 lewat Yusuf + Rp58.067.000 dibayar langsung ke toko oleh Pak Aris)</span><span data-l="jv">Dana ingkang dipun tampi (Rp31.000.000 lumantar Yusuf + Rp58.067.000 dipun bayar langsung dhateng toko dening Pak Aris)</span></td><td class="num" data-n="89067000"></td></tr>
+        <tr class="bal"><td colspan="4"><span data-l="en">Remaining balance / excess covered by Yusuf</span><span data-l="id">Sisa dana / selisih lebih ditalangi Yusuf</span><span data-l="jv">Sisa dana / kaluwihan dipun talangi Yusuf</span></td><td class="num" data-n="-67282"></td></tr>
+      </tfoot>
+    </table>
+  </div>
+</section>
+
+<section id="receipts">
+  <span class="eyebrow"><span data-l="en">Receipts</span><span data-l="id">Nota</span><span data-l="jv">Nota</span></span>
+  <h2><span data-l="en">Proof of purchase</span><span data-l="id">Bukti pembelian</span><span data-l="jv">Bukti tumbas</span></h2>
+  <p data-l="en">Select a receipt to enlarge it. Originals are kept for inspection until 30 December 2031, as clause 5 requires.</p>
+  <p data-l="id">Klik nota untuk memperbesar. Dokumen asli disimpan untuk pemeriksaan hingga 30 Desember 2031, sesuai poin 5 perjanjian.</p><p data-l="jv">Klik nota kangge nggedhekaken. Dokumen asli dipun simpen kangge pamriksan ngantos 30 Desember 2031, miturut poin 5 prajanjian.</p>
+  <div class="receipts">
+    <button class="rc" data-src="receipts/beds.jpg" data-cap-en="Margo Murah Baru, invoice JC29.260828.0013, 28 Aug 2026, Rp42,000,000" data-cap-id="Margo Murah Baru, nota JC29.260828.0013, 28 Agu 2026, Rp42.000.000" data-cap-jv="Margo Murah Baru, nota JC29.260828.0013, 28 Agu 2026, Rp42.000.000"><img src="receipts/beds.jpg" alt="Invoice from Margo Murah Baru for 15 beds"><span class="rl"><span data-l="en">Bunk beds, Margo Murah Baru</span><span data-l="id">Ranjang tingkat, Margo Murah Baru</span><span data-l="jv">Ranjang susun, Margo Murah Baru</span><small><span data-l="en">28 AUG 2026</span><span data-l="id">28 AGU 2026</span><span data-l="jv">28 AGU 2026</span></small></span></button>
+    <button class="rc" data-src="receipts/foam.jpg" data-cap-en="Central-foam, 7 Sep 2026, Rp16,067,000 incl. shipping" data-cap-id="Central-foam, 7 Sep 2026, Rp16.067.000 termasuk ongkir" data-cap-jv="Central-foam, 7 Sep 2026, Rp16.067.000 kalebet ongkos kirim"><img src="receipts/foam.jpg" alt="Handwritten invoice from Central-foam for 30 mattresses"><span class="rl"><span data-l="en">Foam mattresses, Central-foam</span><span data-l="id">Kasur busa, Central-foam</span><span data-l="jv">Kasur busa, Central-foam</span><small>07 SEP 2026</small></span></button>
+    <button class="rc" data-src="receipts/folding.jpg" data-cap-en="Soteria Official Store (Shopee), 22 folding mattresses, Rp3,138,000" data-cap-id="Soteria Official Store (Shopee), 22 kasur lipat, Rp3.138.000" data-cap-jv="Soteria Official Store (Shopee), 22 kasur lempit, Rp3.138.000"><img src="receipts/folding.jpg" alt="Shopee order for 22 folding mattresses"><span class="rl"><span data-l="en">Folding mattresses, Shopee</span><span data-l="id">Kasur lipat, Shopee</span><span data-l="jv">Kasur lempit, Shopee</span><small>SOTERIA</small></span></button>
+    <button class="rc" data-src="receipts/cameras.jpg" data-cap-en="DJI Official Shop (Shopee), Osmo Pocket 4 Rp9,311,000 and Osmo Pocket 4P Rp11,001,000" data-cap-id="DJI Official Shop (Shopee), Osmo Pocket 4 Rp9.311.000 dan Osmo Pocket 4P Rp11.001.000" data-cap-jv="DJI Official Shop (Shopee), Osmo Pocket 4 Rp9.311.000 lan Osmo Pocket 4P Rp11.001.000"><img src="receipts/cameras.jpg" alt="Shopee orders for DJI Osmo Pocket 4 and 4P"><span class="rl"><span data-l="en">Cameras, DJI Official Shop</span><span data-l="id">Kamera, DJI Official Shop</span><span data-l="jv">Kamera, DJI Official Shop</span><small><span data-l="en">4P ARRIVED 13 OCT 2026</span><span data-l="id">4P TIBA 13 OKT 2026</span><span data-l="jv">4P DUMUGI 13 OKT 2026</span></small></span></button>
+    <button class="rc" data-src="receipts/claude.jpg" data-cap-en="Google Play, Claude by Anthropic, 14 Aug 2026, Rp4,183,812" data-cap-id="Google Play, Claude by Anthropic, 14 Agu 2026, Rp4.183.812" data-cap-jv="Google Play, Claude by Anthropic, 14 Agu 2026, Rp4.183.812"><img src="receipts/claude.jpg" alt="Google Play payment for Claude"><span class="rl">Claude Pro, Google Play<small><span data-l="en">14 AUG 2026</span><span data-l="id">14 AGU 2026</span><span data-l="jv">14 AGU 2026</span></small></span></button>
+    <button class="rc" data-src="receipts/google.jpg" data-cap-en="Google Play, Google One, 9 Sep 2026, Rp2,551,890" data-cap-id="Google Play, Google One, 9 Sep 2026, Rp2.551.890" data-cap-jv="Google Play, Google One, 9 Sep 2026, Rp2.551.890"><img src="receipts/google.jpg" alt="Google Play payment for Google One"><span class="rl">Google AI Premium, Google Play<small>09 SEP 2026</small></span></button>
+    <button class="rc" data-src="receipts/tws.jpg" data-cap-en="Aitu Official Store (Shopee), 7 Aitu 06 TWS AI Translator headsets (3 silver, 4 black), 23 Oct 2026, Rp881,580" data-cap-id="Aitu Official Store (Shopee), 7 TWS Aitu 06 Penerjemah AI (3 silver, 4 hitam), 23 Okt 2026, Rp881.580" data-cap-jv="Aitu Official Store (Shopee), 7 TWS Aitu 06 Panerjemah AI (3 perak, 4 cemeng), 23 Okt 2026, Rp881.580"><img src="receipts/tws.jpg" alt="Shopee order for 7 Aitu 06 TWS AI Translator headsets"><span class="rl"><span data-l="en">TWS AI headsets, Shopee</span><span data-l="id">Headset TWS AI, Shopee</span><span data-l="jv">Headset TWS AI, Shopee</span><small><span data-l="en">23 OCT 2026</span><span data-l="id">23 OKT 2026</span><span data-l="jv">23 OKT 2026</span></small></span></button>
+  </div>
+</section>
+
+<section id="timeline">
+  <span class="eyebrow"><span data-l="en">Timeline</span><span data-l="id">Linimasa</span><span data-l="jv">Urutan wekdal</span></span>
+  <h2><span data-l="en">From the first visit to delivery</span><span data-l="id">Dari kunjungan pertama hingga barang tiba</span><span data-l="jv">Saking rawuh sepisanan ngantos barang dumugi</span></h2>
+  <ol class="tl">
+    <li><time><span data-l="en">AUG 2025</span><span data-l="id">AGU 2025</span><span data-l="jv">AGU 2025</span></time><span class="t"><span data-l="en">GM team visits Baitul Qowwam</span><span data-l="id">Tim GM berkunjung ke Baitul Qowwam</span><span data-l="jv">Tim GM rawuh wonten Baitul Qowwam</span></span></li>
+    <li><time>SEP 2025</time><span class="t"><span data-l="en">Digital Lab and Library funded, USD 6,200</span><span data-l="id">Lab Digital dan Perpustakaan didanai, USD 6.200</span><span data-l="jv">Lab Digital lan Perpustakaan dipun danani, USD 6.200</span></span></li>
+    <li class="g26"><time>26 JUN 2026</time><span class="t"><span data-l="en">Second grant agreed, USD 5,000</span><span data-l="id">Hibah kedua disepakati, USD 5.000</span><span data-l="jv">Hibah kaping kalih dipun sarujuki, USD 5.000</span></span><span><span data-l="en">Beds and mattresses, two cameras, one year of AI tools</span><span data-l="id">Ranjang dan kasur, dua kamera, satu tahun perangkat AI</span><span data-l="jv">Ranjang lan kasur, kalih kamera, setunggal taun piranti AI</span></span></li>
+    <li class="g26"><time><span data-l="en">14 AUG 2026</span><span data-l="id">14 AGU 2026</span><span data-l="jv">14 AGU 2026</span></time><span class="t"><span data-l="en">Claude subscription active</span><span data-l="id">Langganan Claude aktif</span><span data-l="jv">Langganan Claude aktif</span></span></li>
+    <li class="g26"><time><span data-l="en">28 AUG 2026</span><span data-l="id">28 AGU 2026</span><span data-l="jv">28 AGU 2026</span></time><span class="t"><span data-l="en">15 bunk beds purchased and paid in full</span><span data-l="id">15 ranjang tingkat dibeli dan lunas</span><span data-l="jv">15 ranjang susun dipun tumbas lan lunas</span></span></li>
+    <li class="g26"><time>07 SEP 2026</time><span class="t"><span data-l="en">30 foam mattresses ordered from Central-foam</span><span data-l="id">30 kasur busa dipesan dari Central-foam</span><span data-l="jv">30 kasur busa dipun pesen saking Central-foam</span></span></li>
+    <li class="g26"><time>09 SEP 2026</time><span class="t"><span data-l="en">Google AI Premium subscription active</span><span data-l="id">Langganan Google AI Premium aktif</span><span data-l="jv">Langganan Google AI Premium aktif</span></span></li>
+    <li class="g26"><time><span data-l="en">13 OCT 2026</span><span data-l="id">13 OKT 2026</span><span data-l="jv">13 OKT 2026</span></time><span class="t"><span data-l="en">Osmo Pocket 4P arrives</span><span data-l="id">Osmo Pocket 4P tiba</span><span data-l="jv">Osmo Pocket 4P dumugi</span></span></li>
+    <li class="g26"><time><span data-l="en">23 OCT 2026</span><span data-l="id">23 OKT 2026</span><span data-l="jv">23 OKT 2026</span></time><span class="t"><span data-l="en">7 TWS AI translation headsets arrive</span><span data-l="id">7 headset TWS penerjemah AI tiba</span><span data-l="jv">7 headset TWS panerjemah AI dumugi</span></span><span><span data-l="en">Support audio translation and coding lessons</span><span data-l="id">Mendukung penerjemahan audio dan kelas coding</span><span data-l="jv">Njurung panerjemahan audio lan kelas coding</span></span></li>
+    <li class="due"><time><span data-l="en">15 DEC 2026</span><span data-l="id">15 DES 2026</span><span data-l="jv">15 DES 2026</span></time><span class="t"><span data-l="en">Written report to the Foundation</span><span data-l="id">Laporan tertulis ke Yayasan</span><span data-l="jv">Laporan seratan dhateng Yayasan</span></span></li>
+  </ol>
+</section>
+
+<section id="programs">
+  <span class="eyebrow"><span data-l="en">In use</span><span data-l="id">Pemanfaatan</span><span data-l="jv">Pigunanipun</span></span>
+  <h2><span data-l="en">What the equipment is for</span><span data-l="id">Untuk apa barang-barang ini</span><span data-l="jv">Kangge punapa barang-barang menika</span></h2>
+  <p data-l="en">The dormitory items are in daily use. The cameras and AI subscriptions feed two classes that run in the Digital Lab funded in 2025. Photos and results from both classes will be added as they come in.</p>
+  <p data-l="id">Ranjang dan kasur sudah dipakai setiap hari. Kamera dan langganan AI dipakai untuk dua kelas di Lab Digital yang didanai pada 2025. Foto dan hasil kedua kelas akan ditambahkan seiring berjalannya kegiatan.</p><p data-l="jv">Ranjang lan kasur sampun dipun ginakaken saben dinten. Kamera lan langganan AI dipun ginakaken kangge kalih kelas ing Lab Digital ingkang dipun danani taun 2025. Foto lan asil saking kalih kelas menika badhe dipun tambahaken sinambi lampahing kegiatan.</p>
+  <div class="progs">
+    <article class="prog">
+      <span class="tag on"><span data-l="en">Ongoing</span><span data-l="id">Berjalan</span><span data-l="jv">Lumampah</span></span>
+      <h3><span data-l="en">Coding class with AI</span><span data-l="id">Kelas coding dengan AI</span><span data-l="jv">Kelas coding kanthi AI</span></h3>
+      <p data-l="en">Children use the AI subscriptions to build working apps and software through vibe coding, starting with tools the home can use itself, such as a simple finance app.</p>
+      <p data-l="id">Anak-anak memakai langganan AI untuk membuat aplikasi dan software lewat vibe coding, dimulai dari alat yang bisa dipakai panti sendiri, seperti aplikasi keuangan sederhana.</p><p data-l="jv">Lare-lare ngginakaken langganan AI kangge damel aplikasi lan software lumantar vibe coding, kawiwitan saking piranti ingkang saged dipun ginakaken panti piyambak, kados aplikasi keuangan prasaja.</p>
+      <p class="uses"><b><span data-l="en">Uses:</span><span data-l="id">Memakai:</span><span data-l="jv">Ngginakaken:</span></b> Claude Pro, Google AI Premium, <span data-l="en">7 TWS AI headsets</span><span data-l="id">7 headset TWS AI</span><span data-l="jv">7 headset TWS AI</span>, <span data-l="en">Digital Lab computers</span><span data-l="id">komputer Lab Digital</span><span data-l="jv">komputer Lab Digital</span></p>
+    </article>
+    <article class="prog">
+      <span class="tag on"><span data-l="en">Ongoing</span><span data-l="id">Berjalan</span><span data-l="jv">Lumampah</span></span>
+      <h3><span data-l="en">Content creation class</span><span data-l="id">Kelas pembuatan konten</span><span data-l="jv">Kelas damel konten</span></h3>
+      <p data-l="en">Children learn to film, edit and publish short videos, covering daily life at the home, school events and their own stories.</p>
+      <p data-l="id">Anak-anak belajar merekam, mengedit, dan mengunggah video pendek tentang keseharian di panti, kegiatan sekolah, dan cerita mereka sendiri.</p><p data-l="jv">Lare-lare sinau ngrekam, ngedit, lan ngunggah video cekak babagan padintenan ing panti, kegiatan sekolah, lan cariyosipun piyambak.</p>
+      <p class="uses"><b><span data-l="en">Uses:</span><span data-l="id">Memakai:</span><span data-l="jv">Ngginakaken:</span></b> Osmo Pocket 4 &amp; 4P, <span data-l="en">Digital Lab computers</span><span data-l="id">komputer Lab Digital</span><span data-l="jv">komputer Lab Digital</span></p>
+    </article>
+    <article class="prog">
+      <span class="tag on"><span data-l="en">Daily use</span><span data-l="id">Dipakai harian</span><span data-l="jv">Dipun ginakaken saben dinten</span></span>
+      <h3><span data-l="en">Girls' dormitory</span><span data-l="id">Asrama putri</span><span data-l="jv">Asrama putri</span></h3>
+      <p data-l="en">Beds and mattresses for the girls' dormitory were the first need listed on the Foundation's project page for Baitul Qowwam.</p>
+      <p data-l="id">Ranjang dan kasur untuk asrama putri adalah kebutuhan pertama yang tercantum di halaman proyek Yayasan untuk Baitul Qowwam.</p><p data-l="jv">Ranjang lan kasur kangge asrama putri inggih menika kabetahan kapisan ingkang kaserat ing kaca proyek Yayasan kangge Baitul Qowwam.</p>
+      <p class="uses"><b><span data-l="en">Uses:</span><span data-l="id">Memakai:</span><span data-l="jv">Ngginakaken:</span></b> <span data-l="en">15 bunk beds, 52 mattresses.</span><span data-l="id">15 ranjang tingkat, 52 kasur.</span><span data-l="jv">15 ranjang susun, 52 kasur.</span> <a href="#dormitory"><span data-l="en">See before and after</span><span data-l="id">Lihat sebelum dan sesudah</span><span data-l="jv">Pirsani saderengipun lan sasampunipun</span></a></p>
+    </article>
+  </div>
+</section>
+
+<section id="lessons">
+  <span class="eyebrow"><span data-l="en">Lessons learned and difficulties</span><span data-l="id">Pelajaran dan kendala</span><span data-l="jv">Piwulang lan kendala</span></span>
+  <h2><span data-l="en">What we would do differently</span><span data-l="id">Catatan untuk ke depan</span><span data-l="jv">Cathetan kangge mangke</span></h2>
+  <ul class="plain" data-l="en">
+    <li>Prices moved between the proposal and purchase. The newer Osmo Pocket 4P cost Rp1,751,000 more than the planned unit, and both AI subscriptions cost more through Google Play than estimated. Savings on mattresses offset part of this, and total spending stayed within the funds received.</li>
+    <li>Splitting the mattress order between foam and folding types reached the target of 52 within the mattress budget.</li>
+    <li>Two people handled payments, one holding funds and one paying stores directly. A single recap sheet with receipts linked to every line kept the accounts traceable.</li>
+    <li>The Osmo Pocket 4P arrived on 13 October, later than the other items.</li>
+  </ul>
+  <ul class="plain" data-l="id">
+    <li>Harga berubah antara proposal dan pembelian. Osmo Pocket 4P yang lebih baru Rp1.751.000 lebih mahal dari harga rencana per unit, dan kedua langganan AI lewat Google Play lebih mahal dari perkiraan. Penghematan di pos kasur menutup sebagian selisih ini, dan total belanja tetap di bawah dana yang diterima.</li>
+    <li>Membagi pesanan menjadi kasur busa dan kasur lipat membuat target 52 kasur tercapai dalam anggaran pos kasur.</li>
+    <li>Pembayaran ditangani dua orang: satu memegang dana, satu membayar langsung ke toko. Satu lembar rekap dengan nota di setiap baris menjaga keuangan tetap bisa ditelusuri.</li>
+    <li>Osmo Pocket 4P tiba pada 13 Oktober, lebih lambat dari barang lainnya.</li>
+  </ul>
+  <ul class="plain" data-l="jv">
+    <li>Reregan ewah antawisipun proposal lan tumbas. Osmo Pocket 4P ingkang langkung enggal Rp1.751.000 langkung awis tinimbang reregan rancangan saben unit, lan kalih langganan AI lumantar Google Play langkung awis tinimbang kinten-kinten. Sudanipun biaya kasur nutup saperangan selisih menika, lan gunggung blanja tetep wonten ing sangandhaping dana ingkang dipun tampi.</li>
+    <li>Mbagi pesenan dados kasur busa lan kasur lempit ndadosaken target 52 kasur kagayuh wonten ing anggaran pos kasur.</li>
+    <li>Pambayaran dipun tangani kalih tiyang: setunggal ngasta dana, setunggal mbayar langsung dhateng toko. Setunggal lembar rekap kanthi nota ing saben baris ndadosaken keuangan tetep saged dipun lacak.</li>
+    <li>Osmo Pocket 4P dumugi tanggal 13 Oktober, langkung dangu tinimbang barang sanesipun.</li>
+  </ul>
+</section>
+
+<section id="next">
+  <span class="eyebrow"><span data-l="en">What's next</span><span data-l="id">Rencana berikutnya</span><span data-l="jv">Rancangan salajengipun</span></span>
+  <h2><span data-l="en">Where this leads</span><span data-l="id">Langkah selanjutnya</span><span data-l="jv">Lampah salajengipun</span></h2>
+  <div class="progs">
+    <article class="prog">
+      <span class="tag plan"><span data-l="en">Planned</span><span data-l="id">Rencana</span><span data-l="jv">Rancangan</span></span>
+      <h3><span data-l="en">New Baitul Qowwam website</span><span data-l="id">Website baru Baitul Qowwam</span><span data-l="jv">Website enggal Baitul Qowwam</span></h3>
+      <p data-l="en">A refreshed website for branding, with centralized administration for documents and finances. The public side keeps every donation and expense visible, as the home already does today.</p>
+      <p data-l="id">Website yang diperbarui untuk branding, dengan administrasi berkas dan keuangan yang terpusat. Halaman publiknya tetap menampilkan setiap donasi dan pengeluaran, seperti yang sudah dilakukan panti selama ini.</p><p data-l="jv">Website ingkang dipun anyaraken kangge branding, kanthi administrasi berkas lan keuangan ingkang manunggal. Kaca publikipun tetep nedahaken saben donasi lan pengeluaran, kados ingkang sampun dipun tindakaken panti ngantos sapunika.</p>
+    </article>
+    <article class="prog">
+      <span class="tag plan"><span data-l="en">Planned</span><span data-l="id">Rencana</span><span data-l="jv">Rancangan</span></span>
+      <h3><span data-l="en">TikTok affiliate unit</span><span data-l="id">Unit TikTok affiliate</span><span data-l="jv">Unit TikTok affiliate</span></h3>
+      <p data-l="en">An affiliate marketing unit run through the home's pengabdian (community service) program, using the cameras and content skills built here. It is a step toward the entrepreneurship training listed among the home's needs.</p>
+      <p data-l="id">Unit affiliate marketing yang dijalankan lewat program pengabdian Baitul Qowwam, memakai kamera dan keterampilan konten yang dibangun di sini. Ini menjadi langkah menuju pelatihan kewirausahaan yang tercantum dalam kebutuhan panti.</p><p data-l="jv">Unit affiliate marketing ingkang dipun lampahaken lumantar program pengabdian Baitul Qowwam, ngginakaken kamera lan kaprigelan konten ingkang dipun bangun wonten ngriki. Menika dados lampah tumuju pelatihan kewirausahaan ingkang kaserat ing kabetahan panti.</p>
+    </article>
+    <article class="prog">
+      <span class="tag plan"><span data-l="en">Planned</span><span data-l="id">Rencana</span><span data-l="jv">Rancangan</span></span>
+      <h3><span data-l="en">Apps made by the children</span><span data-l="id">Aplikasi buatan anak-anak</span><span data-l="jv">Aplikasi damelan lare-lare</span></h3>
+      <p data-l="en">Apps from the coding class, starting with the finance app, move into real use at the home and can be shared with partner schools.</p>
+      <p data-l="id">Aplikasi dari kelas coding, dimulai dari aplikasi keuangan, mulai dipakai sungguhan di panti dan bisa dibagikan ke sekolah mitra.</p><p data-l="jv">Aplikasi saking kelas coding, kawiwitan saking aplikasi keuangan, wiwit dipun ginakaken saestu ing panti lan saged dipun bagi dhateng sekolah mitra.</p>
+    </article>
+  </div>
+</section>
+
+<footer>
+  <span data-l="en">Prepared by Yusuf Syaifulloh for Panti Asuhan Baitul Qowwam, Tempel, Sleman, Yogyakarta.</span>
+  <span data-l="id">Disusun oleh Yusuf Syaifulloh untuk Panti Asuhan Baitul Qowwam, Tempel, Sleman, Yogyakarta.</span><span data-l="jv">Dipun susun dening Yusuf Syaifulloh kangge Panti Asuhan Baitul Qowwam, Tempel, Sleman, Yogyakarta.</span>
+  <span><span data-l="en">Contact for questions about this grant:</span><span data-l="id">Kontak terkait hibah ini:</span><span data-l="jv">Kontak babagan hibah menika:</span> <span class="mono">agustriyanta2016@gmail.com</span> (Agus Triyanta)</span>
+</footer>
+
+</div>
+
+<dialog id="lb" aria-label="Receipt">
+  <button type="button" class="close" id="lbClose"><span data-l="en">Close</span><span data-l="id">Tutup</span><span data-l="jv">Tutup</span></button>
+  <img id="lbImg" alt="">
+  <p id="lbCap"></p>
+</dialog>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  function store(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  function load(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  var saved=load('bq-lang'); var lang=(saved==='id'||saved==='jv')?saved:'en';
+
+  function fmt(v){return v.toLocaleString(lang==='en'?'en-US':'id-ID')}
+  function pick(o,base){return lang==='jv'?o[base+'jv']:lang==='id'?o[base+'id']:o[base+'en']}
+  function rp(v){return 'Rp'+fmt(v)}
+
+  var items=[
+    {nen:"Bunk beds",nid:"Ranjang tingkat",njv:"Ranjang susun",sen:"Planned 12, received 15",sid:"Rencana 12, terealisasi 15",sjv:"Rancangan 12, kasunyatan 15",p:42000000,a:42000000},
+    {nen:"Mattresses",nid:"Kasur",njv:"Kasur",sen:"52 units, incl. shipping",sid:"52 unit, termasuk ongkir",sjv:"52 unit, kalebet ongkos kirim",p:20800000,a:19205000},
+    {nen:"Cameras",nid:"Kamera",njv:"Kamera",sen:"2 units",sid:"2 unit",sjv:"2 unit",p:18500000,a:20312000},
+    {nen:"Claude",nid:"Claude",njv:"Claude",sen:"1 year",sid:"1 tahun",sjv:"1 taun",p:3900000,a:4183812},
+    {nen:"Gemini / Google AI",nid:"Gemini / Google AI",njv:"Gemini / Google AI",sen:"1 year",sid:"1 tahun",sjv:"1 taun",p:2400000,a:2551890},
+    {nen:"TWS AI Headsets",nid:"Headset TWS AI",njv:"Headset TWS AI",sen:"7 units (AI translation)",sid:"7 unit (penerjemah AI)",sjv:"7 unit (panerjemah AI)",p:0,a:881580}
+  ];
+  var max=42000000, box=document.getElementById('bars');
+  function drawBars(){
+    box.innerHTML='';
+    items.forEach(function(it){
+      var d=it.a-it.p, cls=d>0?'up':'down';
+      var diff=d===0?'':'<span class="diff '+cls+'">'+(d>0?'+':'−')+rp(Math.abs(d))+'</span>';
+      var row=document.createElement('div'); row.className='row';
+      row.innerHTML='<div class="name">'+pick(it,'n')+'<small>'+pick(it,'s')+'</small></div>'+
+        '<div class="bars">'+
+        '<div class="bar plan"><i style="width:calc((100% - 150px) * '+(it.p/max)+')"></i><span class="v mono">'+rp(it.p)+'</span></div>'+
+        '<div class="bar real"><i style="width:calc((100% - 150px) * '+(it.a/max)+')"></i><span class="v mono">'+rp(it.a)+'</span>'+diff+'</div>'+
+        '</div>';
+      box.appendChild(row);
+    });
+  }
+  function fillNums(){document.querySelectorAll('[data-n]').forEach(function(td){
+    var n=Number(td.dataset.n);
+    td.textContent=(n<0?'-':'')+fmt(Math.abs(n));
+  })}
+
+  function setLang(l){
+    lang=l; root.setAttribute('data-lang',l); root.lang=l; store('bq-lang',l);
+    document.getElementById('langEn').setAttribute('aria-pressed',String(l==='en'));
+    document.getElementById('langId').setAttribute('aria-pressed',String(l==='id'));
+    document.getElementById('langJv').setAttribute('aria-pressed',String(l==='jv'));
+    drawBars(); fillNums();
+  }
+
+  var mq=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)'):null;
+  function currentTheme(){var t=root.getAttribute('data-theme');if(t==='dark'||t==='light')return t;return mq&&mq.matches?'dark':'light'}
+  function syncThemeButtons(){
+    var t=currentTheme();
+    document.getElementById('themeLight').setAttribute('aria-pressed',String(t==='light'));
+    document.getElementById('themeDark').setAttribute('aria-pressed',String(t==='dark'));
+  }
+  function setTheme(t){root.setAttribute('data-theme',t);store('bq-theme',t);syncThemeButtons()}
+  var savedTheme=load('bq-theme'); if(savedTheme==='dark'||savedTheme==='light')root.setAttribute('data-theme',savedTheme);
+  if(mq&&mq.addEventListener)mq.addEventListener('change',syncThemeButtons);
+  new MutationObserver(syncThemeButtons).observe(root,{attributes:true,attributeFilter:['data-theme']});
+
+  document.querySelectorAll('[data-setlang]').forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.setlang)})});
+  document.querySelectorAll('[data-settheme]').forEach(function(b){b.addEventListener('click',function(){setTheme(b.dataset.settheme)})});
+
+  setLang(lang); syncThemeButtons();
+
+  var lb=document.getElementById('lb'), img=document.getElementById('lbImg'), cap=document.getElementById('lbCap');
+  document.querySelectorAll('button[data-src]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var c=lang==='jv'?b.dataset.capJv:lang==='id'?b.dataset.capId:b.dataset.capEn;
+      img.src=b.dataset.src; img.alt=c; cap.textContent=c; lb.showModal();
+    });
+  });
+  document.getElementById('lbClose').addEventListener('click',function(){lb.close()});
+  lb.addEventListener('click',function(e){if(e.target===lb)lb.close()});
+})();
+</script>
+
+</body></html>
