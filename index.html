@@ -145,9 +145,16 @@ dialog .close{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));right
 .prog .tag{justify-self:start;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px}
 .tag.on{background:var(--accent-soft);color:var(--accent)}
 .tag.plan{background:var(--gold-soft);color:var(--gold)}
+.tag.wip{background:var(--line);color:var(--muted)}
 .prog p{font-size:.98rem}
 .prog .uses{font-size:.88rem;color:var(--muted)}
 .prog .uses b{color:var(--fg);font-weight:600}
+.prog .btn-about{display:inline-flex;align-items:center;gap:6px;background:var(--accent-soft);color:var(--accent);padding:7px 14px;border-radius:8px;font-weight:700;font-size:.86rem;text-decoration:none;margin-top:2px;width:fit-content;transition:background .2s,color .2s}
+.prog .btn-about:hover{background:var(--accent);color:#fff}
+.prog .app-item{display:grid;gap:4px;padding:11px 13px;background:var(--bg);border:1px solid var(--line);border-radius:10px;margin-top:4px}
+.prog .app-item-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.prog .app-item-head b{font-size:.93rem;color:var(--fg)}
+.prog .app-item-desc{font-size:.84rem;color:var(--muted);line-height:1.45}
 
 ul.plain{margin:0;padding-left:1.1em;display:grid;gap:10px;max-width:65ch}
 ul.plain li::marker{color:var(--accent)}
@@ -333,10 +340,12 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
   <p data-l="id">Ranjang dan kasur sudah dipakai setiap hari. Kamera dan langganan AI dipakai untuk dua kelas di Lab Digital yang didanai pada 2025. Foto dan hasil kedua kelas akan ditambahkan seiring berjalannya kegiatan.</p><p data-l="jv">Ranjang lan kasur sampun dipun ginakaken saben dinten. Kamera lan langganan AI dipun ginakaken kangge kalih kelas ing Lab Digital ingkang dipun danani taun 2025. Foto lan asil saking kalih kelas menika badhe dipun tambahaken sinambi lampahing kegiatan.</p>
   <div class="progs">
     <article class="prog">
-      <span class="tag on"><span data-l="en">Ongoing</span><span data-l="id">Berjalan</span><span data-l="jv">Lumampah</span></span>
-      <h3><span data-l="en">Coding class with AI</span><span data-l="id">Kelas coding dengan AI</span><span data-l="jv">Kelas coding kanthi AI</span></h3>
-      <p data-l="en">Children use the AI subscriptions to build working apps and software through vibe coding, starting with tools the home can use itself, such as a simple finance app.</p>
-      <p data-l="id">Anak-anak memakai langganan AI untuk membuat aplikasi dan software lewat vibe coding, dimulai dari alat yang bisa dipakai panti sendiri, seperti aplikasi keuangan sederhana.</p><p data-l="jv">Lare-lare ngginakaken langganan AI kangge damel aplikasi lan software lumantar vibe coding, kawiwitan saking piranti ingkang saged dipun ginakaken panti piyambak, kados aplikasi keuangan prasaja.</p>
+      <span class="tag on"><span data-l="en">Live Application</span><span data-l="id">Aplikasi Berjalan</span><span data-l="jv">Aplikasi Lumampah</span></span>
+      <h3><span data-l="en">Coding class with AI: CuanTracker</span><span data-l="id">Kelas coding AI: CuanTracker</span><span data-l="jv">Kelas coding AI: CuanTracker</span></h3>
+      <p data-l="en">Children and staff used the AI subscriptions (Claude Pro & Gemini) via vibe coding to build <b>CuanTracker</b> — an operational financial tracking system for the boys' dorm, girls' dorm, and logistics, featuring AI-powered voice/text smart transaction parsing.</p>
+      <p data-l="id">Anak-anak dan pengurus memanfaatkan lisensi AI (Claude Pro & Gemini) lewat metode vibe coding untuk membangun <b>CuanTracker</b> — sistem pencatatan keuangan operasional harian asrama putra, putri, dan divisi logistik dengan fitur cerdas input bahasa alami (Smart AI Parsing).</p>
+      <p data-l="jv">Lare-lare saha pengurus ngginakaken lisensi AI (Claude Pro & Gemini) lumantar vibe coding kangge damel <b>CuanTracker</b> — sistem pambukuan keuangan operasional asrama putra, putri, lan logistik kanthi fitur input basa alami (Smart AI Parsing).</p>
+      <a href="https://cuantracker-me.web.app/about" target="_blank" rel="noopener" class="btn-about"><span data-l="en">View CuanTracker Overview &rarr;</span><span data-l="id">Buka Laporan & Panduan CuanTracker &rarr;</span><span data-l="jv">Pirsani Katrangan CuanTracker &rarr;</span></a>
       <p class="uses"><b><span data-l="en">Uses:</span><span data-l="id">Memakai:</span><span data-l="jv">Ngginakaken:</span></b> Claude Pro, Google AI Premium, <span data-l="en">7 TWS AI headsets</span><span data-l="id">7 headset TWS AI</span><span data-l="jv">7 headset TWS AI</span>, <span data-l="en">Digital Lab computers</span><span data-l="id">komputer Lab Digital</span><span data-l="jv">komputer Lab Digital</span></p>
     </article>
     <article class="prog">
@@ -384,22 +393,49 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
   <h2><span data-l="en">Where this leads</span><span data-l="id">Langkah selanjutnya</span><span data-l="jv">Lampah salajengipun</span></h2>
   <div class="progs">
     <article class="prog">
-      <span class="tag plan"><span data-l="en">Planned</span><span data-l="id">Rencana</span><span data-l="jv">Rancangan</span></span>
-      <h3><span data-l="en">New Baitul Qowwam website</span><span data-l="id">Website baru Baitul Qowwam</span><span data-l="jv">Website enggal Baitul Qowwam</span></h3>
-      <p data-l="en">A refreshed website for branding, with centralized administration for documents and finances. The public side keeps every donation and expense visible, as the home already does today.</p>
-      <p data-l="id">Website yang diperbarui untuk branding, dengan administrasi berkas dan keuangan yang terpusat. Halaman publiknya tetap menampilkan setiap donasi dan pengeluaran, seperti yang sudah dilakukan panti selama ini.</p><p data-l="jv">Website ingkang dipun anyaraken kangge branding, kanthi administrasi berkas lan keuangan ingkang manunggal. Kaca publikipun tetep nedahaken saben donasi lan pengeluaran, kados ingkang sampun dipun tindakaken panti ngantos sapunika.</p>
+      <span class="tag plan"><span data-l="en">In Progress · Redesign</span><span data-l="id">Sedang Berjalan · Redesign</span><span data-l="jv">Saweg Lumampah · Redesign</span></span>
+      <h3><span data-l="en">New Baitul Qowwam website (SuperAdmin BQ)</span><span data-l="id">Website baru Baitul Qowwam (SuperAdmin BQ)</span><span data-l="jv">Website enggal Baitul Qowwam (SuperAdmin BQ)</span></h3>
+      <p data-l="en">A refreshed website for institutional branding, transparent public donation reporting, and centralized document/financial administration. Currently undergoing a full visual redesign and web revamp.</p>
+      <p data-l="id">Website yang diperbarui untuk branding yayasan, transparansi donasi publik, serta administrasi berkas dan keuangan terpusat. Saat ini sedang dalam tahap perombakan desain (web redesign & revamp).</p>
+      <p data-l="jv">Website ingkang dipun anyaraken kangge branding yayasan, transparansi donasi, saha administrasi berkas lan keuangan. Sapunika saweg tahap panyampurnan desain (web redesign & revamp).</p>
+      <div class="app-item">
+        <div class="app-item-head"><b>SuperAdmin BQ</b> <span class="tag wip">Coming Soon</span></div>
+        <div class="app-item-desc">
+          <span data-l="en">Link is currently hidden during staging and visual revamp (<span class="mono">https://superadmin-bq.web.app/about</span>). Will be published once the redesign phase is finalized.</span>
+          <span data-l="id">Tautan sementara disembunyikan selama tahap staging dan penyempurnaan desain (<span class="mono">https://superadmin-bq.web.app/about</span>). Akan dipublikasikan setelah proses redesign selesai.</span>
+          <span data-l="jv">Tautan saweg kasimpen sinambi ngrantas proses panyampurnan desain (<span class="mono">https://superadmin-bq.web.app/about</span>). Badhe kabikak sasampunipun proses redesign rampung.</span>
+        </div>
+      </div>
     </article>
+
+    <article class="prog">
+      <span class="tag on"><span data-l="en">Ecosystem</span><span data-l="id">Ekosistem</span><span data-l="jv">Ekosistem</span></span>
+      <h3><span data-l="en">AI-built application ecosystem</span><span data-l="id">Ekosistem aplikasi buatan santri & alumni</span><span data-l="jv">Ekosistem aplikasi damelan santri & alumni</span></h3>
+      <p data-l="en">Beyond CuanTracker, the AI coding class has expanded into a full suite of specialized web applications serving the orphanage and alumni community:</p>
+      <p data-l="id">Selain CuanTracker, kelas coding AI telah berkembang melahirkan ekosistem aplikasi web praktis untuk kebutuhan asrama dan pemberdayaan alumni:</p>
+      <p data-l="jv">Kajawi CuanTracker, kelas coding AI sampun ngrembaka ngasilaken maneka aplikasi web praktis kangge asrama lan alumni:</p>
+
+      <div class="app-item">
+        <div class="app-item-head"><b>BangunKas</b> <a href="https://bangunkas-five.vercel.app/about" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:700">About &rarr;</a></div>
+        <div class="app-item-desc"><span data-l="en">Construction cash flow & progress tracking for alumni contractor businesses with AI receipt OCR.</span><span data-l="id">Pencatatan kas & progres proyek konstruksi alumni BQ dengan fitur AI OCR baca nota toko bangunan.</span><span data-l="jv">Pencatatan kas & progres proyek konstruksi alumni BQ kanthi fitur AI OCR nota bangunan.</span></div>
+      </div>
+
+      <div class="app-item">
+        <div class="app-item-head"><b>Level Up</b> <a href="https://level-up-alpha-six.vercel.app/about" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:700">About &rarr;</a></div>
+        <div class="app-item-desc"><span data-l="en">Daily worship tracker, 114-surah audio murottal Quran, physical fitness, and dorm discipline for alumni caregivers (Pengabdian).</span><span data-l="id">Pelacak amalan yaumiyah, Al-Qur'an audio murottal 114 surah, kebugaran fisik, dan kedisiplinan asrama bagi alumni pengabdian.</span><span data-l="jv">Pelacak amalan yaumiyah, Al-Qur'an murottal 114 surah, kebugaran fisik, lan disiplin asrama kangge alumni pengabdian.</span></div>
+      </div>
+
+      <div class="app-item">
+        <div class="app-item-head"><b>Math Strike</b> <a href="https://math-strike.onrender.com/about" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:700">About &rarr;</a></div>
+        <div class="app-item-desc"><span data-l="en">3D multiplayer math education game and teacher diagnostic dashboard running in the Digital Lab.</span><span data-l="id">Game edukasi matematika 3D multiplayer dan dashboard diagnostik guru yang dimainkan di Lab Digital.</span><span data-l="jv">Game edukasi matematika 3D multiplayer lan dashboard guru ingkang dipun mainaken ing Lab Digital.</span></div>
+      </div>
+    </article>
+
     <article class="prog">
       <span class="tag plan"><span data-l="en">Planned</span><span data-l="id">Rencana</span><span data-l="jv">Rancangan</span></span>
       <h3><span data-l="en">TikTok affiliate unit</span><span data-l="id">Unit TikTok affiliate</span><span data-l="jv">Unit TikTok affiliate</span></h3>
       <p data-l="en">An affiliate marketing unit run through the home's pengabdian (community service) program, using the cameras and content skills built here. It is a step toward the entrepreneurship training listed among the home's needs.</p>
       <p data-l="id">Unit affiliate marketing yang dijalankan lewat program pengabdian Baitul Qowwam, memakai kamera dan keterampilan konten yang dibangun di sini. Ini menjadi langkah menuju pelatihan kewirausahaan yang tercantum dalam kebutuhan panti.</p><p data-l="jv">Unit affiliate marketing ingkang dipun lampahaken lumantar program pengabdian Baitul Qowwam, ngginakaken kamera lan kaprigelan konten ingkang dipun bangun wonten ngriki. Menika dados lampah tumuju pelatihan kewirausahaan ingkang kaserat ing kabetahan panti.</p>
-    </article>
-    <article class="prog">
-      <span class="tag plan"><span data-l="en">Planned</span><span data-l="id">Rencana</span><span data-l="jv">Rancangan</span></span>
-      <h3><span data-l="en">Apps made by the children</span><span data-l="id">Aplikasi buatan anak-anak</span><span data-l="jv">Aplikasi damelan lare-lare</span></h3>
-      <p data-l="en">Apps from the coding class, starting with the finance app, move into real use at the home and can be shared with partner schools.</p>
-      <p data-l="id">Aplikasi dari kelas coding, dimulai dari aplikasi keuangan, mulai dipakai sungguhan di panti dan bisa dibagikan ke sekolah mitra.</p><p data-l="jv">Aplikasi saking kelas coding, kawiwitan saking aplikasi keuangan, wiwit dipun ginakaken saestu ing panti lan saged dipun bagi dhateng sekolah mitra.</p>
     </article>
   </div>
 </section>
