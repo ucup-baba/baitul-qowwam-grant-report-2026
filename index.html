@@ -171,6 +171,71 @@ dialog .close{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));right
 .prog .app-item-head b{font-size:.93rem;color:var(--fg)}
 .prog .app-item-desc{font-size:.84rem;color:var(--muted);line-height:1.45}
 
+/* 3-part equipment showcase (AI carousel, Cameras + YouTube, Dormitory) */
+.equip-stack{display:grid;gap:24px}
+.equip-block{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;display:grid;gap:16px}
+.equip-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.equip-head-left{display:grid;gap:6px}
+.equip-block .tag{justify-self:start;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:999px;width:fit-content}
+.equip-block p{max-width:75ch;font-size:.98rem}
+.equip-block .uses{font-size:.88rem;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+.equip-block .uses b{color:var(--fg);font-weight:600}
+
+/* AI App Carousel */
+.car-wrap{display:grid;gap:14px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:16px}
+.car-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.car-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.car-tab{all:unset;cursor:pointer;font:600 .82rem var(--body);padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted);transition:all .15s}
+.car-tab:hover{color:var(--fg);border-color:var(--accent)}
+.car-tab[aria-selected="true"]{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.car-nav{display:inline-flex;align-items:center;gap:8px}
+.car-btn{all:unset;cursor:pointer;width:32px;height:32px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--fg);display:inline-flex;align-items:center;justify-content:center;font-weight:700;transition:background .15s,border-color .15s}
+.car-btn:hover{background:var(--accent-soft);border-color:var(--accent)}
+.car-count{font:500 .8rem var(--mono);color:var(--muted);min-width:36px;text-align:center}
+.car-slide{display:none;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:18px;align-items:center}
+.car-slide.active{display:grid}
+@media (max-width:680px){.car-slide.active{grid-template-columns:1fr}}
+.car-shot{all:unset;cursor:zoom-in;position:relative;display:block;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--surface);box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.car-shot img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;display:block;transition:transform .25s}
+.car-shot:hover img{transform:scale(1.02)}
+.car-shot-badge{position:absolute;bottom:8px;right:8px;background:rgba(17,24,20,.78);color:#fff;font:600 .72rem var(--mono);padding:3px 8px;border-radius:6px;backdrop-filter:blur(4px)}
+.car-info{display:grid;gap:10px;align-content:start}
+.car-info .car-kicker{font:600 .75rem var(--mono);color:var(--accent);text-transform:uppercase;letter-spacing:.08em}
+.car-info h4{font:800 1.3rem/1.2 var(--display);margin:0;color:var(--fg)}
+.car-info p{font-size:.93rem;color:var(--muted);line-height:1.5}
+.car-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+.btn-about{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:var(--bg);padding:8px 14px;border-radius:8px;font-weight:700;font-size:.86rem;text-decoration:none;width:fit-content;transition:opacity .2s}
+.btn-about:hover{opacity:.9}
+
+/* YouTube Kajian video grid */
+.yt-head-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.btn-yt{display:inline-flex;align-items:center;gap:7px;background:#CC0000;color:#fff;padding:7px 14px;border-radius:999px;font:700 .84rem var(--body);text-decoration:none;transition:opacity .2s}
+.btn-yt:hover{opacity:.9}
+.btn-yt svg{width:16px;height:16px;fill:currentColor}
+.yt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:14px}
+.yt-card{all:unset;cursor:pointer;display:grid;gap:8px;background:var(--bg);border:1px solid var(--line);border-radius:12px;overflow:hidden;padding:10px;align-content:start;transition:transform .2s,border-color .2s,box-shadow .2s}
+.yt-card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 6px 20px rgba(0,0,0,.07)}
+.yt-thumb{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:16/9;background:#000}
+.yt-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}
+.yt-card:hover .yt-thumb img{transform:scale(1.04)}
+.yt-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.22);transition:background .2s}
+.yt-card:hover .yt-play{background:rgba(0,0,0,.1)}
+.yt-play span{width:42px;height:42px;border-radius:50%;background:rgba(204,0,0,.92);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.35)}
+.yt-play svg{width:18px;height:18px;fill:#fff;margin-left:2px}
+.yt-dur{position:absolute;bottom:6px;right:6px;background:rgba(0,0,0,.82);color:#fff;font:500 .72rem var(--mono);padding:2px 6px;border-radius:4px}
+.yt-meta{font:500 .73rem var(--mono);color:var(--muted);display:flex;justify-content:space-between;gap:6px}
+.yt-title{font-weight:700;font-size:.9rem;line-height:1.35;color:var(--fg);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#ytModal{width:min(94vw,840px);max-width:840px;background:transparent;border:none;padding:0}
+.yt-player-wrap{position:relative;aspect-ratio:16/9;width:100%;background:#000;border-radius:12px;overflow:hidden;box-shadow:0 12px 36px rgba(0,0,0,.5)}
+.yt-player-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+
+/* Dormitory mini preview strip inside In Use */
+.dorm-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.dorm-strip button{all:unset;cursor:zoom-in;border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+.dorm-strip img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;transition:transform .2s}
+.dorm-strip button:hover img{transform:scale(1.03)}
+@media (max-width:560px){.dorm-strip{grid-template-columns:1fr}}
+
 ul.plain{margin:0;padding-left:1.1em;display:grid;gap:10px;max-width:65ch}
 ul.plain li::marker{color:var(--accent)}
 footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;font-size:.92rem;color:var(--muted)}
@@ -378,31 +443,176 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
 <section id="programs">
   <span class="eyebrow"><span data-l="en">In use</span><span data-l="id">Pemanfaatan</span><span data-l="jv">Pigunanipun</span></span>
   <h2><span data-l="en">What the equipment is for</span><span data-l="id">Untuk apa barang-barang ini</span><span data-l="jv">Kangge punapa barang-barang menika</span></h2>
-  <p data-l="en">The dormitory items are in daily use. The cameras and AI subscriptions feed two classes that run in the Digital Lab funded in 2025. Photos and results from both classes will be added as they come in.</p>
-  <p data-l="id">Ranjang dan kasur sudah dipakai setiap hari. Kamera dan langganan AI dipakai untuk dua kelas di Lab Digital yang didanai pada 2025. Foto dan hasil kedua kelas akan ditambahkan seiring berjalannya kegiatan.</p><p data-l="jv">Ranjang lan kasur sampun dipun ginakaken saben dinten. Kamera lan langganan AI dipun ginakaken kangge kalih kelas ing Lab Digital ingkang dipun danani taun 2025. Foto lan asil saking kalih kelas menika badhe dipun tambahaken sinambi lampahing kegiatan.</p>
-  <div class="progs">
-    <article class="prog">
-      <span class="tag on"><span data-l="en">Live Application</span><span data-l="id">Aplikasi Berjalan</span><span data-l="jv">Aplikasi Lumampah</span></span>
-      <h3><span data-l="en">Coding class with AI: CuanTracker</span><span data-l="id">Kelas coding AI: CuanTracker</span><span data-l="jv">Kelas coding AI: CuanTracker</span></h3>
-      <p data-l="en">Children and staff used the AI subscriptions (Claude Pro & Gemini) via vibe coding to build <b>CuanTracker</b> — an operational financial tracking system for the boys' dorm, girls' dorm, and logistics, featuring AI-powered voice/text smart transaction parsing.</p>
-      <p data-l="id">Anak-anak dan pengurus memanfaatkan lisensi AI (Claude Pro & Gemini) lewat metode vibe coding untuk membangun <b>CuanTracker</b> — sistem pencatatan keuangan operasional harian asrama putra, putri, dan divisi logistik dengan fitur cerdas input bahasa alami (Smart AI Parsing).</p>
-      <p data-l="jv">Lare-lare saha pengurus ngginakaken lisensi AI (Claude Pro & Gemini) lumantar vibe coding kangge damel <b>CuanTracker</b> — sistem pambukuan keuangan operasional asrama putra, putri, lan logistik kanthi fitur input basa alami (Smart AI Parsing).</p>
-      <a href="https://cuantracker-me.web.app/about" target="_blank" rel="noopener" class="btn-about"><span data-l="en">View CuanTracker Overview &rarr;</span><span data-l="id">Buka Laporan & Panduan CuanTracker &rarr;</span><span data-l="jv">Pirsani Katrangan CuanTracker &rarr;</span></a>
-      <p class="uses"><b><span data-l="en">Uses:</span><span data-l="id">Memakai:</span><span data-l="jv">Ngginakaken:</span></b> Claude Pro, Google AI Premium, <span data-l="en">7 TWS AI headsets</span><span data-l="id">7 headset TWS AI</span><span data-l="jv">7 headset TWS AI</span>, <span data-l="en">Digital Lab computers</span><span data-l="id">komputer Lab Digital</span><span data-l="jv">komputer Lab Digital</span></p>
+  <p data-l="en">The 2026 grant covers three categories of equipment — AI learning &amp; coding tools, pocket cameras for media &amp; kajian documentation, and bunk beds with mattresses for the girls' dormitory. All three are actively in use:</p>
+  <p data-l="id">Hibah 2026 mencakup tiga kelompok fasilitas utama — perangkat AI untuk kelas coding, kamera saku untuk dokumentasi kajian &amp; konten media sosial, serta ranjang tingkat &amp; kasur asrama putri. Ketiganya telah berjalan aktif:</p>
+  <p data-l="jv">Hibah 2026 nyakup tiga kelompok fasilitas utama — piranti AI kangge kelas coding, kamera saku kangge dokumentasi kajian &amp; konten media sosial, saha ranjang susun &amp; kasur asrama putri. Katiganipun sampun lumampah aktif:</p>
+
+  <div class="equip-stack">
+    <!-- 1. AI & Coding Carousel -->
+    <article class="equip-block">
+      <div class="equip-head">
+        <div class="equip-head-left">
+          <span class="tag on"><span data-l="en">1 · AI Subscriptions &amp; TWS Headsets · 5 Live Apps</span><span data-l="id">1 · Langganan AI &amp; Headset TWS · 5 Aplikasi Berjalan</span><span data-l="jv">1 · Langganan AI &amp; Headset TWS · 5 Aplikasi Lumampah</span></span>
+          <h3><span data-l="en">AI coding class &amp; digital ecosystem</span><span data-l="id">Kelas coding AI &amp; ekosistem aplikasi panti</span><span data-l="jv">Kelas coding AI &amp; ekosistem aplikasi panti</span></h3>
+        </div>
+      </div>
+      <p data-l="en">Using the Claude Pro and Google AI Premium subscriptions alongside the 7 TWS AI translation headsets and 2025 Digital Lab PCs, children and alumni built five live web applications serving daily orphanage operations, education, and the library:</p>
+      <p data-l="id">Memanfaatkan lisensi Claude Pro dan Google AI Premium bersama 7 headset TWS penerjemah AI serta komputer Lab Digital 2025, anak-anak dan alumni berhasil membangun lima aplikasi web nyata untuk operasional asrama, edukasi, dan perpustakaan:</p>
+      <p data-l="jv">Ngginakaken lisensi Claude Pro lan Google AI Premium sesarengan 7 headset TWS panerjemah AI saha komputer Lab Digital 2025, lare-lare lan alumni kasil mbangun gangsal aplikasi web nyata kangge operasional asrama, edukasi, lan perpustakaan:</p>
+
+      <div class="car-wrap" aria-label="AI Applications Carousel">
+        <div class="car-bar">
+          <div class="car-tabs" role="tablist">
+            <button type="button" class="car-tab" role="tab" data-car="0" aria-selected="true">1. CuanTracker</button>
+            <button type="button" class="car-tab" role="tab" data-car="1" aria-selected="false">2. BangunKas</button>
+            <button type="button" class="car-tab" role="tab" data-car="2" aria-selected="false">3. Level Up</button>
+            <button type="button" class="car-tab" role="tab" data-car="3" aria-selected="false">4. Math Strike</button>
+            <button type="button" class="car-tab" role="tab" data-car="4" aria-selected="false">5. Perpus BQ</button>
+          </div>
+          <div class="car-nav">
+            <button type="button" class="car-btn" id="carPrev" aria-label="Previous slide">&larr;</button>
+            <span class="car-count" id="carCount">1 / 5</span>
+            <button type="button" class="car-btn" id="carNext" aria-label="Next slide">&rarr;</button>
+          </div>
+        </div>
+
+        <!-- Slide 0: CuanTracker -->
+        <div class="car-slide active" data-slide="0">
+          <button type="button" class="car-shot" data-src="photos/app-cuantracker.jpg" data-cap-en="CuanTracker — AI-assisted operational financial tracking system for Boys' Dorm, Girls' Dorm, and Logistics" data-cap-id="CuanTracker — Sistem pencatatan keuangan operasional asrama putra, putri, dan logistik berbasis AI" data-cap-jv="CuanTracker — Sistem pambukuan keuangan operasional asrama putra, putri, lan logistik berbasis AI">
+            <img src="photos/app-cuantracker.jpg" alt="Screenshot of CuanTracker web application">
+            <span class="car-shot-badge"><span data-l="en">Click to zoom</span><span data-l="id">Klik perbesar</span><span data-l="jv">Klik nggedhekaken</span></span>
+          </button>
+          <div class="car-info">
+            <span class="car-kicker"><span data-l="en">Dormitory Finance · Smart AI Parsing</span><span data-l="id">Keuangan Asrama · Smart AI Parsing</span><span data-l="jv">Keuangan Asrama · Smart AI Parsing</span></span>
+            <h4>CuanTracker</h4>
+            <p data-l="en">Daily operational cash-flow tracking and board supervisory dashboard across three branches (Boys' Dormitory, Girls' Dormitory, and Logistics). Features natural-language voice &amp; text transaction parsing powered by Gemini AI.</p>
+            <p data-l="id">Sistem pencatatan arus kas operasional harian dan dashboard pengawasan pengurus untuk tiga cabang (Asrama Putra, Asrama Putri, dan Logistik). Dilengkapi fitur input transaksi suara &amp; teks bahasa alami berbasis Gemini AI.</p>
+            <p data-l="jv">Sistem pambukuan arus kas operasional padintenan lan dashboard pengawasan pengurus kangge tiga cabang (Asrama Putra, Asrama Putri, lan Logistik) kanthi fitur input transaksi swanten &amp; teks basa alami berbasis Gemini AI.</p>
+            <div class="car-actions">
+              <a href="https://cuantracker-me.web.app/about" target="_blank" rel="noopener" class="btn-about"><span data-l="en">Open CuanTracker Overview &rarr;</span><span data-l="id">Buka Panduan CuanTracker &rarr;</span><span data-l="jv">Bikak Katrangan CuanTracker &rarr;</span></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 1: BangunKas -->
+        <div class="car-slide" data-slide="1">
+          <button type="button" class="car-shot" data-src="photos/app-bangunkas.jpg" data-cap-en="BangunKas — Construction cash flow & project progress app for Baitul Qowwam alumni contractors" data-cap-id="BangunKas — Aplikasi pembukuan kas & progres proyek bangunan untuk pemberdayaan usaha alumni Baitul Qowwam" data-cap-jv="BangunKas — Aplikasi pambukuan kas & progres proyek bangunan kangge usaha alumni Baitul Qowwam">
+            <img src="photos/app-bangunkas.jpg" alt="Screenshot of BangunKas web application">
+            <span class="car-shot-badge"><span data-l="en">Click to zoom</span><span data-l="id">Klik perbesar</span><span data-l="jv">Klik nggedhekaken</span></span>
+          </button>
+          <div class="car-info">
+            <span class="car-kicker"><span data-l="en">Alumni Empowerment · AI Receipt OCR</span><span data-l="id">Pemberdayaan Alumni · AI OCR Nota</span><span data-l="jv">Pemberdayaan Alumni · AI OCR Nota</span></span>
+            <h4>BangunKas</h4>
+            <p data-l="en">Progressive Web App supporting small construction &amp; renovation businesses run by Baitul Qowwam alumni. Combines field expense logging, AI OCR hardware-store receipt scanning, and transparent client progress reports.</p>
+            <p data-l="id">Aplikasi web progresif (PWA) untuk mendukung usaha jasa konstruksi dan renovasi milik alumni Baitul Qowwam. Memadukan pencatatan kas lapangan, pemindaian nota toko bangunan otomatis dengan AI OCR, dan transparansi progres proyek.</p>
+            <p data-l="jv">Aplikasi web progresif (PWA) kangge njurung usaha jasa konstruksi lan renovasi kagunganipun alumni Baitul Qowwam, nyawijekaken pambukuan lapangan, AI OCR nota toko bangunan, lan transparansi progres proyek.</p>
+            <div class="car-actions">
+              <a href="https://bangunkas-five.vercel.app/about" target="_blank" rel="noopener" class="btn-about"><span data-l="en">Open BangunKas Overview &rarr;</span><span data-l="id">Buka Panduan BangunKas &rarr;</span><span data-l="jv">Bikak Katrangan BangunKas &rarr;</span></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2: Level Up -->
+        <div class="car-slide" data-slide="2">
+          <button type="button" class="car-shot" data-src="photos/app-levelup.jpg" data-cap-en="Level Up — Worship, 114-surah Murottal Quran, fitness & dormitory operations app for alumni caregivers" data-cap-id="Level Up — Aplikasi pembinaan ibadah, Al-Qur'an murottal 114 surah, kebugaran, dan operasional asrama" data-cap-jv="Level Up — Aplikasi pembinaan ibadah, Al-Qur'an murottal 114 surah, kebugaran, lan operasional asrama">
+            <img src="photos/app-levelup.jpg" alt="Screenshot of Level Up web application">
+            <span class="car-shot-badge"><span data-l="en">Click to zoom</span><span data-l="id">Klik perbesar</span><span data-l="jv">Klik nggedhekaken</span></span>
+          </button>
+          <div class="car-info">
+            <span class="car-kicker"><span data-l="en">Caregiver Mentorship · 8 Active Modules</span><span data-l="id">Pembinaan Pengabdian · 8 Modul Aktif</span><span data-l="jv">Pembinaan Pengabdian · 8 Modul Aktif</span></span>
+            <h4>Level Up</h4>
+            <p data-l="en">Internal character-building &amp; dorm management system used by dedicated alumni caregivers (<i>Pengabdian</i>). Unites daily prayer tracking, a 114-surah audio murottal Quran, physical fitness challenges, and 9-zone dormitory picket schedules.</p>
+            <p data-l="id">Sistem pembinaan diri dan operasional asrama yang dipegang oleh para alumni pengabdian. Memadukan pelacakan ibadah harian, Al-Qur'an digital audio murottal 114 surah, kebugaran fisik, serta rotasi piket 9 area pondok.</p>
+            <p data-l="jv">Sistem pembinaan dhiri lan operasional asrama ingkang dipun asta dening para alumni pengabdian, nyawijekaken pelacakan ibadah, Al-Qur'an audio murottal 114 surah, kebugaran fisik, saha rotasi piket 9 area pondok.</p>
+            <div class="car-actions">
+              <a href="https://level-up-alpha-six.vercel.app/about" target="_blank" rel="noopener" class="btn-about"><span data-l="en">Open Level Up Overview &rarr;</span><span data-l="id">Buka Panduan Level Up &rarr;</span><span data-l="jv">Bikak Katrangan Level Up &rarr;</span></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3: Math Strike -->
+        <div class="car-slide" data-slide="3">
+          <button type="button" class="car-shot" data-src="photos/app-mathstrike.jpg" data-cap-en="Math Strike — 3D multiplayer mental arithmetic game & teacher diagnostic dashboard" data-cap-id="Math Strike — Game edukasi berhitung cepat 3D multiplayer & dashboard diagnostik guru di Lab Digital" data-cap-jv="Math Strike — Game edukasi matematika 3D multiplayer & dashboard diagnostik guru ing Lab Digital">
+            <img src="photos/app-mathstrike.jpg" alt="Screenshot of Math Strike 3D educational math game">
+            <span class="car-shot-badge"><span data-l="en">Click to zoom</span><span data-l="id">Klik perbesar</span><span data-l="jv">Klik nggedhekaken</span></span>
+          </button>
+          <div class="car-info">
+            <span class="car-kicker"><span data-l="en">3D EdTech Game · Digital Lab Classroom</span><span data-l="id">Game Edukasi 3D · Kelas Lab Digital</span><span data-l="jv">Game Edukasi 3D · Kelas Lab Digital</span></span>
+            <h4>Math Strike</h4>
+            <p data-l="en">3D multiplayer math education game played by foster children across the 10 Digital Lab PCs. Turns mental arithmetic drills (+, −, ×, ÷) into collaborative 3D arena play with Teacher Mode and automated student diagnostic reports.</p>
+            <p data-l="id">Game edukasi matematika 3D multiplayer yang dimainkan anak-anak di 10 PC Lab Digital. Mengubah latihan hitung cepat (+, −, ×, ÷) menjadi permainan kolaboratif seru lengkap dengan Mode Guru dan laporan diagnostik siswa.</p>
+            <p data-l="jv">Game edukasi matematika 3D multiplayer ingkang dipun mainaken lare-lare ing 10 PC Lab Digital, ngowahi gladhen etang cepet (+, −, ×, ÷) dados dolanan kolaboratif kanthi Mode Guru lan laporan diagnostik siswa.</p>
+            <div class="car-actions">
+              <a href="https://math-strike.onrender.com/about" target="_blank" rel="noopener" class="btn-about"><span data-l="en">Open Math Strike Overview &rarr;</span><span data-l="id">Buka Panduan Math Strike &rarr;</span><span data-l="jv">Bikak Katrangan Math Strike &rarr;</span></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4: Perpus BQ -->
+        <div class="car-slide" data-slide="4">
+          <button type="button" class="car-shot" data-src="photos/app-perpusbq.jpg" data-cap-en="Perpus BQ — Bilingual digital library catalog, DDC AI classification, and donor transparency portal" data-cap-id="Perpus BQ — Katalog perpustakaan digital dwibahasa, klasifikasi DDC berbasis AI, dan transparansi donatur" data-cap-jv="Perpus BQ — Katalog perpustakaan digital dwibahasa, klasifikasi DDC berbasis AI, lan transparansi donatur">
+            <img src="photos/app-perpusbq.jpg" alt="Screenshot of Perpus BQ digital library catalog">
+            <span class="car-shot-badge"><span data-l="en">Click to zoom</span><span data-l="id">Klik perbesar</span><span data-l="jv">Klik nggedhekaken</span></span>
+          </button>
+          <div class="car-info">
+            <span class="car-kicker"><span data-l="en">Digital Library · 232 Titles &amp; AI DDC</span><span data-l="id">Perpustakaan Digital · 232 Judul &amp; AI DDC</span><span data-l="jv">Perpustakaan Digital · 232 Irah-irahan &amp; AI DDC</span></span>
+            <h4>Perpus BQ</h4>
+            <p data-l="en">Bilingual public catalog and borrowing system for the Baitul Qowwam Library (connecting the 2025 book collection with ongoing waqf donations). Uses Gemini AI for automated Dewey Decimal Classification (DDC) call numbers and printable spine labels.</p>
+            <p data-l="id">Katalog publik dwibahasa dan sistem peminjaman buku Perpustakaan Baitul Qowwam (mengintegrasikan koleksi buku hibah 2025 dengan wakaf buku). Memakai Gemini AI untuk klasifikasi kode panggil DDC otomatis dan cetak label punggung buku.</p>
+            <p data-l="jv">Katalog publik dwibahasa lan sistem peminjaman buku Perpustakaan Baitul Qowwam ingkang ngginakaken Gemini AI kangge klasifikasi nomor panggil DDC otomatis saha cetak label buku.</p>
+            <div class="car-actions">
+              <a href="https://perpusbq.vercel.app/id" target="_blank" rel="noopener" class="btn-about"><span data-l="en">Open Perpus BQ Catalog &rarr;</span><span data-l="id">Buka Katalog Perpus BQ &rarr;</span><span data-l="jv">Bikak Katalog Perpus BQ &rarr;</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="uses"><b><span data-l="en">Equipment used:</span><span data-l="id">Perangkat yang dipakai:</span><span data-l="jv">Piranti ingkang dipun ginakaken:</span></b> Claude Pro (1 yr), Google AI Premium / Gemini (1 yr), <span data-l="en">7 Aitu 06 TWS AI translation headsets, 10 Digital Lab PCs (2025 Grant)</span><span data-l="id">7 headset TWS penerjemah AI Aitu 06, 10 PC Lab Digital (Hibah 2025)</span><span data-l="jv">7 headset TWS panerjemah AI Aitu 06, 10 PC Lab Digital (Hibah 2025)</span></p>
     </article>
-    <article class="prog">
-      <span class="tag on"><span data-l="en">Ongoing</span><span data-l="id">Berjalan</span><span data-l="jv">Lumampah</span></span>
-      <h3><span data-l="en">Content creation class</span><span data-l="id">Kelas pembuatan konten</span><span data-l="jv">Kelas damel konten</span></h3>
-      <p data-l="en">Children learn to film, edit and publish short videos, covering daily life at the home, school events and their own stories.</p>
-      <p data-l="id">Anak-anak belajar merekam, mengedit, dan mengunggah video pendek tentang keseharian di panti, kegiatan sekolah, dan cerita mereka sendiri.</p><p data-l="jv">Lare-lare sinau ngrekam, ngedit, lan ngunggah video cekak babagan padintenan ing panti, kegiatan sekolah, lan cariyosipun piyambak.</p>
-      <p class="uses"><b><span data-l="en">Uses:</span><span data-l="id">Memakai:</span><span data-l="jv">Ngginakaken:</span></b> Osmo Pocket 4 &amp; 4P, <span data-l="en">Digital Lab computers</span><span data-l="id">komputer Lab Digital</span><span data-l="jv">komputer Lab Digital</span></p>
+
+    <!-- 2. Cameras: Instagram & YouTube Kajian Content -->
+    <article class="equip-block">
+      <div class="equip-head">
+        <div class="equip-head-left">
+          <span class="tag on"><span data-l="en">2 · DJI Osmo Pocket 4 &amp; 4P · YouTube &amp; Instagram</span><span data-l="id">2 · Kamera DJI Osmo Pocket 4 &amp; 4P · YouTube &amp; Instagram</span><span data-l="jv">2 · Kamera DJI Osmo Pocket 4 &amp; 4P · YouTube &amp; Instagram</span></span>
+          <h3><span data-l="en">Content creation class: filming Kajian &amp; daily life for YouTube &amp; IG</span><span data-l="id">Kelas kreator konten: merekam kajian &amp; dakwah untuk YouTube &amp; IG</span><span data-l="jv">Kelas damel konten: ngrekam pengajian &amp; dakwah kangge YouTube &amp; IG</span></h3>
+        </div>
+        <div class="yt-head-links">
+          <a href="https://www.youtube.com/@yayasanbaitulqowwam9014" target="_blank" rel="noopener" class="btn-yt">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+            <span>@yayasanbaitulqowwam9014</span>
+          </a>
+        </div>
+      </div>
+      <p data-l="en">Children and the media team use the two DJI Osmo Pocket cameras to record regular Islamic study sessions (<i>Kajian Kitab Ihya' 'Ulumuddin</i> by Dr. H. Agus Triyanta, M.A., M.H., Ph.D) and edit short dakwah clips for Instagram Reels and YouTube Shorts in the Digital Lab. Click any video below to watch directly:</p>
+      <p data-l="id">Anak-anak dan tim media memanfaatkan dua kamera DJI Osmo Pocket untuk merekam pengajian rutin di Baitul Qowwam (<i>Kajian Kitab Ihya' 'Ulumuddin</i> bersama Bpk. H. Agus Triyanta, M.A., M.H., Ph.D) serta mengedit cuplikan pendek untuk Instagram Reels dan YouTube Shorts di Lab Digital. Klik video di bawah untuk memutar langsung:</p>
+      <p data-l="jv">Lare-lare saha tim media ngginakaken kalih kamera DJI Osmo Pocket kangge ngrekam pengajian rutin ing Baitul Qowwam (<i>Kajian Kitab Ihya' 'Ulumuddin</i> kaliyan Bpk. H. Agus Triyanta, M.A., M.H., Ph.D) saha ngedit video cekak kangge Instagram Reels lan YouTube Shorts ing Lab Digital. Klik video ing ngandhap kangge muter langsung:</p>
+
+      <div class="yt-grid" id="ytGrid" aria-live="polite"></div>
+
+      <p class="uses"><b><span data-l="en">Equipment used:</span><span data-l="id">Perangkat yang dipakai:</span><span data-l="jv">Piranti ingkang dipun ginakaken:</span></b> DJI Osmo Pocket 4 (Creator Combo), DJI Osmo Pocket 4P (Vlog Combo), <span data-l="en">Digital Lab PCs for video editing</span><span data-l="id">komputer Lab Digital untuk editing video</span><span data-l="jv">komputer Lab Digital kangge ngedit video</span></p>
     </article>
-    <article class="prog">
-      <span class="tag on"><span data-l="en">Daily use</span><span data-l="id">Dipakai harian</span><span data-l="jv">Dipun ginakaken saben dinten</span></span>
-      <h3><span data-l="en">Girls' dormitory</span><span data-l="id">Asrama putri</span><span data-l="jv">Asrama putri</span></h3>
-      <p data-l="en">Beds and mattresses for the girls' dormitory were the first need listed on the Foundation's project page for Baitul Qowwam.</p>
-      <p data-l="id">Ranjang dan kasur untuk asrama putri adalah kebutuhan pertama yang tercantum di halaman proyek Yayasan untuk Baitul Qowwam.</p><p data-l="jv">Ranjang lan kasur kangge asrama putri inggih menika kabetahan kapisan ingkang kaserat ing kaca proyek Yayasan kangge Baitul Qowwam.</p>
-      <p class="uses"><b><span data-l="en">Uses:</span><span data-l="id">Memakai:</span><span data-l="jv">Ngginakaken:</span></b> <span data-l="en">15 bunk beds, 52 mattresses.</span><span data-l="id">15 ranjang tingkat, 52 kasur.</span><span data-l="jv">15 ranjang susun, 52 kasur.</span> <a href="#dormitory"><span data-l="en">See before and after</span><span data-l="id">Lihat sebelum dan sesudah</span><span data-l="jv">Pirsani saderengipun lan sasampunipun</span></a></p>
+
+    <!-- 3. Bunk Beds & Mattresses: Girls' Dormitory -->
+    <article class="equip-block">
+      <div class="equip-head">
+        <div class="equip-head-left">
+          <span class="tag on"><span data-l="en">3 · 15 Bunk Beds &amp; 52 Mattresses · Daily Use</span><span data-l="id">3 · 15 Ranjang Tingkat &amp; 52 Kasur · Dipakai Harian</span><span data-l="jv">3 · 15 Ranjang Susun &amp; 52 Kasur · Dipunginakaken Saben Dinten</span></span>
+          <h3><span data-l="en">Girls' dormitory comfort &amp; health</span><span data-l="id">Kenyamanan &amp; kesehatan asrama putri</span><span data-l="jv">Kasekecan &amp; kasarasan asrama putri</span></h3>
+        </div>
+        <a href="#dormitory" class="btn-about"><span data-l="en">See full Before &amp; After gallery &uarr;</span><span data-l="id">Lihat galeri Sebelum &amp; Sesudah &uarr;</span><span data-l="jv">Pirsani galeri Saderengipun &amp; Sasampunipun &uarr;</span></a>
+      </div>
+      <p data-l="en">Beds and mattresses for the girls' dormitory were the primary physical infrastructure need in the 2026 grant. All 15 bunk beds, 30 foam mattresses, and 22 folding mattresses are in daily use, keeping bedding off the cold floor and opening room space for study.</p>
+      <p data-l="id">Ranjang tingkat dan kasur asrama putri merupakan kebutuhan infrastruktur fisik utama pada hibah 2026. Seluruh 15 ranjang tingkat, 30 kasur busa, dan 22 kasur lipat kini dipakai setiap hari — menghindarkan anak-anak dari dinginnya lantai dan melapangkan ruang kamar untuk belajar bersama.</p>
+      <p data-l="jv">Ranjang susun lan kasur asrama putri dados kabetahan utama ing hibah 2026. Sedaya 15 ranjang susun, 30 kasur busa, lan 22 kasur lempit sapunika dipun ginakaken saben dinten — nebihaken lare-lare saking adhemipun jogan lan ndadosaken kamar langkung lega kangge sinau.</p>
+
+      <div class="dorm-strip">
+        <button type="button" data-src="photos/dorm-after.jpg" data-cap-en="After: new bunk beds with foam mattresses in the girls' dormitory" data-cap-id="Sesudah: ranjang tingkat baru dengan kasur busa di asrama putri" data-cap-jv="Sasampunipun: ranjang susun enggal kanthi kasur busa ing asrama putri"><img src="photos/dorm-after.jpg" alt="New bunk beds in the girls' dormitory"></button>
+        <button type="button" data-src="photos/dorm-life-1.jpg" data-cap-en="Girls enjoying the spacious room and studying on the new bunk beds" data-cap-id="Santri putri menikmati suasana kamar yang rapi dan deretan ranjang tingkat baru" data-cap-jv="Santri putri bingah pirsani kamar ingkang tumata rapi kanthi ranjang susun enggal"><img src="photos/dorm-life-1.jpg" alt="Girls standing near the neat rows of bunk beds"></button>
+        <button type="button" data-src="photos/dorm-life-2.jpg" data-cap-en="Warm conversation and companionship on the upper bunk bed" data-cap-id="Keceriaan dan kebersamaan santri putri berbincang hangat di atas ranjang tingkat" data-cap-jv="Keceriaan lan guyub rukunipun santri putri imbal wacana ing ranjang susun"><img src="photos/dorm-life-2.jpg" alt="Three smiling foster girls chatting together on the upper bunk"></button>
+      </div>
+
+      <p class="uses"><b><span data-l="en">Equipment used:</span><span data-l="id">Perangkat yang dipakai:</span><span data-l="jv">Piranti ingkang dipun ginakaken:</span></b> <span data-l="en">15 Activ Avanti metal bunk beds, 30 Central-foam EON mattresses, 22 Olympic × Soteria folding mattresses</span><span data-l="id">15 ranjang besi tingkat Activ Avanti, 30 kasur busa Central-foam EON, 22 kasur lipat Olympic × Soteria</span><span data-l="jv">15 ranjang wesi susun Activ Avanti, 30 kasur busa Central-foam EON, 22 kasur lempit Olympic × Soteria</span></p>
     </article>
   </div>
 </section>
@@ -438,8 +648,8 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
       <span class="tag plan"><span data-l="en">In Progress · Redesign</span><span data-l="id">Sedang Berjalan · Redesign</span><span data-l="jv">Saweg Lumampah · Redesign</span></span>
       <h3><span data-l="en">New Baitul Qowwam website (SuperAdmin BQ)</span><span data-l="id">Website baru Baitul Qowwam (SuperAdmin BQ)</span><span data-l="jv">Website enggal Baitul Qowwam (SuperAdmin BQ)</span></h3>
       <p data-l="en">A refreshed website for institutional branding, transparent public donation reporting, and centralized document/financial administration. Currently undergoing a full visual redesign and web revamp.</p>
-      <p data-l="id">Website yang diperbarui untuk branding yayasan, transparansi donasi publik, serta administrasi berkas dan keuangan terpusat. Saat ini sedang dalam tahap perombakan desain (web redesign & revamp).</p>
-      <p data-l="jv">Website ingkang dipun anyaraken kangge branding yayasan, transparansi donasi, saha administrasi berkas lan keuangan. Sapunika saweg tahap panyampurnan desain (web redesign & revamp).</p>
+      <p data-l="id">Website yang diperbarui untuk branding yayasan, transparansi donasi publik, serta administrasi berkas dan keuangan terpusat. Saat ini sedang dalam tahap perombakan desain (web redesign &amp; revamp).</p>
+      <p data-l="jv">Website ingkang dipun anyaraken kangge branding yayasan, transparansi donasi, saha administrasi berkas lan keuangan. Sapunika saweg tahap panyampurnan desain (web redesign &amp; revamp).</p>
       <div class="app-item">
         <div class="app-item-head"><b>SuperAdmin BQ</b> <span class="tag wip">Coming Soon</span></div>
         <div class="app-item-desc">
@@ -447,29 +657,6 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
           <span data-l="id">Tautan sementara disembunyikan selama tahap staging dan penyempurnaan desain (<span class="mono">https://superadmin-bq.web.app/about</span>). Akan dipublikasikan setelah proses redesign selesai.</span>
           <span data-l="jv">Tautan saweg kasimpen sinambi ngrantas proses panyampurnan desain (<span class="mono">https://superadmin-bq.web.app/about</span>). Badhe kabikak sasampunipun proses redesign rampung.</span>
         </div>
-      </div>
-    </article>
-
-    <article class="prog">
-      <span class="tag on"><span data-l="en">Ecosystem</span><span data-l="id">Ekosistem</span><span data-l="jv">Ekosistem</span></span>
-      <h3><span data-l="en">AI-built application ecosystem</span><span data-l="id">Ekosistem aplikasi buatan santri & alumni</span><span data-l="jv">Ekosistem aplikasi damelan santri & alumni</span></h3>
-      <p data-l="en">Beyond CuanTracker, the AI coding class has expanded into a full suite of specialized web applications serving the orphanage and alumni community:</p>
-      <p data-l="id">Selain CuanTracker, kelas coding AI telah berkembang melahirkan ekosistem aplikasi web praktis untuk kebutuhan asrama dan pemberdayaan alumni:</p>
-      <p data-l="jv">Kajawi CuanTracker, kelas coding AI sampun ngrembaka ngasilaken maneka aplikasi web praktis kangge asrama lan alumni:</p>
-
-      <div class="app-item">
-        <div class="app-item-head"><b>BangunKas</b> <a href="https://bangunkas-five.vercel.app/about" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:700">About &rarr;</a></div>
-        <div class="app-item-desc"><span data-l="en">Construction cash flow & progress tracking for alumni contractor businesses with AI receipt OCR.</span><span data-l="id">Pencatatan kas & progres proyek konstruksi alumni BQ dengan fitur AI OCR baca nota toko bangunan.</span><span data-l="jv">Pencatatan kas & progres proyek konstruksi alumni BQ kanthi fitur AI OCR nota bangunan.</span></div>
-      </div>
-
-      <div class="app-item">
-        <div class="app-item-head"><b>Level Up</b> <a href="https://level-up-alpha-six.vercel.app/about" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:700">About &rarr;</a></div>
-        <div class="app-item-desc"><span data-l="en">Daily worship tracker, 114-surah audio murottal Quran, physical fitness, and dorm discipline for alumni caregivers (Pengabdian).</span><span data-l="id">Pelacak amalan yaumiyah, Al-Qur'an audio murottal 114 surah, kebugaran fisik, dan kedisiplinan asrama bagi alumni pengabdian.</span><span data-l="jv">Pelacak amalan yaumiyah, Al-Qur'an murottal 114 surah, kebugaran fisik, lan disiplin asrama kangge alumni pengabdian.</span></div>
-      </div>
-
-      <div class="app-item">
-        <div class="app-item-head"><b>Math Strike</b> <a href="https://math-strike.onrender.com/about" target="_blank" rel="noopener" style="font-size:.82rem;font-weight:700">About &rarr;</a></div>
-        <div class="app-item-desc"><span data-l="en">3D multiplayer math education game and teacher diagnostic dashboard running in the Digital Lab.</span><span data-l="id">Game edukasi matematika 3D multiplayer dan dashboard diagnostik guru yang dimainkan di Lab Digital.</span><span data-l="jv">Game edukasi matematika 3D multiplayer lan dashboard guru ingkang dipun mainaken ing Lab Digital.</span></div>
       </div>
     </article>
 
@@ -607,9 +794,9 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
 <section id="impact-2025">
   <span class="eyebrow"><span data-l="en">Continuity · 2025 to 2026</span><span data-l="id">Kesinambungan · 2025 ke 2026</span><span data-l="jv">Kesinambungan · 2025 dhateng 2026</span></span>
   <h2><span data-l="en">The foundation for our 2026 AI &amp; content classes</span><span data-l="id">Fondasi bagi kelas AI &amp; kreator konten 2026</span><span data-l="jv">Landhesan kangge kelas AI &amp; konten 2026</span></h2>
-  <p data-l="en">The 10 Ryzen 5 computers, Gigabit WiFi 6 network, and programming books funded by this 2025 grant became the launchpad for our 2026 grant initiatives — where children and alumni now build live web applications (<i>CuanTracker</i>, <i>BangunKas</i>, <i>Level Up</i>, <i>Math Strike</i>) and edit videos filmed with the DJI Osmo Pocket cameras.</p>
-  <p data-l="id">Sepuluh komputer Ryzen 5, jaringan Gigabit WiFi 6, serta buku-buku pemrograman dari hibah pertama 2025 ini menjadi fondasi utama bagi program hibah kedua 2026 — tempat anak-anak dan alumni kini membangun aplikasi web nyata (<i>CuanTracker</i>, <i>BangunKas</i>, <i>Level Up</i>, <i>Math Strike</i>) serta mengedit video dari kamera DJI Osmo Pocket.</p>
-  <p data-l="jv">Sedasa komputer Ryzen 5, jaringan Gigabit WiFi 6, saha buku-buku pemrograman saking hibah sepisanan 2025 menika dados landhesan utama kangge program hibah kaping kalih 2026 — papan lare-lare lan alumni samangke damel aplikasi web nyata (<i>CuanTracker</i>, <i>BangunKas</i>, <i>Level Up</i>, <i>Math Strike</i>) saha ngedit video saking kamera DJI Osmo Pocket.</p>
+  <p data-l="en">The 10 Ryzen 5 computers, Gigabit WiFi 6 network, and programming books funded by this 2025 grant became the launchpad for our 2026 grant initiatives — where children and alumni now build live web applications (<i>CuanTracker</i>, <i>BangunKas</i>, <i>Level Up</i>, <i>Math Strike</i>, <i>Perpus BQ</i>) and edit videos filmed with the DJI Osmo Pocket cameras.</p>
+  <p data-l="id">Sepuluh komputer Ryzen 5, jaringan Gigabit WiFi 6, serta buku-buku pemrograman dari hibah pertama 2025 ini menjadi fondasi utama bagi program hibah kedua 2026 — tempat anak-anak dan alumni kini membangun aplikasi web nyata (<i>CuanTracker</i>, <i>BangunKas</i>, <i>Level Up</i>, <i>Math Strike</i>, <i>Perpus BQ</i>) serta mengedit video dari kamera DJI Osmo Pocket.</p>
+  <p data-l="jv">Sedasa komputer Ryzen 5, jaringan Gigabit WiFi 6, saha buku-buku pemrograman saking hibah sepisanan 2025 menika dados landhesan utama kangge program hibah kaping kalih 2026 — papan lare-lare lan alumni samangke damel aplikasi web nyata (<i>CuanTracker</i>, <i>BangunKas</i>, <i>Level Up</i>, <i>Math Strike</i>, <i>Perpus BQ</i>) saha ngedit video saking kamera DJI Osmo Pocket.</p>
   <button type="button" class="btn-switch-year" data-setyear="2026">
     <span data-l="en">View 2026 Second Grant Report (USD 5,000) &rarr;</span>
     <span data-l="id">Lihat Laporan Hibah Kedua 2026 (USD 5.000) &rarr;</span>
@@ -631,6 +818,12 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
   <button type="button" class="close" id="lbClose"><span data-l="en">Close</span><span data-l="id">Tutup</span><span data-l="jv">Tutup</span></button>
   <img id="lbImg" alt="">
   <p id="lbCap"></p>
+</dialog>
+
+<dialog id="ytModal" aria-label="YouTube Video Player">
+  <button type="button" class="close" id="ytClose"><span data-l="en">Close</span><span data-l="id">Tutup</span><span data-l="jv">Tutup</span></button>
+  <div class="yt-player-wrap"><iframe id="ytFrame" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="YouTube Kajian Player"></iframe></div>
+  <p id="ytTitle"></p>
 </dialog>
 
 <script>
@@ -715,6 +908,94 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
   document.querySelectorAll('[data-setlang]').forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.setlang)})});
   document.querySelectorAll('[data-settheme]').forEach(function(b){b.addEventListener('click',function(){setTheme(b.dataset.settheme)})});
   document.querySelectorAll('[data-setyear]').forEach(function(b){b.addEventListener('click',function(){setYear(b.dataset.setyear,!b.closest('.year-switch'))})});
+
+  /* AI Apps Carousel */
+  var carIdx=0, carSlides=document.querySelectorAll('.car-slide'), carTabs=document.querySelectorAll('[data-car]'), carCount=document.getElementById('carCount');
+  function setCar(idx){
+    carIdx=(idx+carSlides.length)%carSlides.length;
+    carSlides.forEach(function(s,i){s.classList.toggle('active',i===carIdx)});
+    carTabs.forEach(function(t,i){t.setAttribute('aria-selected',String(i===carIdx))});
+    if(carCount)carCount.textContent=(carIdx+1)+' / '+carSlides.length;
+  }
+  carTabs.forEach(function(t){t.addEventListener('click',function(){setCar(Number(t.dataset.car))})});
+  var cp=document.getElementById('carPrev'), cn=document.getElementById('carNext');
+  if(cp)cp.addEventListener('click',function(){setCar(carIdx-1)});
+  if(cn)cn.addEventListener('click',function(){setCar(carIdx+1)});
+
+  /* YouTube Kajian videos (using API from Qur-anan + initial channel seed) */
+  var YT_KEY='AIzaSyDb25hksl_CYu-34bFK6xduDnVuS9kXOMA';
+  var YT_CHANNEL='UCp3PWQTp3E9nnJ5d-9XQJCw';
+  var ytVideos=[
+    {id:'PcFtSauuSGk',title:'Jangan Jatuh pada Cara Jual Beli yang Dilarang · Kajian Ihya Ulumuddin H. Agus Triyanta Ph.D #107',date:'2026-11-01',dur:'50:51',kind:'Kajian'},
+    {id:'BIkk6Hh7ty0',title:'Kajian Kitab Ihya Ulumuddin Imam Al-Ghazali · H. Agus Triyanta, M.A., M.H., Ph.D',date:'2026-10-30',dur:'13:35',kind:'Kajian'},
+    {id:'q-YOpF_epy4',title:'Orang Miskin Belum Tentu Mau Meminta! Pesan Penting Al-Qur\'an · Kajian Ihya Ulumuddin #106',date:'2026-10-26',dur:'37:30',kind:'Kajian'},
+    {id:'aXllRQzIl-4',title:'Kenapa Larangan Khamr di Islam Harus Bertahap? · Kajian Ihya Ulumuddin H. Agus Triyanta',date:'2026-11-08',dur:'01:06',kind:'Short / IG'},
+    {id:'9AstqKPhsVE',title:'Kunci Jual Beli: Saling Ridho · Kajian Kitab Ihya Ulumuddin H. Agus Triyanta Ph.D',date:'2026-11-07',dur:'01:11',kind:'Short / IG'},
+    {id:'8F_2wSSUycI',title:'Makan Halal Saja Tidak Cukup, Harus Thayyib! · Kajian Ihya Ulumuddin H. Agus Triyanta Ph.D',date:'2026-11-05',dur:'01:07',kind:'Short / IG'}
+  ];
+  var ytGrid=document.getElementById('ytGrid'), ytModal=document.getElementById('ytModal'), ytFrame=document.getElementById('ytFrame'), ytTitle=document.getElementById('ytTitle');
+  function openYt(id,title){
+    ytFrame.src='https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0';
+    ytTitle.textContent=title;
+    ytModal.showModal();
+  }
+  function closeYt(){ytFrame.src='';ytModal.close()}
+  document.getElementById('ytClose').addEventListener('click',closeYt);
+  ytModal.addEventListener('click',function(e){if(e.target===ytModal)closeYt()});
+  ytModal.addEventListener('close',function(){ytFrame.src=''});
+
+  function renderYt(list){
+    if(!ytGrid)return;
+    ytGrid.innerHTML='';
+    list.forEach(function(v){
+      var b=document.createElement('button');
+      b.type='button'; b.className='yt-card';
+      var thumb=v.thumb||('https://i.ytimg.com/vi/'+v.id+'/hqdefault.jpg');
+      b.innerHTML='<div class="yt-thumb"><img src="'+thumb+'" alt="" loading="lazy"><div class="yt-play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>'+(v.dur?'<span class="yt-dur">'+v.dur+'</span>':'')+'</div>'+
+        '<div class="yt-meta"><span>'+(v.kind||'YouTube')+'</span><span>'+v.date+'</span></div>'+
+        '<div class="yt-title"></div>';
+      b.querySelector('.yt-title').textContent=v.title;
+      b.addEventListener('click',function(){openYt(v.id,v.title)});
+      ytGrid.appendChild(b);
+    });
+  }
+  renderYt(ytVideos);
+
+  function fmtDur(iso){
+    var m=iso&&iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+    if(!m)return '';
+    var h=parseInt(m[1]||'0',10), mn=parseInt(m[2]||'0',10), s=parseInt(m[3]||'0',10);
+    var pad=function(n){return n<10?'0'+n:String(n)};
+    return h>0?(h+':'+pad(mn)+':'+pad(s)):(pad(mn)+':'+pad(s));
+  }
+  fetch('https://www.googleapis.com/youtube/v3/search?part=snippet&channelId='+YT_CHANNEL+'&order=date&maxResults=15&type=video&key='+YT_KEY)
+    .then(function(r){return r.ok?r.json():null})
+    .then(function(s){
+      if(!s||!s.items||!s.items.length)return null;
+      var ids=s.items.map(function(i){return i.id.videoId}).join(',');
+      return fetch('https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet&id='+ids+'&key='+YT_KEY).then(function(r){return r.ok?r.json():null});
+    })
+    .then(function(d){
+      if(!d||!d.items||!d.items.length)return;
+      var mapped=d.items.map(function(it){
+        var iso=it.contentDetails&&it.contentDetails.duration||'';
+        var m=iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+        var secs=m?(parseInt(m[1]||'0',10)*3600+parseInt(m[2]||'0',10)*60+parseInt(m[3]||'0',10)):0;
+        return {
+          id:it.id,
+          title:it.snippet.title.replace(/_/g,':'),
+          date:(it.snippet.publishedAt||'').slice(0,10),
+          dur:fmtDur(iso),
+          secs:secs,
+          kind:secs>180?'Kajian':'Short / IG',
+          thumb:(it.snippet.thumbnails&&it.snippet.thumbnails.high&&it.snippet.thumbnails.high.url)||('https://i.ytimg.com/vi/'+it.id+'/hqdefault.jpg')
+        };
+      });
+      var longVids=mapped.filter(function(v){return v.secs>180}).slice(0,3);
+      var shortVids=mapped.filter(function(v){return v.secs<=180}).slice(0,3);
+      var combined=longVids.concat(shortVids);
+      if(combined.length>=4)renderYt(combined);
+    }).catch(function(){});
 
   setYear(year,false); setLang(lang); syncThemeButtons();
 
