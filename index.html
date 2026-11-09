@@ -4,21 +4,33 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: one reading column, figures first, then dormitory, money, proof, timeline, programs, next steps */
+/* Layout & tokens: responsive reading & dashboard container, mobile & desktop optimized */
 :root{
-  --bg:#F5F7F3; --surface:#FFFFFF; --fg:#18231C; --muted:#5B6A60; --line:#DCE3DA;
-  --accent:#2C6A4C; --accent-soft:#E2EEE6; --gold:#B87A12; --gold-soft:#F6EAD2;
-  --plan:#C9D3CB;
+  --bg:#F4F7F3; --surface:#FFFFFF; --surface-glass:rgba(244,247,243,.88);
+  --fg:#16221B; --muted:#56665C; --line:#D8E1D7;
+  --accent:#286648; --accent-soft:#E1EFE6; --gold:#B4760E; --gold-soft:#F7EBD3;
+  --plan:#C6D1C8; --shadow:0 4px 20px rgba(18,30,22,.05);
   --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --body:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
   --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --label-2:"Specification / store"; --label-3:"Qty"; --label-4:"Unit (Rp)"; --label-5:"Total (Rp)";
+}
+:root[data-lang="id"]{
+  --label-2:"Spesifikasi / toko"; --label-3:"Jumlah"; --label-4:"Harga satuan (Rp)"; --label-5:"Total (Rp)";
+}
+:root[data-lang="jv"]{
+  --label-2:"Spesifikasi / toko"; --label-3:"Cacah"; --label-4:"Reregan (Rp)"; --label-5:"Total (Rp)";
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#111814; --surface:#18211B; --fg:#E4EBE6; --muted:#9AA9A0; --line:#2A362E;
-  --accent:#72C29A; --accent-soft:#1E3127; --gold:#E2AA45; --gold-soft:#33291A; --plan:#3A4A40; color-scheme:dark}}
+  --bg:#0F1612; --surface:#17211B; --surface-glass:rgba(15,22,18,.88);
+  --fg:#E5EDE8; --muted:#97A89E; --line:#27342C;
+  --accent:#6EC297; --accent-soft:#1D3126; --gold:#E4AD48; --gold-soft:#312718;
+  --plan:#36463C; --shadow:0 6px 24px rgba(0,0,0,.28); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#111814; --surface:#18211B; --fg:#E4EBE6; --muted:#9AA9A0; --line:#2A362E;
-  --accent:#72C29A; --accent-soft:#1E3127; --gold:#E2AA45; --gold-soft:#33291A; --plan:#3A4A40; color-scheme:dark}
+  --bg:#0F1612; --surface:#17211B; --surface-glass:rgba(15,22,18,.88);
+  --fg:#E5EDE8; --muted:#97A89E; --line:#27342C;
+  --accent:#6EC297; --accent-soft:#1D3126; --gold:#E4AD48; --gold-soft:#312718;
+  --plan:#36463C; --shadow:0 6px 24px rgba(0,0,0,.28); color-scheme:dark}
 
 /* language switching */
 :root:not([data-lang="id"]) [data-l="id"],
@@ -30,194 +42,270 @@
 :root:not([data-year="2025"]) [data-y="2025"],
 :root[data-year="2025"] [data-y="2026"]{display:none!important}
 
-/* grant year switcher banner */
-.year-switch{display:inline-flex;border:1.5px solid var(--accent);border-radius:12px;padding:4px;background:var(--surface);gap:4px;flex-wrap:wrap}
-.year-switch button{all:unset;cursor:pointer;font:700 .88rem var(--body);color:var(--muted);padding:7px 14px;border-radius:8px;display:inline-flex;align-items:center;gap:8px;transition:background .15s,color .15s}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:clamp(1rem,0.96rem + 0.2vw,1.0625rem);line-height:1.62;padding-inline:clamp(14px,4vw,32px);overflow-x:hidden}
+.wrap{max-width:1020px;margin-inline:auto;padding-block:20px 80px;display:grid;gap:56px}
+@media (max-width:640px){.wrap{gap:44px;padding-block:14px 64px}}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.14;text-wrap:balance;margin:0}
+h1{font-size:clamp(1.95rem,1.3rem + 3.2vw,3.35rem);font-weight:800;letter-spacing:-.022em}
+h2{font-size:clamp(1.4rem,1.1rem + 1.4vw,1.95rem);font-weight:700;letter-spacing:-.012em}
+h3{font-size:clamp(1.08rem,1rem + 0.35vw,1.22rem);font-weight:700;line-height:1.28}
+p{margin:0;max-width:68ch}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,.tablebox:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.eyebrow{font-family:var(--mono);font-size:.76rem;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+section{display:grid;gap:20px;scroll-margin-top:84px}
+.sec-head{display:grid;gap:6px}
+.lead{font-size:clamp(1.04rem,0.98rem + 0.35vw,1.2rem);color:var(--muted);max-width:66ch;line-height:1.55}
+
+/* Header & hero card */
+header{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:clamp(18px,3.2vw,30px);box-shadow:var(--shadow);display:grid;gap:20px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--bg)}
+.seg button{all:unset;cursor:pointer;font:700 .8rem var(--body);color:var(--muted);padding:5px 12px;border-radius:999px;display:inline-flex;align-items:center;gap:5px;transition:all .15s}
+.seg button:hover{color:var(--fg)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--bg);box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.seg svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+/* Grant year switcher banner */
+.year-switch{display:inline-grid;grid-template-columns:repeat(2,auto);border:1.5px solid var(--accent);border-radius:12px;padding:4px;background:var(--bg);gap:4px;width:fit-content}
+.year-switch button{all:unset;cursor:pointer;font:700 .88rem var(--body);color:var(--muted);padding:8px 16px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:background .15s,color .15s;text-align:center}
 .year-switch button:hover{color:var(--fg);background:var(--accent-soft)}
 .year-switch button[aria-pressed="true"]{background:var(--accent);color:var(--bg)}
-.year-switch .ybadge{font:600 .72rem var(--mono);padding:2px 7px;border-radius:999px;background:rgba(128,128,128,.16)}
+.year-switch .ybadge{font:600 .72rem var(--mono);padding:2px 7px;border-radius:999px;background:rgba(128,128,128,.16);white-space:nowrap}
 .year-switch button[aria-pressed="true"] .ybadge{background:rgba(255,255,255,.22);color:inherit}
-.book-cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:6px}
-.book-cat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:6px;align-content:start}
-.book-cat b{font-size:.96rem;color:var(--fg)}
-.book-cat span{font-size:.86rem;color:var(--muted);line-height:1.45}
-.btn-switch-year{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:var(--bg);padding:8px 16px;border-radius:8px;font:700 .88rem var(--body);margin-top:4px;width:fit-content}
-.btn-switch-year:hover{opacity:.92}
+@media (max-width:640px){
+  .topbar{gap:10px}
+  .controls{width:100%;justify-content:space-between}
+  .year-switch{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%}
+  .year-switch button{padding:9px 10px;font-size:.82rem;flex-direction:column;gap:3px}
+}
 
-*{box-sizing:border-box}
-body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6;padding-inline:20px}
-.wrap{max-width:920px;margin-inline:auto;padding-block:24px 72px;display:grid;gap:64px}
-h1,h2,h3{font-family:var(--display);line-height:1.12;text-wrap:balance;margin:0}
-h1{font-size:clamp(2.3rem,6vw,3.6rem);font-weight:800;letter-spacing:-.02em}
-h2{font-size:clamp(1.55rem,3.4vw,2rem);font-weight:700;letter-spacing:-.01em}
-h3{font-size:1.15rem;font-weight:700}
-p{margin:0;max-width:65ch}
-a{color:var(--accent)}
-a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
-.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
-section{display:grid;gap:22px;scroll-margin-top:72px}
-.lead{font-size:1.2rem;color:var(--muted)}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.9rem;color:var(--muted);padding-top:10px;border-top:1px dashed var(--line)}
+.meta span{display:inline-flex;align-items:center;gap:6px}
+.meta b{color:var(--fg);font-weight:700}
 
-/* header + controls */
-header{display:grid;gap:18px}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.controls{display:flex;gap:10px;flex-wrap:wrap}
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
-.seg button{all:unset;cursor:pointer;font:600 .82rem var(--body);color:var(--muted);padding:5px 12px;border-radius:999px;display:inline-flex;align-items:center;gap:6px}
-.seg button:hover{color:var(--fg)}
-.seg button[aria-pressed="true"]{background:var(--accent);color:var(--bg)}
-.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.seg svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.meta{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:.95rem;color:var(--muted)}
-.meta b{color:var(--fg);font-weight:600}
-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin-inline:-20px;padding:10px 20px;display:flex;gap:6px;overflow-x:auto}
-nav a{font-weight:600;font-size:.95rem;text-decoration:none;color:var(--muted);padding:6px 12px;border-radius:999px;white-space:nowrap}
+/* Sticky section navigation with active scroll-spy & quick year pill */
+.nav-shell{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface-glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:999px;padding:6px 10px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:-24px}
+@media (max-width:640px){
+  .nav-shell{border-radius:14px;padding:6px 8px;margin-top:-16px}
+}
+nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;scroll-snap-type:x proximity;flex:1;min-width:0}
+nav::-webkit-scrollbar{display:none}
+nav a{font-weight:600;font-size:.88rem;text-decoration:none;color:var(--muted);padding:6px 12px;border-radius:999px;white-space:nowrap;scroll-snap-align:start;transition:background .15s,color .15s}
 nav a:hover{color:var(--fg);background:var(--accent-soft)}
+nav a.active{background:var(--accent);color:var(--bg);font-weight:700}
+.nav-quick{display:inline-flex;align-items:center;gap:4px;flex:none;padding-left:8px;border-left:1px solid var(--line)}
+.nav-quick button{all:unset;cursor:pointer;font:700 .75rem var(--mono);padding:5px 9px;border-radius:999px;color:var(--muted);background:var(--bg);border:1px solid var(--line);transition:all .15s;white-space:nowrap}
+.nav-quick button:hover{border-color:var(--accent);color:var(--fg)}
+.nav-quick button[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
 
-/* figures */
-.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-.fig{background:var(--surface);padding:18px 18px 16px;display:grid;gap:4px;align-content:start}
-.fig .n{font-family:var(--display);font-size:2.4rem;font-weight:800;line-height:1;color:var(--accent)}
-.fig .l{font-size:.95rem;color:var(--muted)}
-.callout{background:var(--gold-soft);border-radius:12px;padding:16px 18px;display:grid;gap:4px}
+/* Figures KPI cards */
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px}
+@media (max-width:480px){.figs{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
+.fig{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:grid;gap:6px;align-content:start;box-shadow:var(--shadow)}
+@media (max-width:480px){.figs .fig:last-child:nth-child(odd){grid-column:1 / -1}}
+.fig .n{font-family:var(--display);font-size:clamp(1.9rem,1.5rem + 1.5vw,2.45rem);font-weight:800;line-height:1;color:var(--accent)}
+.fig .l{font-size:.9rem;color:var(--muted);line-height:1.38}
+.callout{background:var(--gold-soft);border:1px solid rgba(180,118,14,.25);border-radius:14px;padding:16px 20px;display:grid;gap:6px}
+.callout p{max-width:none;font-size:.96rem}
 .callout b{color:var(--gold)}
 
-/* budget bars */
-.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.9rem;color:var(--muted)}
-.legend span{display:inline-flex;align-items:center;gap:8px}
-.sw{width:14px;height:10px;border-radius:2px;display:inline-block}
-.rows{display:grid;gap:18px}
-.row{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr);gap:6px 18px;align-items:center}
-.row .name{font-weight:600;line-height:1.3}
-.row .name small{display:block;font-weight:400;color:var(--muted);font-size:.85rem}
-.bars{display:grid;gap:5px;min-width:0}
-.bar{display:flex;align-items:center;gap:10px;min-width:0}
-.bar i{display:block;height:12px;border-radius:3px;flex:none}
-.bar .v{font-size:.85rem;white-space:nowrap}
-.bar.plan i{background:var(--plan)}
-.bar.real i{background:var(--accent)}
-.diff{font-size:.82rem;font-family:var(--mono);padding:1px 6px;border-radius:4px;margin-left:2px}
+/* Planned vs Actual Budget Bars (100% responsive card-row layout) */
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.88rem;color:var(--muted);background:var(--surface);border:1px solid var(--line);padding:10px 14px;border-radius:10px;width:fit-content}
+.legend span{display:inline-flex;align-items:center;gap:8px;font-weight:600}
+.sw{width:14px;height:10px;border-radius:3px;display:inline-block}
+.rows{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+@media (max-width:640px){.rows{grid-template-columns:1fr}}
+.row{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:10px;align-content:start}
+.row-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.row .name{font-weight:700;line-height:1.25;color:var(--fg);font-size:.98rem}
+.row .name small{display:block;font-weight:400;color:var(--muted);font-size:.82rem;margin-top:2px}
+.bars{display:grid;gap:7px;min-width:0}
+.bar{display:grid;gap:4px;min-width:0}
+.bar-meta{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.8rem}
+.bar-lbl{color:var(--muted);font-weight:600}
+.bar-track{width:100%;height:9px;background:var(--bg);border-radius:999px;overflow:hidden;border:1px solid var(--line)}
+.bar-fill{display:block;height:100%;border-radius:999px;min-width:4px}
+.bar.plan .bar-fill{background:var(--plan)}
+.bar.real .bar-fill{background:var(--accent)}
+.bar .v{font-size:.82rem;font-weight:600;color:var(--fg)}
+.diff{font-size:.75rem;font-family:var(--mono);font-weight:600;padding:2px 7px;border-radius:999px;white-space:nowrap}
 .diff.up{color:var(--gold);background:var(--gold-soft)}
 .diff.down{color:var(--accent);background:var(--accent-soft)}
-@media (max-width:560px){.row{grid-template-columns:1fr}}
+.diff.eq{color:var(--muted);background:var(--bg);border:1px solid var(--line)}
 
-/* table */
-.tablebox{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
-table{border-collapse:collapse;width:100%;min-width:640px;font-size:.95rem}
-th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
-th{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+/* Responsive Table (Desktop sticky table -> Mobile stacked cards via @container query) */
+.tablebox{overflow:auto;max-inline-size:100%;container-type:inline-size;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:var(--shadow)}
+table{border-collapse:separate;border-spacing:0;width:100%;font-size:.93rem}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+thead{position:sticky;inset-block-start:0;z-index:2;background:var(--bg)}
+thead th{font-family:var(--mono);font-size:.73rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;border-bottom:1.5px solid var(--line)}
+tbody th{font-weight:600;color:var(--fg);background:var(--surface);position:sticky;inset-inline-start:0;z-index:1}
+tbody tr:hover td,tbody tr:hover th{background:var(--bg)}
 td.num,th.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
-tfoot td{font-weight:700;border-bottom:none}
-tfoot tr.sub td{font-weight:600;color:var(--muted)}
-tfoot tr.bal td{color:var(--accent)}
-td .by{display:block;color:var(--muted);font-size:.85rem;font-weight:400}
+tfoot td{font-weight:700;border-bottom:none;background:var(--bg)}
+tfoot tr.sub td{font-weight:600;color:var(--muted);border-top:1px solid var(--line)}
+tfoot tr.bal td{color:var(--accent);border-top:1px dashed var(--line)}
+.by{display:block;color:var(--muted);font-size:.8rem;font-weight:400;margin-top:2px}
 
-/* receipts */
-.receipts{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
-.rc{all:unset;cursor:zoom-in;display:grid;gap:8px;border-radius:10px}
-.rc img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;border-radius:10px;border:1px solid var(--line);background:var(--surface);transition:transform .2s}
-.rc:hover img{transform:translateY(-2px)}
-.rc .rl{font-size:.88rem;line-height:1.35}
-.rc small{display:block;color:var(--muted);font-family:var(--mono);font-size:.75rem}
-dialog{border:none;padding:0;background:transparent;max-width:min(92vw,900px);max-height:92vh}
-dialog::backdrop{background:rgba(8,12,10,.82)}
-dialog img{max-height:84vh;width:auto;border-radius:10px;display:block;margin-inline:auto}
-dialog p{color:#E4EBE6;text-align:center;margin:10px auto 0;font-size:.95rem}
-dialog .close{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));right:16px;background:#E4EBE6;color:#111814;border:none;border-radius:999px;padding:8px 14px;font:600 .9rem var(--body);cursor:pointer}
+@container (width < 620px){
+  table,thead,tbody,tfoot,tr,th,td{display:block;width:100%}
+  thead{display:none}
+  tbody{padding:10px;display:grid;gap:10px;background:var(--bg)}
+  tbody tr{border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.03)}
+  tbody th{position: sticky;inset-block-start:0;z-index:2;background:var(--accent-soft);color:var(--fg);padding:10px 14px;border-bottom:1px solid var(--line);font-size:.96rem}
+  tbody td{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:8px 14px;text-align:right;font-size:.88rem}
+  tbody td:nth-child(2){text-align:left;flex-direction:column;gap:2px}
+  tbody td.num{white-space:normal}
+  tbody td:nth-child(2)::before{content:var(--label-2);font:600 .72rem var(--mono);text-transform:uppercase;color:var(--muted);letter-spacing:.05em}
+  tbody td:nth-child(3)::before{content:var(--label-3);font:600 .75rem var(--mono);color:var(--muted)}
+  tbody td:nth-child(4)::before{content:var(--label-4);font:600 .75rem var(--mono);color:var(--muted)}
+  tbody td:nth-child(5){background:var(--bg);font-weight:700;color:var(--accent);border-bottom:none}
+  tbody td:nth-child(5)::before{content:var(--label-5);font:700 .75rem var(--mono);color:var(--fg)}
+  tfoot{border-top:2px solid var(--line);padding:8px 14px;background:var(--surface)}
+  tfoot tr{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:6px 0;border-bottom:1px dashed var(--line)}
+  tfoot tr:last-child{border-bottom:none}
+  tfoot td{padding:0;background:transparent;width:auto;font-size:.86rem}
+  tfoot td.num{margin-left:auto;font-size:.92rem}
+}
 
-/* before / after */
-.ba{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.ba button{all:unset;cursor:zoom-in;display:grid;gap:8px;min-width:0;border-radius:12px}
-.ba img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;border:1px solid var(--line);display:block}
-.ba .lbl{font-family:var(--mono);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+/* Receipts grid (always >= 2 columns on mobile) & Lightbox with Prev/Next */
+.receipts{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:12px}
+@media (max-width:420px){.receipts{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
+.rc{all:unset;cursor:zoom-in;display:grid;gap:8px;background:var(--surface);border:1px solid var(--line);padding:8px;border-radius:12px;align-content:start;transition:transform .2s,border-color .2s,box-shadow .2s}
+.rc:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:var(--shadow)}
+.rc img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;border-radius:8px;border:1px solid var(--line);background:var(--bg)}
+.rc .rl{font-size:.84rem;font-weight:600;line-height:1.3;padding-inline:2px}
+.rc small{display:block;color:var(--muted);font-family:var(--mono);font-size:.72rem;font-weight:500;margin-top:3px}
+
+dialog{border:none;padding:0;background:transparent;max-width:min(94dvw,920px);max-height:92dvh;overflow:visible}
+dialog::backdrop{background:rgba(8,12,10,.86);backdrop-filter:blur(4px)}
+.lb-box{position:relative;display:grid;gap:10px;justify-items:center}
+dialog img{max-height:78dvh;max-width:92dvw;width:auto;border-radius:12px;display:block;margin-inline:auto;box-shadow:0 16px 48px rgba(0,0,0,.5);background:#fff}
+dialog p{color:#E4EBE6;text-align:center;margin:0 auto;font-size:.92rem;max-width:65ch;padding-inline:12px}
+.lb-bar{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:2px}
+.lb-nav{all:unset;cursor:pointer;background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:6px 14px;font:600 .84rem var(--body);transition:background .15s}
+.lb-nav:hover{background:rgba(255,255,255,.28)}
+dialog .close{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));right:16px;z-index:10;background:#E4EBE6;color:#111814;border:none;border-radius:999px;padding:8px 16px;font:700 .88rem var(--body);cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+
+/* Before / After */
+.ba{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.ba button{all:unset;cursor:zoom-in;display:grid;gap:8px;min-width:0;background:var(--surface);border:1px solid var(--line);padding:10px;border-radius:14px;align-content:start;transition:transform .2s,border-color .2s}
+.ba button:hover{transform:translateY(-2px);border-color:var(--accent)}
+.ba img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;border:1px solid var(--line);display:block}
+.ba .lbl{font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;padding-inline:4px}
 .ba .before .lbl{color:var(--muted)}
 .ba .after .lbl{color:var(--accent)}
-.ba .cap{font-size:.92rem;color:var(--muted);line-height:1.4}
-@media (max-width:560px){.ba{grid-template-columns:1fr}}
+.ba .cap{font-size:.9rem;color:var(--muted);line-height:1.4;padding-inline:4px}
+@media (max-width:580px){.ba{grid-template-columns:1fr}}
 
-/* dorm life gallery */
-.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;margin-top:4px}
-.gallery-card{all:unset;cursor:zoom-in;display:grid;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;padding:12px;transition:transform .2s,border-color .2s,box-shadow .2s}
-.gallery-card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 8px 24px rgba(0,0,0,.06)}
+/* Dorm life gallery */
+.gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:4px}
+@media (max-width:780px){.gallery{grid-template-columns:1fr}}
+.gallery-card{all:unset;cursor:zoom-in;display:grid;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;padding:12px;align-content:start;transition:transform .2s,border-color .2s,box-shadow .2s}
+.gallery-card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:var(--shadow)}
 .gallery-card img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:10px;display:block}
-.gallery-card .gmeta{display:grid;gap:4px}
-.gallery-card .gtitle{font-weight:700;font-size:1.02rem;line-height:1.3;color:var(--fg)}
-.gallery-card .gdesc{font-size:.88rem;color:var(--muted);line-height:1.45}
+.gallery-card .gmeta{display:grid;gap:4px;padding-inline:2px}
+.gallery-card .gtitle{font-weight:700;font-size:1rem;line-height:1.3;color:var(--fg)}
+.gallery-card .gdesc{font-size:.87rem;color:var(--muted);line-height:1.45}
 
-/* timeline */
-.tl{list-style:none;margin:0;padding:0;display:grid;gap:0;border-left:2px solid var(--line);margin-left:6px}
-.tl li{position:relative;padding:0 0 20px 22px;display:grid;gap:2px}
-.tl li::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--muted)}
+/* Timeline */
+.tl{list-style:none;margin:0;padding:0;display:grid;gap:0;border-left:2px solid var(--line);margin-left:8px}
+.tl li{position:relative;padding:0 0 20px 22px;display:grid;gap:3px}
+.tl li:last-child{padding-bottom:0}
+.tl li::before{content:"";position:absolute;left:-7px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2.5px solid var(--muted)}
 .tl li.g26::before{border-color:var(--accent);background:var(--accent)}
 .tl li.due::before{border-color:var(--gold);background:var(--gold-soft)}
-.tl time{font-family:var(--mono);font-size:.8rem;color:var(--muted);letter-spacing:.04em}
-.tl .t{font-weight:600}
+.tl time{font-family:var(--mono);font-size:.78rem;color:var(--muted);letter-spacing:.04em;font-weight:600}
+.tl .t{font-weight:700;color:var(--fg)}
 
-/* programs */
-.progs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.prog{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:10px;align-content:start}
-.prog .tag{justify-self:start;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px}
+/* Roadmap / What's Next 2x2 Symmetrical Grid + Spec Boxes */
+.progs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:740px){.progs{grid-template-columns:1fr}}
+.prog{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;display:grid;gap:12px;align-content:start;box-shadow:var(--shadow)}
+.prog .tag{justify-self:start;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:999px;font-weight:600}
 .tag.on{background:var(--accent-soft);color:var(--accent)}
 .tag.plan{background:var(--gold-soft);color:var(--gold)}
 .tag.wip{background:var(--line);color:var(--muted)}
-.prog p{font-size:.98rem}
-.prog .uses{font-size:.88rem;color:var(--muted)}
+.prog p{font-size:.93rem;color:var(--muted);line-height:1.55}
+.prog .uses{font-size:.86rem;color:var(--muted)}
 .prog .uses b{color:var(--fg);font-weight:600}
-.prog .btn-about{display:inline-flex;align-items:center;gap:6px;background:var(--accent-soft);color:var(--accent);padding:7px 14px;border-radius:8px;font-weight:700;font-size:.86rem;text-decoration:none;margin-top:2px;width:fit-content;transition:background .2s,color .2s}
-.prog .btn-about:hover{background:var(--accent);color:#fff}
-.prog .app-item{display:grid;gap:4px;padding:11px 13px;background:var(--bg);border:1px solid var(--line);border-radius:10px;margin-top:4px}
-.prog .app-item-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.prog .app-item-head b{font-size:.93rem;color:var(--fg)}
-.prog .app-item-desc{font-size:.84rem;color:var(--muted);line-height:1.45}
+.prog .app-item{display:grid;gap:6px;padding:12px 14px;background:var(--bg);border:1px solid var(--line);border-radius:12px;margin-top:auto}
+.prog .app-item-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.prog .app-item-head b{font-size:.88rem;color:var(--fg);font-family:var(--mono)}
+.prog .app-item-desc{font-size:.83rem;color:var(--muted);line-height:1.45}
+.spec-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.spec-pill{font:500 .73rem var(--mono);padding:3px 8px;border-radius:6px;background:var(--surface);border:1px solid var(--line);color:var(--fg)}
+.spec-pill.target{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
 
 /* 3-part equipment showcase (AI carousel, Cameras + YouTube, Dormitory) */
 .equip-stack{display:grid;gap:24px}
-.equip-block{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;display:grid;gap:16px}
+.equip-block{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:clamp(16px,2.8vw,24px);display:grid;gap:16px;box-shadow:var(--shadow)}
 .equip-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
 .equip-head-left{display:grid;gap:6px}
-.equip-block .tag{justify-self:start;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:999px;width:fit-content}
-.equip-block p{max-width:75ch;font-size:.98rem}
-.equip-block .uses{font-size:.88rem;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+.equip-block .tag{justify-self:start;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:999px;width:fit-content;font-weight:600}
+.equip-block p{max-width:75ch;font-size:.95rem;color:var(--muted)}
+.equip-block .uses{font-size:.86rem;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
 .equip-block .uses b{color:var(--fg);font-weight:600}
 
-/* AI App Carousel */
-.car-wrap{display:grid;gap:14px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:16px}
-.car-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.car-tabs{display:flex;gap:6px;flex-wrap:wrap}
-.car-tab{all:unset;cursor:pointer;font:600 .82rem var(--body);padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted);transition:all .15s}
+/* AI App Carousel (Horizontal pill scroll on mobile + touch swipe) */
+.car-wrap{display:grid;gap:16px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:clamp(12px,2.2vw,18px);touch-action:pan-y}
+.car-bar{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px}
+.car-tabs{display:flex;gap:6px;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;-ms-overflow-style:none;scroll-snap-type:x proximity;padding-bottom:2px}
+.car-tabs::-webkit-scrollbar{display:none}
+.car-tab{all:unset;cursor:pointer;font:700 .8rem var(--body);padding:6px 13px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted);white-space:nowrap;scroll-snap-align:center;transition:all .15s}
 .car-tab:hover{color:var(--fg);border-color:var(--accent)}
-.car-tab[aria-selected="true"]{background:var(--accent);color:var(--bg);border-color:var(--accent)}
-.car-nav{display:inline-flex;align-items:center;gap:8px}
-.car-btn{all:unset;cursor:pointer;width:32px;height:32px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--fg);display:inline-flex;align-items:center;justify-content:center;font-weight:700;transition:background .15s,border-color .15s}
+.car-tab[aria-selected="true"]{background:var(--accent);color:var(--bg);border-color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.car-nav{display:inline-flex;align-items:center;gap:6px;flex:none}
+.car-btn{all:unset;cursor:pointer;width:34px;height:34px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--fg);display:inline-flex;align-items:center;justify-content:center;font-weight:700;transition:background .15s,border-color .15s}
 .car-btn:hover{background:var(--accent-soft);border-color:var(--accent)}
-.car-count{font:500 .8rem var(--mono);color:var(--muted);min-width:36px;text-align:center}
-.car-slide{display:none;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:18px;align-items:center}
+.car-count{font:600 .78rem var(--mono);color:var(--muted);min-width:38px;text-align:center}
+.car-slide{display:none;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:20px;align-items:center}
 .car-slide.active{display:grid}
-@media (max-width:680px){.car-slide.active{grid-template-columns:1fr}}
-.car-shot{all:unset;cursor:zoom-in;position:relative;display:block;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--surface);box-shadow:0 4px 16px rgba(0,0,0,.06)}
+@media (max-width:720px){
+  .car-slide.active{grid-template-columns:1fr;gap:14px}
+}
+.car-shot{all:unset;cursor:zoom-in;position:relative;display:block;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--surface);box-shadow:0 4px 16px rgba(0,0,0,.06)}
 .car-shot img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;display:block;transition:transform .25s}
 .car-shot:hover img{transform:scale(1.02)}
-.car-shot-badge{position:absolute;bottom:8px;right:8px;background:rgba(17,24,20,.78);color:#fff;font:600 .72rem var(--mono);padding:3px 8px;border-radius:6px;backdrop-filter:blur(4px)}
+.car-shot-badge{position:absolute;bottom:8px;right:8px;background:rgba(17,24,20,.8);color:#fff;font:600 .72rem var(--mono);padding:4px 9px;border-radius:6px;backdrop-filter:blur(4px)}
 .car-info{display:grid;gap:10px;align-content:start}
-.car-info .car-kicker{font:600 .75rem var(--mono);color:var(--accent);text-transform:uppercase;letter-spacing:.08em}
-.car-info h4{font:800 1.3rem/1.2 var(--display);margin:0;color:var(--fg)}
-.car-info p{font-size:.93rem;color:var(--muted);line-height:1.5}
+.car-info .car-kicker{font:600 .74rem var(--mono);color:var(--accent);text-transform:uppercase;letter-spacing:.08em}
+.car-info h4{font:800 1.32rem/1.2 var(--display);margin:0;color:var(--fg)}
+.car-info p{font-size:.92rem;color:var(--muted);line-height:1.55}
 .car-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
-.btn-about{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:var(--bg);padding:8px 14px;border-radius:8px;font-weight:700;font-size:.86rem;text-decoration:none;width:fit-content;transition:opacity .2s}
+.btn-about{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:var(--bg);padding:8px 15px;border-radius:9px;font-weight:700;font-size:.86rem;text-decoration:none;width:fit-content;transition:opacity .2s}
 .btn-about:hover{opacity:.9}
 
-/* YouTube Kajian video grid */
+/* YouTube Kajian video grid (3 cols on desktop -> Horizontal Swipe Carousel on mobile) */
 .yt-head-links{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.btn-yt{display:inline-flex;align-items:center;gap:7px;background:#CC0000;color:#fff;padding:7px 14px;border-radius:999px;font:700 .84rem var(--body);text-decoration:none;transition:opacity .2s}
+.btn-yt{display:inline-flex;align-items:center;gap:7px;background:#CC0000;color:#fff;padding:7px 14px;border-radius:999px;font:700 .82rem var(--body);text-decoration:none;transition:opacity .2s}
 .btn-yt:hover{opacity:.9}
-.btn-yt svg{width:16px;height:16px;fill:currentColor}
-.btn-ig{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff;padding:7px 14px;border-radius:999px;font:700 .84rem var(--body);text-decoration:none;transition:opacity .2s}
+.btn-yt svg{width:15px;height:15px;fill:currentColor}
+.btn-ig{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff;padding:7px 14px;border-radius:999px;font:700 .82rem var(--body);text-decoration:none;transition:opacity .2s}
 .btn-ig:hover{opacity:.9}
 .btn-ig svg{width:15px;height:15px;fill:currentColor}
-.yt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:14px}
-.yt-card{all:unset;cursor:pointer;display:grid;gap:8px;background:var(--bg);border:1px solid var(--line);border-radius:12px;overflow:hidden;padding:10px;align-content:start;transition:transform .2s,border-color .2s,box-shadow .2s}
-.yt-card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 6px 20px rgba(0,0,0,.07)}
+.yt-swipe-hint{display:none;font:600 .76rem var(--mono);color:var(--accent);align-items:center;gap:6px}
+.yt-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:740px){
+  .yt-swipe-hint{display:inline-flex}
+  .yt-grid{
+    grid-template-columns:none;
+    grid-auto-flow:column;
+    grid-auto-columns:min(78dvw,280px);
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    scroll-padding-inline:4px;
+    padding-bottom:8px;
+    scrollbar-width:thin;
+  }
+}
+.yt-card{all:unset;cursor:pointer;scroll-snap-align:start;display:grid;gap:8px;background:var(--bg);border:1px solid var(--line);border-radius:12px;overflow:hidden;padding:10px;align-content:start;transition:transform .2s,border-color .2s,box-shadow .2s}
+.yt-card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:var(--shadow)}
 .yt-thumb{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:16/9;background:#000}
 .yt-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}
 .yt-card:hover .yt-thumb img{transform:scale(1.04)}
@@ -225,10 +313,12 @@ dialog .close{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));right
 .yt-card:hover .yt-play{background:rgba(0,0,0,.1)}
 .yt-play span{width:42px;height:42px;border-radius:50%;background:rgba(204,0,0,.92);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.35)}
 .yt-play svg{width:18px;height:18px;fill:#fff;margin-left:2px}
-.yt-dur{position:absolute;bottom:6px;right:6px;background:rgba(0,0,0,.82);color:#fff;font:500 .72rem var(--mono);padding:2px 6px;border-radius:4px}
-.yt-meta{font:500 .73rem var(--mono);color:var(--muted);display:flex;justify-content:space-between;gap:6px}
+.yt-dur{position:absolute;bottom:6px;right:6px;background:rgba(0,0,0,.84);color:#fff;font:500 .72rem var(--mono);padding:2px 6px;border-radius:4px}
+.yt-meta{font:600 .72rem var(--mono);color:var(--muted);display:flex;justify-content:space-between;align-items:center;gap:6px}
+.yt-badge{padding:2px 7px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.yt-badge.short{background:var(--gold-soft);color:var(--gold)}
 .yt-title{font-weight:700;font-size:.9rem;line-height:1.35;color:var(--fg);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-#ytModal{width:min(94vw,840px);max-width:840px;background:transparent;border:none;padding:0}
+#ytModal{width:min(94dvw,840px);max-width:840px;background:transparent;border:none;padding:0}
 .yt-player-wrap{position:relative;aspect-ratio:16/9;width:100%;background:#000;border-radius:12px;overflow:hidden;box-shadow:0 12px 36px rgba(0,0,0,.5)}
 .yt-player-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
 
@@ -237,12 +327,22 @@ dialog .close{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));right
 .dorm-strip button{all:unset;cursor:zoom-in;border-radius:10px;overflow:hidden;border:1px solid var(--line)}
 .dorm-strip img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;transition:transform .2s}
 .dorm-strip button:hover img{transform:scale(1.03)}
-@media (max-width:560px){.dorm-strip{grid-template-columns:1fr}}
+@media (max-width:520px){.dorm-strip{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}}
 
-ul.plain{margin:0;padding-left:1.1em;display:grid;gap:10px;max-width:65ch}
+/* Book categories 2x2 grid */
+.book-cats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:4px}
+@media (max-width:640px){.book-cats{grid-template-columns:1fr}}
+.book-cat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:grid;gap:6px;align-content:start;box-shadow:var(--shadow)}
+.book-cat b{font-size:.98rem;color:var(--fg)}
+.book-cat span{font-size:.88rem;color:var(--muted);line-height:1.48}
+.btn-switch-year{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:var(--bg);padding:10px 18px;border-radius:10px;font:700 .9rem var(--body);margin-top:4px;width:fit-content}
+.btn-switch-year:hover{opacity:.92}
+
+ul.plain{margin:0;padding:18px 22px 18px 34px;background:var(--surface);border:1px solid var(--line);border-radius:14px;display:grid;gap:10px;max-width:none;box-shadow:var(--shadow)}
+ul.plain li{color:var(--fg);font-size:.95rem}
 ul.plain li::marker{color:var(--accent)}
-footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;font-size:.92rem;color:var(--muted)}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+footer{border-top:1px solid var(--line);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px 24px;font-size:.9rem;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 
 <div class="wrap">
@@ -278,9 +378,9 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
     <h1><span data-l="en">Baitul Qowwam Orphanage<br>Grant Report 2026</span><span data-l="id">Panti Asuhan Baitul Qowwam<br>Laporan Hibah 2026</span><span data-l="jv">Panti Asuhan Baitul Qowwam<br>Laporan Hibah 2026</span></h1>
     <p class="lead"><span data-l="en">How the USD 5,000 grant from GM Children Foundation was spent on the girls' dormitory, documentation cameras and AI learning tools, and what comes next.</span><span data-l="id">Penggunaan hibah USD 5.000 dari GM Children Foundation untuk asrama putri, kamera dokumentasi, dan perangkat belajar AI, serta rencana berikutnya.</span><span data-l="jv">Panganggening hibah USD 5.000 saking GM Children Foundation kangge asrama putri, kamera dokumentasi, saha piranti sinau AI, ugi rancangan salajengipun.</span></p>
     <div class="meta">
-      <span><span data-l="en">Grantee</span><span data-l="id">Penerima</span><span data-l="jv">Ingkang nampi</span> <b>Panti Asuhan Baitul Qowwam</b>, Tempel, Sleman, Yogyakarta</span>
-      <span><span data-l="en">Agreement <b>26 June 2026</b></span><span data-l="id">Perjanjian <b>26 Juni 2026</b></span><span data-l="jv">Prajanjian <b>26 Juni 2026</b></span></span>
-      <span><span data-l="en">Report due <b>15 December 2026</b></span><span data-l="id">Batas laporan <b>15 Desember 2026</b></span><span data-l="jv">Wates laporan <b>15 Desember 2026</b></span></span>
+      <span><span data-l="en">Grantee:</span><span data-l="id">Penerima:</span><span data-l="jv">Ingkang nampi:</span> <b>Panti Asuhan Baitul Qowwam</b>, Tempel, Sleman, Yogyakarta</span>
+      <span><span data-l="en">Agreement: <b>26 June 2026</b></span><span data-l="id">Perjanjian: <b>26 Juni 2026</b></span><span data-l="jv">Prajanjian: <b>26 Juni 2026</b></span></span>
+      <span><span data-l="en">Report due: <b>15 December 2026</b></span><span data-l="id">Batas laporan: <b>15 Desember 2026</b></span><span data-l="jv">Wates laporan: <b>15 Desember 2026</b></span></span>
     </div>
   </div>
 
@@ -288,32 +388,39 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
     <h1><span data-l="en">Baitul Qowwam Orphanage<br>Grant Report 2025</span><span data-l="id">Panti Asuhan Baitul Qowwam<br>Laporan Hibah 2025</span><span data-l="jv">Panti Asuhan Baitul Qowwam<br>Laporan Hibah 2025</span></h1>
     <p class="lead"><span data-l="en">How the first USD 6,200 grant from GM Children Foundation established our 10-PC Digital Learning Lab, gigabit WiFi 6 network, projector, and 178-book Library Collection.</span><span data-l="id">Penggunaan hibah pertama USD 6.200 dari GM Children Foundation untuk membangun Lab Digital 10 unit PC, jaringan WiFi 6 Gigabit, proyektor, serta Perpustakaan 178 koleksi buku.</span><span data-l="jv">Panganggening hibah sepisanan USD 6.200 saking GM Children Foundation kangge mbangun Lab Digital 10 unit PC, jaringan WiFi 6 Gigabit, proyektor, saha Perpustakaan 178 koleksi buku.</span></p>
     <div class="meta">
-      <span><span data-l="en">Grantee</span><span data-l="id">Penerima</span><span data-l="jv">Ingkang nampi</span> <b>Panti Asuhan Baitul Qowwam</b>, Tempel, Sleman, Yogyakarta</span>
-      <span><span data-l="en">Agreement <b>17 September 2025</b></span><span data-l="id">Perjanjian <b>17 September 2025</b></span><span data-l="jv">Prajanjian <b>17 September 2025</b></span></span>
-      <span><span data-l="en">Report due <b>15 December 2025</b></span><span data-l="id">Batas laporan <b>15 Desember 2025</b></span><span data-l="jv">Wates laporan <b>15 Desember 2025</b></span></span>
+      <span><span data-l="en">Grantee:</span><span data-l="id">Penerima:</span><span data-l="jv">Ingkang nampi:</span> <b>Panti Asuhan Baitul Qowwam</b>, Tempel, Sleman, Yogyakarta</span>
+      <span><span data-l="en">Agreement: <b>17 September 2025</b></span><span data-l="id">Perjanjian: <b>17 September 2025</b></span><span data-l="jv">Prajanjian: <b>17 September 2025</b></span></span>
+      <span><span data-l="en">Report due: <b>15 December 2025</b></span><span data-l="id">Batas laporan: <b>15 Desember 2025</b></span><span data-l="jv">Wates laporan: <b>15 Desember 2025</b></span></span>
     </div>
   </div>
 </header>
 
-<nav aria-label="Sections" data-y="2026">
-  <a href="#summary"><span data-l="en">Summary</span><span data-l="id">Ringkasan</span><span data-l="jv">Ringkesan</span></a>
-  <a href="#dormitory"><span data-l="en">Dormitory</span><span data-l="id">Asrama</span><span data-l="jv">Asrama</span></a>
-  <a href="#funds"><span data-l="en">Use of funds</span><span data-l="id">Penggunaan dana</span><span data-l="jv">Panganggening dana</span></a>
-  <a href="#receipts"><span data-l="en">Receipts</span><span data-l="id">Nota</span><span data-l="jv">Nota</span></a>
-  <a href="#timeline"><span data-l="en">Timeline</span><span data-l="id">Linimasa</span><span data-l="jv">Urutan wekdal</span></a>
-  <a href="#programs"><span data-l="en">In use</span><span data-l="id">Pemanfaatan</span><span data-l="jv">Pigunanipun</span></a>
-  <a href="#lessons"><span data-l="en">Lessons</span><span data-l="id">Evaluasi</span><span data-l="jv">Evaluasi</span></a>
-  <a href="#next"><span data-l="en">What's next</span><span data-l="id">Rencana</span><span data-l="jv">Rancangan</span></a>
-</nav>
+<div class="nav-shell">
+  <nav aria-label="Sections" data-y="2026">
+    <a href="#summary"><span data-l="en">Summary</span><span data-l="id">Ringkasan</span><span data-l="jv">Ringkesan</span></a>
+    <a href="#dormitory"><span data-l="en">Dormitory</span><span data-l="id">Asrama</span><span data-l="jv">Asrama</span></a>
+    <a href="#funds"><span data-l="en">Use of funds</span><span data-l="id">Penggunaan dana</span><span data-l="jv">Panganggening dana</span></a>
+    <a href="#receipts"><span data-l="en">Receipts</span><span data-l="id">Nota</span><span data-l="jv">Nota</span></a>
+    <a href="#timeline"><span data-l="en">Timeline</span><span data-l="id">Linimasa</span><span data-l="jv">Urutan wekdal</span></a>
+    <a href="#programs"><span data-l="en">In use</span><span data-l="id">Pemanfaatan</span><span data-l="jv">Pigunanipun</span></a>
+    <a href="#lessons"><span data-l="en">Lessons</span><span data-l="id">Evaluasi</span><span data-l="jv">Evaluasi</span></a>
+    <a href="#next"><span data-l="en">What's next</span><span data-l="id">Rencana</span><span data-l="jv">Rancangan</span></a>
+  </nav>
 
-<nav aria-label="Sections 2025" data-y="2025">
-  <a href="#summary-2025"><span data-l="en">Summary</span><span data-l="id">Ringkasan</span><span data-l="jv">Ringkesan</span></a>
-  <a href="#library-2025"><span data-l="en">Library &amp; Lab</span><span data-l="id">Perpustakaan &amp; Lab</span><span data-l="jv">Perpustakaan &amp; Lab</span></a>
-  <a href="#funds-2025"><span data-l="en">Use of funds</span><span data-l="id">Penggunaan dana</span><span data-l="jv">Panganggening dana</span></a>
-  <a href="#books-2025"><span data-l="en">Book collection</span><span data-l="id">Koleksi buku</span><span data-l="jv">Koleksi buku</span></a>
-  <a href="#receipts-2025"><span data-l="en">Receipts</span><span data-l="id">Nota</span><span data-l="jv">Nota</span></a>
-  <a href="#impact-2025"><span data-l="en">Impact &amp; 2026</span><span data-l="id">Dampak &amp; 2026</span><span data-l="jv">Dampak &amp; 2026</span></a>
-</nav>
+  <nav aria-label="Sections 2025" data-y="2025">
+    <a href="#summary-2025"><span data-l="en">Summary</span><span data-l="id">Ringkasan</span><span data-l="jv">Ringkesan</span></a>
+    <a href="#library-2025"><span data-l="en">Library &amp; Lab</span><span data-l="id">Perpustakaan &amp; Lab</span><span data-l="jv">Perpustakaan &amp; Lab</span></a>
+    <a href="#funds-2025"><span data-l="en">Use of funds</span><span data-l="id">Penggunaan dana</span><span data-l="jv">Panganggening dana</span></a>
+    <a href="#books-2025"><span data-l="en">Book collection</span><span data-l="id">Koleksi buku</span><span data-l="jv">Koleksi buku</span></a>
+    <a href="#receipts-2025"><span data-l="en">Receipts</span><span data-l="id">Nota</span><span data-l="jv">Nota</span></a>
+    <a href="#impact-2025"><span data-l="en">Impact &amp; 2026</span><span data-l="id">Dampak &amp; 2026</span><span data-l="jv">Dampak &amp; 2026</span></a>
+  </nav>
+
+  <div class="nav-quick" aria-label="Quick Year Switch">
+    <button type="button" data-setyear="2026" id="quick2026" aria-pressed="true">2026</button>
+    <button type="button" data-setyear="2025" id="quick2025" aria-pressed="false">2025</button>
+  </div>
+</div>
 
 <div data-y="2026" style="display:contents">
 <section id="summary">
@@ -375,13 +482,13 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
 
 <section id="funds">
   <span class="eyebrow"><span data-l="en">Use of funds</span><span data-l="id">Penggunaan dana</span><span data-l="jv">Panganggening dana</span></span>
-  <h2><span data-l="en">Planned vs. actual</span><span data-l="id">Rencana vs. realisasi</span><span data-l="jv">Rancangan vs. kasunyatan</span></h2>
+  <h2 id="funds-2026-heading"><span data-l="en">Planned vs. actual</span><span data-l="id">Rencana vs. realisasi</span><span data-l="jv">Rancangan vs. kasunyatan</span></h2>
   <p data-l="en">Planned amounts come from the appendix of the grant agreement. Bars are drawn to one scale.</p>
   <p data-l="id">Angka rencana diambil dari lampiran perjanjian hibah. Semua batang digambar dengan skala yang sama.</p><p data-l="jv">Angka rancangan dipun pendhet saking lampiran prajanjian hibah. Sedaya grafik dipun gambar kanthi skala ingkang sami.</p>
   <div class="legend"><span><i class="sw" style="background:var(--plan)"></i><span data-l="en">Planned</span><span data-l="id">Rencana</span><span data-l="jv">Rancangan</span></span><span><i class="sw" style="background:var(--accent)"></i><span data-l="en">Actual</span><span data-l="id">Realisasi</span><span data-l="jv">Kasunyatan</span></span></div>
   <div class="rows" id="bars"></div>
 
-  <div class="tablebox">
+  <div class="tablebox" tabindex="0" role="region" aria-labelledby="funds-2026-heading">
     <table>
       <thead><tr>
         <th><span data-l="en">Item</span><span data-l="id">Barang</span><span data-l="jv">Barang</span></th>
@@ -391,15 +498,15 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
         <th class="num">Total (Rp)</th>
       </tr></thead>
       <tbody>
-        <tr><td><span data-l="en">Bunk beds</span><span data-l="id">Ranjang tingkat</span><span data-l="jv">Ranjang susun</span><span class="by"><span data-l="en">Paid by Pak Aris</span><span data-l="id">Dibayar Pak Aris</span><span data-l="jv">Dipun bayar Pak Aris</span></span></td><td>Bed Activ Avanti Maldives BB 90 B Black, Margo Murah Baru</td><td class="num">15</td><td class="num" data-n="2800000"></td><td class="num" data-n="42000000"></td></tr>
-        <tr><td><span data-l="en">Foam mattresses</span><span data-l="id">Kasur busa</span><span data-l="jv">Kasur busa</span><span class="by"><span data-l="en">Paid by Pak Aris</span><span data-l="id">Dibayar Pak Aris</span><span data-l="jv">Dipun bayar Pak Aris</span></span></td><td>EON 90 × 10, Central-foam</td><td class="num">30</td><td class="num" data-n="500000"></td><td class="num" data-n="15000000"></td></tr>
-        <tr><td><span data-l="en">Mattress shipping</span><span data-l="id">Ongkir kasur busa</span><span data-l="jv">Ongkos kirim kasur busa</span><span class="by"><span data-l="en">Paid by Pak Aris</span><span data-l="id">Dibayar Pak Aris</span><span data-l="jv">Dipun bayar Pak Aris</span></span></td><td><span data-l="en">Central-foam, Tangerang to Yogyakarta</span><span data-l="id">Central-foam, Tangerang ke Yogyakarta</span><span data-l="jv">Central-foam, Tangerang dhateng Yogyakarta</span></td><td class="num">1</td><td class="num" data-n="1067000"></td><td class="num" data-n="1067000"></td></tr>
-        <tr><td><span data-l="en">Folding mattresses</span><span data-l="id">Kasur lipat</span><span data-l="jv">Kasur lempit</span><span class="by"><span data-l="en">Paid by Yusuf</span><span data-l="id">Dibayar Yusuf</span><span data-l="jv">Dipun bayar Yusuf</span></span></td><td>Olympic × Soteria, Soteria Official Store</td><td class="num">22</td><td class="num" data-n="142636"></td><td class="num" data-n="3138000"></td></tr>
-        <tr><td><span data-l="en">Camera</span><span data-l="id">Kamera</span><span data-l="jv">Kamera</span><span class="by"><span data-l="en">Paid by Yusuf</span><span data-l="id">Dibayar Yusuf</span><span data-l="jv">Dipun bayar Yusuf</span></span></td><td>DJI Osmo Pocket 4, Creator Combo</td><td class="num">1</td><td class="num" data-n="9311000"></td><td class="num" data-n="9311000"></td></tr>
-        <tr><td><span data-l="en">Camera</span><span data-l="id">Kamera</span><span data-l="jv">Kamera</span><span class="by"><span data-l="en">Paid by Yusuf</span><span data-l="id">Dibayar Yusuf</span><span data-l="jv">Dipun bayar Yusuf</span></span></td><td>DJI Osmo Pocket 4P, Vlog Combo</td><td class="num">1</td><td class="num" data-n="11001000"></td><td class="num" data-n="11001000"></td></tr>
-        <tr><td><span data-l="en">AI subscription, 1 year</span><span data-l="id">Langganan AI, 1 tahun</span><span data-l="jv">Langganan AI, 1 taun</span><span class="by"><span data-l="en">Paid by Yusuf</span><span data-l="id">Dibayar Yusuf</span><span data-l="jv">Dipun bayar Yusuf</span></span></td><td><span data-l="en">Claude Pro, via Google Play</span><span data-l="id">Claude Pro, lewat Google Play</span><span data-l="jv">Claude Pro, lumantar Google Play</span></td><td class="num">1</td><td class="num" data-n="4183812"></td><td class="num" data-n="4183812"></td></tr>
-        <tr><td><span data-l="en">AI subscription, 1 year</span><span data-l="id">Langganan AI, 1 tahun</span><span data-l="jv">Langganan AI, 1 taun</span><span class="by"><span data-l="en">Paid by Yusuf</span><span data-l="id">Dibayar Yusuf</span><span data-l="jv">Dipun bayar Yusuf</span></span></td><td><span data-l="en">Google AI Premium (Google One, family plan, 2 TB)</span><span data-l="id">Google AI Premium (Google One, paket keluarga, 2 TB)</span><span data-l="jv">Google AI Premium (Google One, paket kulawarga, 2 TB)</span></td><td class="num">1</td><td class="num" data-n="2551890"></td><td class="num" data-n="2551890"></td></tr>
-        <tr><td><span data-l="en">TWS AI headsets</span><span data-l="id">Headset TWS AI</span><span data-l="jv">Headset TWS AI</span><span class="by"><span data-l="en">Paid by Yusuf</span><span data-l="id">Dibayar Yusuf</span><span data-l="jv">Dipun bayar Yusuf</span></span></td><td>Aitu 06 Open Ear (AI translator, 3 silver + 4 black), Aitu Official Store</td><td class="num">7</td><td class="num" data-n="125940"></td><td class="num" data-n="881580"></td></tr>
+        <tr><th scope="row"><span data-l="en">Bunk beds</span><span data-l="id">Ranjang tingkat</span><span data-l="jv">Ranjang susun</span><span class="by"><span data-l="en">Paid by Pak Aris</span><span data-l="id">Dibayar Pak Aris</span><span data-l="jv">Dipun bayar Pak Aris</span></span></th><td>Bed Activ Avanti Maldives BB 90 B Black, Margo Murah Baru</td><td class="num">15</td><td class="num" data-n="2800000"></td><td class="num" data-n="42000000"></td></tr>
+        <tr><th scope="row"><span data-l="en">Foam mattresses</span><span data-l="id">Kasur busa</span><span data-l="jv">Kasur busa</span><span class="by"><span data-l="en">Paid by Pak Aris</span><span data-l="id">Dibayar Pak Aris</span><span data-l="jv">Dipun bayar Pak Aris</span></span></th><td>EON 90 × 10, Central-foam</td><td class="num">30</td><td class="num" data-n="500000"></td><td class="num" data-n="15000000"></td></tr>
+        <tr><th scope="row"><span data-l="en">Mattress shipping</span><span data-l="id">Ongkir kasur busa</span><span data-l="jv">Ongkos kirim kasur busa</span><span class="by"><span data-l="en">Paid by Pak Aris</span><span data-l="id">Dibayar Pak Aris</span><span data-l="jv">Dipun bayar Pak Aris</span></span></th><td><span data-l="en">Central-foam, Tangerang to Yogyakarta</span><span data-l="id">Central-foam, Tangerang ke Yogyakarta</span><span data-l="jv">Central-foam, Tangerang dhateng Yogyakarta</span></td><td class="num">1</td><td class="num" data-n="1067000"></td><td class="num" data-n="1067000"></td></tr>
+        <tr><th scope="row"><span data-l="en">Folding mattresses</span><span data-l="id">Kasur lipat</span><span data-l="jv">Kasur lempit</span><span class="by"><span data-l="en">Paid by Yusuf</span><span data-l="id">Dibayar Yusuf</span><span data-l="jv">Dipun bayar Yusuf</span></span></th><td>Olympic × Soteria, Soteria Official Store</td><td class="num">22</td><td class="num" data-n="142636"></td><td class="num" data-n="3138000"></td></tr>
+        <tr><th scope="row"><span data-l="en">Camera</span><span data-l="id">Kamera</span><span data-l="jv">Kamera</span><span class="by"><span data-l="en">Paid by Yusuf</span><span data-l="id">Dibayar Yusuf</span><span data-l="jv">Dipun bayar Yusuf</span></span></th><td>DJI Osmo Pocket 4, Creator Combo</td><td class="num">1</td><td class="num" data-n="9311000"></td><td class="num" data-n="9311000"></td></tr>
+        <tr><th scope="row"><span data-l="en">Camera</span><span data-l="id">Kamera</span><span data-l="jv">Kamera</span><span class="by"><span data-l="en">Paid by Yusuf</span><span data-l="id">Dibayar Yusuf</span><span data-l="jv">Dipun bayar Yusuf</span></span></th><td>DJI Osmo Pocket 4P, Vlog Combo</td><td class="num">1</td><td class="num" data-n="11001000"></td><td class="num" data-n="11001000"></td></tr>
+        <tr><th scope="row"><span data-l="en">AI subscription, 1 year</span><span data-l="id">Langganan AI, 1 tahun</span><span data-l="jv">Langganan AI, 1 taun</span><span class="by"><span data-l="en">Paid by Yusuf</span><span data-l="id">Dibayar Yusuf</span><span data-l="jv">Dipun bayar Yusuf</span></span></th><td><span data-l="en">Claude Pro, via Google Play</span><span data-l="id">Claude Pro, lewat Google Play</span><span data-l="jv">Claude Pro, lumantar Google Play</span></td><td class="num">1</td><td class="num" data-n="4183812"></td><td class="num" data-n="4183812"></td></tr>
+        <tr><th scope="row"><span data-l="en">AI subscription, 1 year</span><span data-l="id">Langganan AI, 1 tahun</span><span data-l="jv">Langganan AI, 1 taun</span><span class="by"><span data-l="en">Paid by Yusuf</span><span data-l="id">Dibayar Yusuf</span><span data-l="jv">Dipun bayar Yusuf</span></span></th><td><span data-l="en">Google AI Premium (Google One, family plan, 2 TB)</span><span data-l="id">Google AI Premium (Google One, paket keluarga, 2 TB)</span><span data-l="jv">Google AI Premium (Google One, paket kulawarga, 2 TB)</span></td><td class="num">1</td><td class="num" data-n="2551890"></td><td class="num" data-n="2551890"></td></tr>
+        <tr><th scope="row"><span data-l="en">TWS AI headsets</span><span data-l="id">Headset TWS AI</span><span data-l="jv">Headset TWS AI</span><span class="by"><span data-l="en">Paid by Yusuf</span><span data-l="id">Dibayar Yusuf</span><span data-l="jv">Dipun bayar Yusuf</span></span></th><td>Aitu 06 Open Ear (AI translator, 3 silver + 4 black), Aitu Official Store</td><td class="num">7</td><td class="num" data-n="125940"></td><td class="num" data-n="881580"></td></tr>
       </tbody>
       <tfoot>
         <tr><td colspan="4"><span data-l="en">Total spent</span><span data-l="id">Total belanja</span><span data-l="jv">Gunggung blanja</span></td><td class="num" data-n="89134282"></td></tr>
@@ -492,6 +599,11 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
             <p data-l="en">Daily operational cash-flow tracking and board supervisory dashboard across three branches (Boys' Dormitory, Girls' Dormitory, and Logistics). Features natural-language voice &amp; text transaction parsing powered by Gemini AI.</p>
             <p data-l="id">Sistem pencatatan arus kas operasional harian dan dashboard pengawasan pengurus untuk tiga cabang (Asrama Putra, Asrama Putri, dan Logistik). Dilengkapi fitur input transaksi suara &amp; teks bahasa alami berbasis Gemini AI.</p>
             <p data-l="jv">Sistem pambukuan arus kas operasional padintenan lan dashboard pengawasan pengurus kangge tiga cabang (Asrama Putra, Asrama Putri, lan Logistik) kanthi fitur input transaksi swanten &amp; teks basa alami berbasis Gemini AI.</p>
+            <div class="spec-pills">
+              <span class="spec-pill">Gemini AI Voice &amp; Text</span>
+              <span class="spec-pill">3 Dorm Branches</span>
+              <span class="spec-pill">Firebase</span>
+            </div>
             <div class="car-actions">
               <a href="https://cuantracker-me.web.app/about" target="_blank" rel="noopener" class="btn-about"><span data-l="en">Open CuanTracker Overview &rarr;</span><span data-l="id">Buka Panduan CuanTracker &rarr;</span><span data-l="jv">Bikak Katrangan CuanTracker &rarr;</span></a>
             </div>
@@ -510,6 +622,11 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
             <p data-l="en">Progressive Web App supporting small construction &amp; renovation businesses run by Baitul Qowwam alumni. Combines field expense logging, AI OCR hardware-store receipt scanning, and transparent client progress reports.</p>
             <p data-l="id">Aplikasi web progresif (PWA) untuk mendukung usaha jasa konstruksi dan renovasi milik alumni Baitul Qowwam. Memadukan pencatatan kas lapangan, pemindaian nota toko bangunan otomatis dengan AI OCR, dan transparansi progres proyek.</p>
             <p data-l="jv">Aplikasi web progresif (PWA) kangge njurung usaha jasa konstruksi lan renovasi kagunganipun alumni Baitul Qowwam, nyawijekaken pambukuan lapangan, AI OCR nota toko bangunan, lan transparansi progres proyek.</p>
+            <div class="spec-pills">
+              <span class="spec-pill">AI Receipt OCR</span>
+              <span class="spec-pill">Client Progress Portal</span>
+              <span class="spec-pill">PWA · Vercel</span>
+            </div>
             <div class="car-actions">
               <a href="https://bangunkas-five.vercel.app/about" target="_blank" rel="noopener" class="btn-about"><span data-l="en">Open BangunKas Overview &rarr;</span><span data-l="id">Buka Panduan BangunKas &rarr;</span><span data-l="jv">Bikak Katrangan BangunKas &rarr;</span></a>
             </div>
@@ -528,6 +645,11 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
             <p data-l="en">Internal character-building &amp; dorm management system used by dedicated alumni caregivers (<i>Pengabdian</i>). Unites daily prayer tracking, a 114-surah audio murottal Quran, physical fitness challenges, and 9-zone dormitory picket schedules.</p>
             <p data-l="id">Sistem pembinaan diri dan operasional asrama yang dipegang oleh para alumni pengabdian. Memadukan pelacakan ibadah harian, Al-Qur'an digital audio murottal 114 surah, kebugaran fisik, serta rotasi piket 9 area pondok.</p>
             <p data-l="jv">Sistem pembinaan dhiri lan operasional asrama ingkang dipun asta dening para alumni pengabdian, nyawijekaken pelacakan ibadah, Al-Qur'an audio murottal 114 surah, kebugaran fisik, saha rotasi piket 9 area pondok.</p>
+            <div class="spec-pills">
+              <span class="spec-pill">114-Surah Murottal</span>
+              <span class="spec-pill">9-Zone Dorm Picket</span>
+              <span class="spec-pill">Supabase · Vercel</span>
+            </div>
             <div class="car-actions">
               <a href="https://level-up-alpha-six.vercel.app/about" target="_blank" rel="noopener" class="btn-about"><span data-l="en">Open Level Up Overview &rarr;</span><span data-l="id">Buka Panduan Level Up &rarr;</span><span data-l="jv">Bikak Katrangan Level Up &rarr;</span></a>
             </div>
@@ -546,6 +668,11 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
             <p data-l="en">3D multiplayer math education game played by foster children across the 10 Digital Lab PCs. Turns mental arithmetic drills (+, −, ×, ÷) into collaborative 3D arena play with Teacher Mode and automated student diagnostic reports.</p>
             <p data-l="id">Game edukasi matematika 3D multiplayer yang dimainkan anak-anak di 10 PC Lab Digital. Mengubah latihan hitung cepat (+, −, ×, ÷) menjadi permainan kolaboratif seru lengkap dengan Mode Guru dan laporan diagnostik siswa.</p>
             <p data-l="jv">Game edukasi matematika 3D multiplayer ingkang dipun mainaken lare-lare ing 10 PC Lab Digital, ngowahi gladhen etang cepet (+, −, ×, ÷) dados dolanan kolaboratif kanthi Mode Guru lan laporan diagnostik siswa.</p>
+            <div class="spec-pills">
+              <span class="spec-pill">3D WebGL Multiplayer</span>
+              <span class="spec-pill">Teacher Diagnostics</span>
+              <span class="spec-pill">Render</span>
+            </div>
             <div class="car-actions">
               <a href="https://math-strike.onrender.com/about" target="_blank" rel="noopener" class="btn-about"><span data-l="en">Open Math Strike Overview &rarr;</span><span data-l="id">Buka Panduan Math Strike &rarr;</span><span data-l="jv">Bikak Katrangan Math Strike &rarr;</span></a>
             </div>
@@ -564,6 +691,11 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
             <p data-l="en">Built so the books funded by GM Children Foundation do not stop at Baitul Qowwam alone, but also benefit anyone in the wider community who wishes to read. Visitors simply browse the online catalog, sign in with their account to record their loan, and visit Baitul Qowwam to pick up the book.</p>
             <p data-l="id">Dibuat agar koleksi buku dari GM Children Foundation tidak berhenti manfaatnya di internal Baitul Qowwam saja, tetapi juga bisa dipinjam oleh masyarakat luar. Peminjam cukup masuk dengan akun untuk pencatatan peminjaman di web, lalu datang langsung ke Baitul Qowwam untuk mengambil bukunya.</p>
             <p data-l="jv">Dipun damel supados manfaat koleksi buku saking GM Children Foundation mboten mandheg ing Baitul Qowwam kemawon, nanging ugi saged dipun sambut masyarakat umum. Ingkang badhe nyambut cekap mlebet akun kangge pencatatan ing web, lajeng rawuh dhateng Baitul Qowwam mendhet bukunipun.</p>
+            <div class="spec-pills">
+              <span class="spec-pill">178 Grant Books</span>
+              <span class="spec-pill">Public Borrowing Ledger</span>
+              <span class="spec-pill">Supabase · Vercel</span>
+            </div>
             <div class="car-actions">
               <a href="https://perpusbq.vercel.app/id" target="_blank" rel="noopener" class="btn-about"><span data-l="en">Open Perpus BQ Catalog &rarr;</span><span data-l="id">Buka Katalog Perpus BQ &rarr;</span><span data-l="jv">Bikak Katalog Perpus BQ &rarr;</span></a>
             </div>
@@ -582,6 +714,11 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
             <p data-l="en">Integrated point-of-sale and inventory system managing canteen stock and finances at Baitul Qowwam. Tracks food &amp; drink inventory with low-stock alerts, fast break-time cashiering, student/staff credit ledgers (<i>kasbon</i>), physical cash drawer reconciliation (banknotes + coins), and weekly profit analytics — with 100% of canteen net profits reinvested into student sports gear, books, and welfare.</p>
             <p data-l="id">Sistem manajemen stok barang dan keuangan kantin di Baitul Qowwam. Mengelola inventaris makanan/minuman beserta peringatan stok menipis, kasir POS cepat saat jam istirahat, buku kasbon (piutang) santri &amp; pengabdian, pencocokan uang fisik laci (kertas + koin), serta rekap laba mingguan otomatis — di mana 100% laba bersih kantin dikembalikan untuk alat olahraga, buku bacaan, dan apresiasi santri.</p>
             <p data-l="jv">Sistem manajemen stok dagangan lan keuangan kantin ing Baitul Qowwam. Ngelola inventaris dhaharan/unjukan kanthi pratandha stok telas, kasir POS cepet, buku kasbon santri &amp; pengabdian, pencocokan arta fisik laci (kertas + koin), saha rekap bathi mingguan — ingkang 100% bathi resik kantin dipun wangsulaken kangge piranti olahraga, buku waosan, lan kesejahteraan santri.</p>
+            <div class="spec-pills">
+              <span class="spec-pill">POS &amp; Stock Alerts</span>
+              <span class="spec-pill">Kasbon &amp; Cash Opname</span>
+              <span class="spec-pill">Flutter · Firebase</span>
+            </div>
             <div class="car-actions">
               <a href="https://superadmin-bq.web.app/about" target="_blank" rel="noopener" class="btn-about"><span data-l="en">Open Admin BQ Overview &rarr;</span><span data-l="id">Buka Panduan Admin BQ &rarr;</span><span data-l="jv">Bikak Katrangan Admin BQ &rarr;</span></a>
             </div>
@@ -614,6 +751,9 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
       <p data-l="id">Anak-anak dan tim media memanfaatkan dua kamera DJI Osmo Pocket untuk merekam pengajian rutin di Baitul Qowwam (<i>Kajian Kitab Ihya' 'Ulumuddin</i> bersama Bpk. H. Agus Triyanta, M.A., M.H., Ph.D) serta mengedit cuplikan pendek untuk Instagram Reels dan YouTube Shorts di Lab Digital. Klik video di bawah untuk memutar langsung:</p>
       <p data-l="jv">Lare-lare saha tim media ngginakaken kalih kamera DJI Osmo Pocket kangge ngrekam pengajian rutin ing Baitul Qowwam (<i>Kajian Kitab Ihya' 'Ulumuddin</i> kaliyan Bpk. H. Agus Triyanta, M.A., M.H., Ph.D) saha ngedit video cekak kangge Instagram Reels lan YouTube Shorts ing Lab Digital. Klik video ing ngandhap kangge muter langsung:</p>
 
+      <div class="yt-swipe-hint">
+        <span>&larr; <span data-l="en">Swipe sideways to browse 6 videos</span><span data-l="id">Geser ke samping untuk melihat 6 video</span><span data-l="jv">Geser mangiwa/manengen kangge mirsani 6 video</span> &rarr;</span>
+      </div>
       <div class="yt-grid" id="ytGrid" aria-live="polite"></div>
 
       <p class="uses"><b><span data-l="en">Equipment used:</span><span data-l="id">Perangkat yang dipakai:</span><span data-l="jv">Piranti ingkang dipun ginakaken:</span></b> DJI Osmo Pocket 4 (Creator Combo), DJI Osmo Pocket 4P (Vlog Combo), <span data-l="en">Digital Lab PCs for video editing</span><span data-l="id">komputer Lab Digital untuk editing video</span><span data-l="jv">komputer Lab Digital kangge ngedit video</span></p>
@@ -674,42 +814,64 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
   <p data-l="jv">Sesarengan kaliyan ngrembakanipun enem aplikasi web damelan alumni saha kemajengan sinau coding lan konten lare-lare, wonten sekawan lampah strategis salajengipun — wiwit saking panyampurnan website resmi yayasan, server mandiri, eksplorasi AI lokal, ngantos unit kewirausahaan:</p>
   <div class="progs">
     <article class="prog">
-      <span class="tag plan"><span data-l="en">In Progress · Web Revamp</span><span data-l="id">Sedang Berjalan · Pembaruan Web</span><span data-l="jv">Saweg Lumampah · Panyampurnan Web</span></span>
+      <span class="tag plan"><span data-l="en">1 · In Progress · Web Revamp</span><span data-l="id">1 · Sedang Berjalan · Pembaruan Web</span><span data-l="jv">1 · Saweg Lumampah · Panyampurnan Web</span></span>
       <h3><span data-l="en">Revamping the official Baitul Qowwam website</span><span data-l="id">Pembaruan website resmi Baitul Qowwam</span><span data-l="jv">Panyampurnan website resmi Baitul Qowwam</span></h3>
-      <p data-l="en">Our official foundation portal (<a href="https://www.baitulqowwam.org/" target="_blank" rel="noopener" class="mono">baitulqowwam.org</a>) still runs its older legacy version. We are currently redesigning and rebuilding it into a modern public portal for institutional branding, real-time public donation transparency, and unified access to our digital programs.</p>
-      <p data-l="id">Website resmi yayasan (<a href="https://www.baitulqowwam.org/" target="_blank" rel="noopener" class="mono">baitulqowwam.org</a>) saat ini masih menampilkan versi lama. Tim sedang merombak desain dan arsitekturnya agar menjadi portal informasi modern untuk profil panti, transparansi laporan donasi publik, serta pintu akses terpadu ke seluruh program digital Baitul Qowwam.</p>
-      <p data-l="jv">Website resmi yayasan (<a href="https://www.baitulqowwam.org/" target="_blank" rel="noopener" class="mono">baitulqowwam.org</a>) sapunika taksih nampilaken versi lami. Tim saweg ngrombak desain lan arsitekturipun dados portal modern kangge profil panti, transparansi laporan donasi publik, saha akses terpadu dhateng sedaya program digital Baitul Qowwam.</p>
+      <p data-l="en">Our official foundation portal (<a href="https://www.baitulqowwam.org/" target="_blank" rel="noopener" class="mono">baitulqowwam.org</a>) still runs its older legacy version. We are redesigning it into a modern public portal for institutional branding, public donation transparency, and unified access to all digital programs.</p>
+      <p data-l="id">Website resmi yayasan (<a href="https://www.baitulqowwam.org/" target="_blank" rel="noopener" class="mono">baitulqowwam.org</a>) saat ini masih menampilkan versi lama. Tim sedang merombak desain dan arsitekturnya menjadi portal informasi modern untuk profil panti, transparansi donasi publik, serta pintu akses ke seluruh program digital Baitul Qowwam.</p>
+      <p data-l="jv">Website resmi yayasan (<a href="https://www.baitulqowwam.org/" target="_blank" rel="noopener" class="mono">baitulqowwam.org</a>) sapunika taksih nampilaken versi lami. Tim saweg ngrombak desainipun dados portal modern kangge profil panti, transparansi donasi publik, saha akses terpadu dhateng sedaya program digital panti.</p>
       <div class="app-item">
-        <div class="app-item-head"><b>baitulqowwam.org</b> <span class="tag wip"><span data-l="en">Legacy Live · Redesign in Progress</span><span data-l="id">Versi Lama Aktif · Sedang Diperbarui</span><span data-l="jv">Versi Lami Aktif · Saweg Dipun Anyaraken</span></span></div>
+        <div class="app-item-head"><b>baitulqowwam.org</b> <span class="tag wip"><span data-l="en">Legacy Live · Revamp in Progress</span><span data-l="id">Versi Lama Aktif · Sedang Diperbarui</span><span data-l="jv">Versi Lami Aktif · Saweg Dipun Anyaraken</span></span></div>
         <div class="app-item-desc">
-          <span data-l="en">Current legacy site is live at <a href="https://www.baitulqowwam.org/" target="_blank" rel="noopener" class="mono">https://www.baitulqowwam.org/</a> while the revamped version is being prepared.</span>
-          <span data-l="id">Versi lama yang akan diperbarui dapat diakses di <a href="https://www.baitulqowwam.org/" target="_blank" rel="noopener" class="mono">https://www.baitulqowwam.org/</a> sembari versi baru disiapkan.</span>
-          <span data-l="jv">Versi lami ingkang badhe dipun anyaraken saged dipun pirsani ing <a href="https://www.baitulqowwam.org/" target="_blank" rel="noopener" class="mono">https://www.baitulqowwam.org/</a> sinambi nyiapaken versi enggal.</span>
+          <span data-l="en">Current legacy site: <a href="https://www.baitulqowwam.org/" target="_blank" rel="noopener" class="mono">https://www.baitulqowwam.org/</a></span>
+          <span data-l="id">Situs versi lama saat ini: <a href="https://www.baitulqowwam.org/" target="_blank" rel="noopener" class="mono">https://www.baitulqowwam.org/</a></span>
+          <span data-l="jv">Situs versi lami sapunika: <a href="https://www.baitulqowwam.org/" target="_blank" rel="noopener" class="mono">https://www.baitulqowwam.org/</a></span>
         </div>
       </div>
     </article>
 
     <article class="prog">
-      <span class="tag plan"><span data-l="en">Infrastructure Roadmap · Self-Hosted Server</span><span data-l="id">Kebutuhan Infrastruktur · Server Mandiri</span><span data-l="jv">Kabetahan Infrastruktur · Server Mandiri</span></span>
-      <h3><span data-l="en">Consolidating free-tier databases onto a dedicated home server</span><span data-l="id">Konsolidasi database &amp; hosting gratis ke server mandiri</span><span data-l="jv">Konsolidasi database &amp; hosting gratis dhateng server mandiri</span></h3>
-      <p data-l="en">All six live applications (<i>CuanTracker</i>, <i>BangunKas</i>, <i>Level Up</i>, <i>Math Strike</i>, <i>Perpus BQ</i>, and <i>Admin BQ</i>) plus this grant portal currently rely on free-tier cloud plans across Firebase, Supabase, Vercel, Render, and GitHub. Because free tiers strictly cap the number of active projects and databases per account (for example, Supabase's 2-project free limit), our team is forced to split deployments across multiple separate accounts — making maintenance, backups, and unified authentication complex. Our goal is to build an on-premise home server at Baitul Qowwam (running Docker, self-hosted PostgreSQL/Supabase, and Cloudflare Tunnel) so all orphanage databases live under one roof without account fragmentation, though we are currently limited by server hardware.</p>
-      <p data-l="id">Seluruh enam aplikasi aktif (<i>CuanTracker</i>, <i>BangunKas</i>, <i>Level Up</i>, <i>Math Strike</i>, <i>Perpus BQ</i>, dan <i>Admin BQ</i>) serta laporan hibah ini masih menumpang di layanan <i>free tier</i> (versi gratis) Firebase, Supabase, Vercel, Render, dan GitHub. Karena versi gratis membatasi jumlah proyek per akun secara ketat (misalnya batas maksimal 2 proyek aktif di Supabase), tim terpaksa memecah database ke beberapa akun berbeda. Kami ingin membangun <b>Home Server mandiri</b> di Baitul Qowwam (berbasis Docker, PostgreSQL/Supabase self-hosted, dan Cloudflare Tunnel) agar seluruh database panti terpusat dalam satu server tanpa harus berpindah-pindah akun — namun saat ini masih terkendala ketersediaan perangkat keras server khusus.</p>
-      <p data-l="jv">Sedaya enem aplikasi aktif (<i>CuanTracker</i>, <i>BangunKas</i>, <i>Level Up</i>, <i>Math Strike</i>, <i>Perpus BQ</i>, lan <i>Admin BQ</i>) saha laporan menika taksih ngginakaken layanan gratis (<i>free tier</i>) Firebase, Supabase, Vercel, Render, lan GitHub. Awit versi gratis matesi cacahipun proyek saben akun, tim kepeksa nyebar database ing pinten-pinten akun. Kita gadhah rancangan mbangun <b>Home Server mandiri</b> ing Baitul Qowwam supados sedaya database panti nyawiji ing setunggal server, namung sapunika taksih winates ing piranti serveripun.</p>
+      <span class="tag plan"><span data-l="en">2 · Infrastructure · Self-Hosted Server</span><span data-l="id">2 · Kebutuhan Infrastruktur · Server Mandiri</span><span data-l="jv">2 · Kabetahan Infrastruktur · Server Mandiri</span></span>
+      <h3><span data-l="en">Consolidating free-tier databases onto a home server</span><span data-l="id">Konsolidasi database &amp; hosting gratis ke server mandiri</span><span data-l="jv">Konsolidasi database &amp; hosting gratis dhateng server mandiri</span></h3>
+      <p data-l="en">All 6 live apps currently rely on free-tier Firebase, Supabase, Vercel, Render, and GitHub. Strict per-account project caps (e.g., max 2 free projects on Supabase) force us to split databases across multiple separate accounts. We aim to build an on-premise home server at Baitul Qowwam so all databases and apps run under one roof, currently bottlenecked by dedicated server hardware.</p>
+      <p data-l="id">Keenam aplikasi aktif masih memakai versi gratis (<i>free tier</i>) Firebase, Supabase, Vercel, Render, dan GitHub. Karena batas ketat kuota proyek per akun (misal maksimal 2 proyek di Supabase), tim terpaksa memecah database ke beberapa akun berbeda. Kami ingin membangun <b>Home Server mandiri</b> di Baitul Qowwam agar seluruh database terpusat dalam satu server tanpa terpecah akun.</p>
+      <p data-l="jv">Sedaya enem aplikasi aktif taksih ngginakaken layanan gratis (<i>free tier</i>) Firebase, Supabase, Vercel, Render, lan GitHub. Awit wates proyek saben akun, tim kepeksa nyebar database ing pinten-pinten akun. Kita gadhah rancangan mbangun <b>Home Server mandiri</b> ing Baitul Qowwam supados sedaya database nyawiji ing setunggal server.</p>
+      <div class="app-item">
+        <div class="app-item-head"><b><span data-l="en">Cloud Free-Tier &rarr; Home Server</span><span data-l="id">Free-Tier Multi-Akun &rarr; 1 Home Server</span><span data-l="jv">Free-Tier Multi-Akun &rarr; 1 Home Server</span></b></div>
+        <div class="spec-pills">
+          <span class="spec-pill">Firebase + Supabase + Vercel + Render</span>
+          <span class="spec-pill target">Target: Docker + Self-Hosted PostgreSQL</span>
+        </div>
+      </div>
     </article>
 
     <article class="prog">
-      <span class="tag plan"><span data-l="en">AI Sustainability · Local AI &amp; GPU Hardware</span><span data-l="id">Kemandirian AI · Eksplorasi AI Lokal &amp; Spesifikasi PC</span><span data-l="jv">Kemandirian AI · Eksplorasi AI Lokal &amp; Spesifikasi PC</span></span>
-      <h3><span data-l="en">Exploring Local AI models beyond annual cloud subscriptions</span><span data-l="id">Eksplorasi AI Lokal melampaui batas langganan tahunan</span><span data-l="jv">Eksplorasi AI Lokal nglangkungi wates langganan taunan</span></h3>
-      <p data-l="en">Our current AI workflow and smart app features (voice transaction parsing in <i>CuanTracker</i>, receipt OCR in <i>BangunKas</i>, and coding mentorship) depend on 1-year cloud subscriptions to Claude Pro and Google AI Premium. To ensure long-term independence without recurring API/subscription fees, we want to run open-source <b>Local AI models</b> (via Ollama / vLLM for offline coding assistants, local OCR, and speech-to-text) directly inside the orphanage network. However, looking at the 2025 Digital Lab hardware specifications — <b>AMD Ryzen 5 5600GT with integrated Radeon Vega 7 graphics, 16GB shared DDR4 RAM, and no dedicated GPU (0 GB VRAM)</b> — those 10 classroom PCs are great for student coding lessons, but lack the GPU VRAM and memory bandwidth required to run local LLMs or act as a 24/7 AI inference server. Acquiring a dedicated GPU workstation/server is our key technical milestone ahead.</p>
-      <p data-l="id">Saat ini pembelajaran coding dan fitur cerdas di aplikasi panti (seperti <i>smart parsing</i> suara di <i>CuanTracker</i> dan <i>AI OCR</i> nota di <i>BangunKas</i>) masih bergantung pada langganan cloud tahunan (Claude Pro &amp; Gemini). Untuk kemandirian jangka panjang tanpa biaya langganan berulang, kami ingin mengeksplorasi <b>AI Lokal (Local LLM, OCR &amp; Speech-to-Text open-source)</b> yang berjalan langsung di jaringan lokal panti. Namun jika mencermati spesifikasi komputer Lab Digital dari Hibah 2025 — <b>AMD Ryzen 5 5600GT dengan grafis terintegrasi Radeon Vega 7, RAM 16GB DDR4 terbagi, tanpa kartu grafis diskrit (0 GB dedicated VRAM)</b> — ke-10 PC tersebut sangat ideal untuk belajar santri, tetapi belum mampu menjalankan model AI lokal (7B–14B parameter) sekaligus menjadi server 24 jam. Pengadaan 1 unit server/workstation dengan GPU khusus (VRAM 12GB–24GB) dan RAM 32GB–64GB menjadi fokus pengembangan infrastruktur ke depan.</p>
-      <p data-l="jv">Sapunika pasinaon coding lan fitur AI ing aplikasi panti taksih gumantung dhateng langganan cloud taunan (Claude Pro &amp; Gemini). Kangge kemandirian jangka panjang tanpa biaya langganan taunan, kita badhe ngembangaken <b>AI Lokal (Local LLM &amp; OCR open-source)</b> ing jaringan lokal panti. Ananging menawi ningali spesifikasi komputer Lab Digital saking Hibah 2025 — <b>AMD Ryzen 5 5600GT kanthi grafis integrasi Radeon Vega 7, RAM 16GB DDR4, tanpa GPU diskrit (0 GB VRAM)</b> — komputer menika sae kangge sinau santri, nanging dereng nyekapi kangge nglampahaken model AI lokal. Pramila, pengadaan unit server kanthi GPU khusus dados rancangan strategis salajengipun.</p>
+      <span class="tag plan"><span data-l="en">3 · AI Sustainability · Local AI Hardware</span><span data-l="id">3 · Kemandirian AI · Eksplorasi AI Lokal &amp; GPU</span><span data-l="jv">3 · Kemandirian AI · Eksplorasi AI Lokal &amp; GPU</span></span>
+      <h3><span data-l="en">Exploring Local AI beyond annual subscriptions</span><span data-l="id">Eksplorasi AI Lokal melampaui langganan tahunan</span><span data-l="jv">Eksplorasi AI Lokal nglangkungi langganan taunan</span></h3>
+      <p data-l="en">Smart features (voice parsing in <i>CuanTracker</i>, receipt OCR in <i>BangunKas</i>, and coding lessons) currently rely on 1-year Claude Pro &amp; Gemini subscriptions. To run open-source <b>Local AI models</b> (Ollama/vLLM) offline without recurring fees, we need a dedicated GPU server — as our 10 Digital Lab PCs from 2025 use integrated graphics without dedicated VRAM.</p>
+      <p data-l="id">Fitur cerdas di aplikasi panti dan kelas coding saat ini masih bergantung pada langganan tahunan Claude Pro &amp; Gemini. Untuk menjalankan <b>AI Lokal open-source</b> (LLM, OCR &amp; voice via Ollama) secara mandiri tanpa biaya langganan berulang, dibutuhkan workstation/server dengan GPU khusus — karena 10 PC Lab Digital Hibah 2025 masih memakai grafis terintegrasi tanpa VRAM khusus.</p>
+      <p data-l="jv">Fitur AI ing aplikasi panti lan kelas coding taksih gumantung langganan taunan Claude Pro &amp; Gemini. Kangge nglampahaken <b>AI Lokal open-source</b> (Ollama) tanpa biaya taunan, dipun betahaken server kanthi GPU khusus — awit 10 PC Lab Digital Hibah 2025 taksih ngginakaken grafis integrasi tanpa VRAM diskrit.</p>
+      <div class="app-item">
+        <div class="app-item-head"><b><span data-l="en">2025 Lab PC Spec vs. Local AI Need</span><span data-l="id">Spesifikasi PC 2025 vs. Kebutuhan AI Lokal</span><span data-l="jv">Spesifikasi PC 2025 vs. Kabetahan AI Lokal</span></b></div>
+        <div class="spec-pills">
+          <span class="spec-pill">Ryzen 5 5600GT · Vega 7 iGPU · 16GB RAM (0GB VRAM)</span>
+          <span class="spec-pill target">Target: Dedicated GPU 16–24GB VRAM + 32–64GB RAM</span>
+        </div>
+      </div>
     </article>
 
     <article class="prog">
-      <span class="tag plan"><span data-l="en">Planned · Entrepreneurship</span><span data-l="id">Rencana · Kewirausahaan</span><span data-l="jv">Rancangan · Kewirausahaan</span></span>
+      <span class="tag plan"><span data-l="en">4 · Planned · Entrepreneurship</span><span data-l="id">4 · Rencana · Kewirausahaan</span><span data-l="jv">4 · Rancangan · Kewirausahaan</span></span>
       <h3><span data-l="en">TikTok affiliate &amp; digital entrepreneurship unit</span><span data-l="id">Unit TikTok affiliate &amp; kewirausahaan digital</span><span data-l="jv">Unit TikTok affiliate &amp; kewirausahaan digital</span></h3>
-      <p data-l="en">An affiliate marketing unit run through the home's pengabdian (community service) program, using the cameras and content skills built here. It is a step toward the entrepreneurship training listed among the home's needs.</p>
-      <p data-l="id">Unit affiliate marketing yang dijalankan lewat program pengabdian Baitul Qowwam, memakai kamera dan keterampilan konten yang dibangun di sini. Ini menjadi langkah menuju pelatihan kewirausahaan yang tercantum dalam kebutuhan panti.</p><p data-l="jv">Unit affiliate marketing ingkang dipun lampahaken lumantar program pengabdian Baitul Qowwam, ngginakaken kamera lan kaprigelan konten ingkang dipun bangun wonten ngriki. Menika dados lampah tumuju pelatihan kewirausahaan ingkang kaserat ing kabetahan panti.</p>
+      <p data-l="en">An affiliate marketing and creative production unit run through the home's <i>pengabdian</i> (alumni community service) program, using the DJI Osmo Pocket cameras and video editing skills built in the Digital Lab.</p>
+      <p data-l="id">Unit affiliate marketing dan produksi kreatif yang dijalankan lewat program pengabdian Baitul Qowwam, memanfaatkan kamera DJI Osmo Pocket serta keterampilan editing video yang dibangun di Lab Digital.</p>
+      <p data-l="jv">Unit affiliate marketing lan produksi kreatif ingkang dipun lampahaken lumantar program pengabdian Baitul Qowwam, ngginakaken kamera DJI Osmo Pocket saha kaprigelan ngedit video ing Lab Digital.</p>
+      <div class="app-item">
+        <div class="app-item-head"><b><span data-l="en">Creative Economy Unit</span><span data-l="id">Unit Ekonomi Kreatif Santri &amp; Alumni</span><span data-l="jv">Unit Ekonomi Kreatif Santri &amp; Alumni</span></b></div>
+        <div class="spec-pills">
+          <span class="spec-pill">DJI Osmo Pocket 4 &amp; 4P</span>
+          <span class="spec-pill target">Target: Live Commerce &amp; Short Video Affiliate</span>
+        </div>
+      </div>
     </article>
   </div>
 </section>
@@ -760,14 +922,14 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
 
 <section id="funds-2025">
   <span class="eyebrow"><span data-l="en">Use of funds · 2025</span><span data-l="id">Penggunaan dana · 2025</span><span data-l="jv">Panganggening dana · 2025</span></span>
-  <h2><span data-l="en">Planned vs. actual (2025 Grant)</span><span data-l="id">Rencana vs. realisasi (Hibah 2025)</span><span data-l="jv">Rancangan vs. kasunyatan (Hibah 2025)</span></h2>
+  <h2 id="funds-2025-heading"><span data-l="en">Planned vs. actual (2025 Grant)</span><span data-l="id">Rencana vs. realisasi (Hibah 2025)</span><span data-l="jv">Rancangan vs. kasunyatan (Hibah 2025)</span></h2>
   <p data-l="en">The USD 6,200 grant was budgeted at Rp100,500,000 across two main allocations: Rp85,500,000 for the Digital Learning Lab and Rp15,000,000 for the Library &amp; Book Collection.</p>
   <p data-l="id">Hibah USD 6.200 dianggarkan senilai Rp100.500.000 dalam dua pos utama: Rp85.500.000 untuk Lab Pembelajaran Digital dan Rp15.000.000 untuk Perpustakaan &amp; Koleksi Buku.</p>
   <p data-l="jv">Hibah USD 6.200 dipun anggaraken Rp100.500.000 wonten ing kalih pos utama: Rp85.500.000 kangge Lab Pasinaon Digital lan Rp15.000.000 kangge Perpustakaan &amp; Koleksi Buku.</p>
   <div class="legend"><span><i class="sw" style="background:var(--plan)"></i><span data-l="en">Planned</span><span data-l="id">Rencana</span><span data-l="jv">Rancangan</span></span><span><i class="sw" style="background:var(--accent)"></i><span data-l="en">Actual</span><span data-l="id">Realisasi</span><span data-l="jv">Kasunyatan</span></span></div>
   <div class="rows" id="bars2025"></div>
 
-  <div class="tablebox">
+  <div class="tablebox" tabindex="0" role="region" aria-labelledby="funds-2025-heading">
     <table>
       <thead><tr>
         <th><span data-l="en">Item</span><span data-l="id">Barang</span><span data-l="jv">Barang</span></th>
@@ -777,15 +939,15 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
         <th class="num">Total (Rp)</th>
       </tr></thead>
       <tbody>
-        <tr><td><span data-l="en">Desktop PC sets</span><span data-l="id">Set PC Desktop</span><span data-l="jv">Set PC Desktop</span><span class="by"><span data-l="en">Digital Lab</span><span data-l="id">Lab Digital</span><span data-l="jv">Lab Digital</span></span></td><td>AMD Ryzen 5 5600GT, Asrock A520M/AC, 16GB DDR4 RGB, 512GB NVMe SSD, MSI 22" 100Hz Monitor, Keyboard &amp; Mouse, Win 11 (Red Rocket Computer)</td><td class="num">10</td><td class="num" data-n="6671000"></td><td class="num" data-n="66710000"></td></tr>
-        <tr><td><span data-l="en">Computer tables &amp; chairs</span><span data-l="id">Meja &amp; kursi komputer</span><span data-l="jv">Meja &amp; kursi komputer</span><span class="by"><span data-l="en">Digital Lab</span><span data-l="id">Lab Digital</span><span data-l="jv">Lab Digital</span></span></td><td><span data-l="en">120×59×74 cm iron/particle board table + chrome-leg padded chair</span><span data-l="id">Meja rangka besi 120×59×74 cm + kursi busa kaki chrome</span><span data-l="jv">Meja wesi 120×59×74 cm + kursi busa suku chrome</span></td><td class="num">10</td><td class="num" data-n="610000"></td><td class="num" data-n="6100000"></td></tr>
-        <tr><td><span data-l="en">Projector</span><span data-l="id">Proyektor</span><span data-l="jv">Proyektor</span><span class="by"><span data-l="en">Digital Lab</span><span data-l="id">Lab Digital</span><span data-l="jv">Lab Digital</span></span></td><td>Epson EB-E600 XGA 3400 Lumens</td><td class="num">1</td><td class="num" data-n="4970840"></td><td class="num" data-n="4970840"></td></tr>
-        <tr><td><span data-l="en">Lab bookshelf</span><span data-l="id">Rak buku Lab</span><span data-l="jv">Rak buku Lab</span><span class="by"><span data-l="en">Digital Lab</span><span data-l="id">Lab Digital</span><span data-l="jv">Lab Digital</span></span></td><td><span data-l="en">Custom wooden storage cabinet &amp; bookshelf</span><span data-l="id">Lemari rak buku kayu Lab Digital</span><span data-l="jv">Lemari rak buku kajeng Lab Digital</span></td><td class="num">1</td><td class="num" data-n="4550000"></td><td class="num" data-n="4550000"></td></tr>
-        <tr><td><span data-l="en">Gigabit &amp; WiFi 6 network package</span><span data-l="id">Paket jaringan Gigabit &amp; WiFi 6</span><span data-l="jv">Paket jaringan Gigabit &amp; WiFi 6</span><span class="by"><span data-l="en">Digital Lab</span><span data-l="id">Lab Digital</span><span data-l="jv">Lab Digital</span></span></td><td>TP-Link TL-SG1016D 16-Port Gigabit Switch, TP-Link Archer AX53 AX3000 Dual Band Gigabit WiFi 6 Router, Vention Cat6 UTP 305m Cable, 100× RJ45</td><td class="num">1</td><td class="num" data-n="2117791"></td><td class="num" data-n="2117791"></td></tr>
-        <tr><td><span data-l="en">Electrical installation</span><span data-l="id">Instalasi listrik Lab</span><span data-l="jv">Instalasi listrik Lab</span><span class="by"><span data-l="en">Digital Lab</span><span data-l="id">Lab Digital</span><span data-l="jv">Lab Digital</span></span></td><td><span data-l="en">NYM 2×1.5 cable (1 roll), 5× 4-gang sockets, 2× 1-gang sockets, Broco 10A MCB &amp; box</span><span data-l="id">Kabel NYM 2×1.5 (1 roll), 5 stopkontak 4 lubang, 2 stopkontak 1 lubang, MCB Broco 10A &amp; box</span><span data-l="jv">Kabel NYM 2×1.5 (1 roll), stopkontak, MCB Broco 10A &amp; box</span></td><td class="num">1</td><td class="num" data-n="724000"></td><td class="num" data-n="724000"></td></tr>
-        <tr><td><span data-l="en">Spiral cable sleeve &amp; LAN tool kit</span><span data-l="id">Pelindung kabel spiral &amp; tool kit LAN</span><span data-l="jv">Pelindung kabel spiral &amp; tool kit LAN</span><span class="by"><span data-l="en">Digital Lab</span><span data-l="id">Lab Digital</span><span data-l="jv">Lab Digital</span></span></td><td><span data-l="en">50m 25mm spiral cable wrap (Rp226,000) + PixelLink network repair tool kit (Rp132,240)</span><span data-l="id">Pelindung kabel spiral 25mm 50m (Rp226.000) + PixelLink network tool kit (Rp132.240)</span><span data-l="jv">Pelindung kabel spiral 25mm 50m (Rp226.000) + PixelLink network tool kit (Rp132.240)</span></td><td class="num">1</td><td class="num" data-n="358240"></td><td class="num" data-n="358240"></td></tr>
-        <tr><td><span data-l="en">Library book collection</span><span data-l="id">Koleksi buku perpustakaan</span><span data-l="jv">Koleksi buku perpustakaan</span><span class="by"><span data-l="en">Library (120 titles)</span><span data-l="id">Perpustakaan (120 judul)</span><span data-l="jv">Perpustakaan (120 irah-irahan)</span></span></td><td><span data-l="en">178 books across 120 titles (Gate of Literacy, Penerbit Andi IT/coding, Mizan, Rene Turos, encyclopedias) + protective covers</span><span data-l="id">178 eksemplar dari 120 judul buku (Gate of Literacy, Penerbit Andi IT/coding, Mizan, Rene Turos, ensiklopedia) + sampul plastik</span><span data-l="jv">178 eksemplar saking 120 irah-irahan buku + sampul plastik</span></td><td class="num">178</td><td class="num" data-n="67800"></td><td class="num" data-n="12068345"></td></tr>
-        <tr><td><span data-l="en">Library bookshelves</span><span data-l="id">Rak buku perpustakaan</span><span data-l="jv">Rak buku perpustakaan</span><span class="by"><span data-l="en">Library</span><span data-l="id">Perpustakaan</span><span data-l="jv">Perpustakaan</span></span></td><td><span data-l="en">2 wooden display bookshelves for the reading room</span><span data-l="id">2 unit rak buku kayu ruang baca perpustakaan</span><span data-l="jv">2 unit rak buku kajeng ruang waos perpustakaan</span></td><td class="num">2</td><td class="num" data-n="1500000"></td><td class="num" data-n="3000000"></td></tr>
+        <tr><th scope="row"><span data-l="en">Desktop PC sets</span><span data-l="id">Set PC Desktop</span><span data-l="jv">Set PC Desktop</span><span class="by"><span data-l="en">Digital Lab</span><span data-l="id">Lab Digital</span><span data-l="jv">Lab Digital</span></span></th><td>AMD Ryzen 5 5600GT, Asrock A520M/AC, 16GB DDR4 RGB, 512GB NVMe SSD, MSI 22" 100Hz Monitor, Keyboard &amp; Mouse, Win 11 (Red Rocket Computer)</td><td class="num">10</td><td class="num" data-n="6671000"></td><td class="num" data-n="66710000"></td></tr>
+        <tr><th scope="row"><span data-l="en">Computer tables &amp; chairs</span><span data-l="id">Meja &amp; kursi komputer</span><span data-l="jv">Meja &amp; kursi komputer</span><span class="by"><span data-l="en">Digital Lab</span><span data-l="id">Lab Digital</span><span data-l="jv">Lab Digital</span></span></th><td><span data-l="en">120×59×74 cm iron/particle board table + chrome-leg padded chair</span><span data-l="id">Meja rangka besi 120×59×74 cm + kursi busa kaki chrome</span><span data-l="jv">Meja wesi 120×59×74 cm + kursi busa suku chrome</span></td><td class="num">10</td><td class="num" data-n="610000"></td><td class="num" data-n="6100000"></td></tr>
+        <tr><th scope="row"><span data-l="en">Projector</span><span data-l="id">Proyektor</span><span data-l="jv">Proyektor</span><span class="by"><span data-l="en">Digital Lab</span><span data-l="id">Lab Digital</span><span data-l="jv">Lab Digital</span></span></th><td>Epson EB-E600 XGA 3400 Lumens</td><td class="num">1</td><td class="num" data-n="4970840"></td><td class="num" data-n="4970840"></td></tr>
+        <tr><th scope="row"><span data-l="en">Lab bookshelf</span><span data-l="id">Rak buku Lab</span><span data-l="jv">Rak buku Lab</span><span class="by"><span data-l="en">Digital Lab</span><span data-l="id">Lab Digital</span><span data-l="jv">Lab Digital</span></span></th><td><span data-l="en">Custom wooden storage cabinet &amp; bookshelf</span><span data-l="id">Lemari rak buku kayu Lab Digital</span><span data-l="jv">Lemari rak buku kajeng Lab Digital</span></td><td class="num">1</td><td class="num" data-n="4550000"></td><td class="num" data-n="4550000"></td></tr>
+        <tr><th scope="row"><span data-l="en">Gigabit &amp; WiFi 6 network package</span><span data-l="id">Paket jaringan Gigabit &amp; WiFi 6</span><span data-l="jv">Paket jaringan Gigabit &amp; WiFi 6</span><span class="by"><span data-l="en">Digital Lab</span><span data-l="id">Lab Digital</span><span data-l="jv">Lab Digital</span></span></th><td>TP-Link TL-SG1016D 16-Port Gigabit Switch, TP-Link Archer AX53 AX3000 Dual Band Gigabit WiFi 6 Router, Vention Cat6 UTP 305m Cable, 100× RJ45</td><td class="num">1</td><td class="num" data-n="2117791"></td><td class="num" data-n="2117791"></td></tr>
+        <tr><th scope="row"><span data-l="en">Electrical installation</span><span data-l="id">Instalasi listrik Lab</span><span data-l="jv">Instalasi listrik Lab</span><span class="by"><span data-l="en">Digital Lab</span><span data-l="id">Lab Digital</span><span data-l="jv">Lab Digital</span></span></th><td><span data-l="en">NYM 2×1.5 cable (1 roll), 5× 4-gang sockets, 2× 1-gang sockets, Broco 10A MCB &amp; box</span><span data-l="id">Kabel NYM 2×1.5 (1 roll), 5 stopkontak 4 lubang, 2 stopkontak 1 lubang, MCB Broco 10A &amp; box</span><span data-l="jv">Kabel NYM 2×1.5 (1 roll), stopkontak, MCB Broco 10A &amp; box</span></td><td class="num">1</td><td class="num" data-n="724000"></td><td class="num" data-n="724000"></td></tr>
+        <tr><th scope="row"><span data-l="en">Spiral cable sleeve &amp; LAN tool kit</span><span data-l="id">Pelindung kabel spiral &amp; tool kit LAN</span><span data-l="jv">Pelindung kabel spiral &amp; tool kit LAN</span><span class="by"><span data-l="en">Digital Lab</span><span data-l="id">Lab Digital</span><span data-l="jv">Lab Digital</span></span></th><td><span data-l="en">50m 25mm spiral cable wrap (Rp226,000) + PixelLink network repair tool kit (Rp132,240)</span><span data-l="id">Pelindung kabel spiral 25mm 50m (Rp226.000) + PixelLink network tool kit (Rp132.240)</span><span data-l="jv">Pelindung kabel spiral 25mm 50m (Rp226.000) + PixelLink network tool kit (Rp132.240)</span></td><td class="num">1</td><td class="num" data-n="358240"></td><td class="num" data-n="358240"></td></tr>
+        <tr><th scope="row"><span data-l="en">Library book collection</span><span data-l="id">Koleksi buku perpustakaan</span><span data-l="jv">Koleksi buku perpustakaan</span><span class="by"><span data-l="en">Library (120 titles)</span><span data-l="id">Perpustakaan (120 judul)</span><span data-l="jv">Perpustakaan (120 irah-irahan)</span></span></th><td><span data-l="en">178 books across 120 titles (Gate of Literacy, Penerbit Andi IT/coding, Mizan, Rene Turos, encyclopedias) + protective covers</span><span data-l="id">178 eksemplar dari 120 judul buku (Gate of Literacy, Penerbit Andi IT/coding, Mizan, Rene Turos, ensiklopedia) + sampul plastik</span><span data-l="jv">178 eksemplar saking 120 irah-irahan buku + sampul plastik</span></td><td class="num">178</td><td class="num" data-n="67800"></td><td class="num" data-n="12068345"></td></tr>
+        <tr><th scope="row"><span data-l="en">Library bookshelves</span><span data-l="id">Rak buku perpustakaan</span><span data-l="jv">Rak buku perpustakaan</span><span class="by"><span data-l="en">Library</span><span data-l="id">Perpustakaan</span><span data-l="jv">Perpustakaan</span></span></th><td><span data-l="en">2 wooden display bookshelves for the reading room</span><span data-l="id">2 unit rak buku kayu ruang baca perpustakaan</span><span data-l="jv">2 unit rak buku kajeng ruang waos perpustakaan</span></td><td class="num">2</td><td class="num" data-n="1500000"></td><td class="num" data-n="3000000"></td></tr>
       </tbody>
       <tfoot>
         <tr><td colspan="4"><span data-l="en">Total spent (Digital Lab Rp85,530,871 + Library Rp15,068,345)</span><span data-l="id">Total belanja (Lab Digital Rp85.530.871 + Perpustakaan Rp15.068.345)</span><span data-l="jv">Gunggung blanja (Lab Digital Rp85.530.871 + Perpustakaan Rp15.068.345)</span></td><td class="num" data-n="100599216"></td></tr>
@@ -864,10 +1026,17 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
 
 </div>
 
-<dialog id="lb" aria-label="Receipt">
+<dialog id="lb" aria-label="Receipt & Photo Viewer">
   <button type="button" class="close" id="lbClose"><span data-l="en">Close</span><span data-l="id">Tutup</span><span data-l="jv">Tutup</span></button>
-  <img id="lbImg" alt="">
-  <p id="lbCap"></p>
+  <div class="lb-box">
+    <img id="lbImg" alt="">
+    <p id="lbCap"></p>
+    <div class="lb-bar">
+      <button type="button" class="lb-nav" id="lbPrev">&larr; <span data-l="en">Prev</span><span data-l="id">Sebelumnya</span><span data-l="jv">Saderengipun</span></button>
+      <span class="mono" id="lbCount" style="color:#E4EBE6;font-size:.8rem"></span>
+      <button type="button" class="lb-nav" id="lbNext"><span data-l="en">Next</span><span data-l="id">Berikutnya</span><span data-l="jv">Salajengipun</span> &rarr;</button>
+    </div>
+  </div>
 </dialog>
 
 <dialog id="ytModal" aria-label="YouTube Video Player">
@@ -892,8 +1061,8 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
     {nen:"Bunk beds",nid:"Ranjang tingkat",njv:"Ranjang susun",sen:"Planned 12, received 15",sid:"Rencana 12, terealisasi 15",sjv:"Rancangan 12, kasunyatan 15",p:42000000,a:42000000},
     {nen:"Mattresses",nid:"Kasur",njv:"Kasur",sen:"52 units, incl. shipping",sid:"52 unit, termasuk ongkir",sjv:"52 unit, kalebet ongkos kirim",p:20800000,a:19205000},
     {nen:"Cameras",nid:"Kamera",njv:"Kamera",sen:"2 units",sid:"2 unit",sjv:"2 unit",p:18500000,a:20312000},
-    {nen:"Claude",nid:"Claude",njv:"Claude",sen:"1 year",sid:"1 tahun",sjv:"1 taun",p:3900000,a:4183812},
-    {nen:"Gemini / Google AI",nid:"Gemini / Google AI",njv:"Gemini / Google AI",sen:"1 year",sid:"1 tahun",sjv:"1 taun",p:2400000,a:2551890},
+    {nen:"Claude Pro",nid:"Claude Pro",njv:"Claude Pro",sen:"1 year subscription",sid:"Langganan 1 tahun",sjv:"Langganan 1 taun",p:3900000,a:4183812},
+    {nen:"Gemini / Google AI",nid:"Gemini / Google AI",njv:"Gemini / Google AI",sen:"1 year (2 TB family plan)",sid:"1 tahun (paket 2 TB)",sjv:"1 taun (paket 2 TB)",p:2400000,a:2551890},
     {nen:"TWS AI Headsets",nid:"Headset TWS AI",njv:"Headset TWS AI",sen:"7 units (AI translation)",sid:"7 unit (penerjemah AI)",sjv:"7 unit (panerjemah AI)",p:0,a:881580}
   ];
   var items2025=[
@@ -904,14 +1073,19 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
     var box=document.getElementById(boxId);
     if(!box)return;
     box.innerHTML='';
+    var lblPlan=lang==='jv'?'Rancangan':lang==='id'?'Rencana':'Planned';
+    var lblReal=lang==='jv'?'Kasunyatan':lang==='id'?'Realisasi':'Actual';
+    var lblMatch=lang==='jv'?'Jumbuh':lang==='id'?'Sesuai anggaran':'On budget';
     list.forEach(function(it){
-      var d=it.a-it.p, cls=d>0?'up':'down';
-      var diff=d===0?'':'<span class="diff '+cls+'">'+(d>0?'+':'−')+rp(Math.abs(d))+'</span>';
+      var d=it.a-it.p, cls=d>0?'up':d<0?'down':'eq';
+      var diff=d===0?'<span class="diff eq">'+lblMatch+'</span>':'<span class="diff '+cls+'">'+(d>0?'+':'−')+rp(Math.abs(d))+'</span>';
+      var pw=Math.max(it.p>0?3:0, Math.min(100, Math.round((it.p/max)*100)));
+      var aw=Math.max(it.a>0?3:0, Math.min(100, Math.round((it.a/max)*100)));
       var row=document.createElement('div'); row.className='row';
-      row.innerHTML='<div class="name">'+pick(it,'n')+'<small>'+pick(it,'s')+'</small></div>'+
+      row.innerHTML='<div class="row-top"><div class="name">'+pick(it,'n')+'<small>'+pick(it,'s')+'</small></div>'+diff+'</div>'+
         '<div class="bars">'+
-        '<div class="bar plan"><i style="width:calc((100% - 150px) * '+(it.p/max)+')"></i><span class="v mono">'+rp(it.p)+'</span></div>'+
-        '<div class="bar real"><i style="width:calc((100% - 150px) * '+(it.a/max)+')"></i><span class="v mono">'+rp(it.a)+'</span>'+diff+'</div>'+
+        '<div class="bar plan"><div class="bar-meta"><span class="bar-lbl">'+lblPlan+'</span><span class="v mono">'+rp(it.p)+'</span></div><div class="bar-track"><i class="bar-fill" style="width:'+pw+'%"></i></div></div>'+
+        '<div class="bar real"><div class="bar-meta"><span class="bar-lbl">'+lblReal+'</span><span class="v mono">'+rp(it.a)+'</span></div><div class="bar-track"><i class="bar-fill" style="width:'+aw+'%"></i></div></div>'+
         '</div>';
       box.appendChild(row);
     });
@@ -929,8 +1103,8 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
     year=(y==='2025')?'2025':'2026';
     root.setAttribute('data-year',year);
     store('bq-year',year);
-    document.getElementById('year2026').setAttribute('aria-pressed',String(year==='2026'));
-    document.getElementById('year2025').setAttribute('aria-pressed',String(year==='2025'));
+    ['year2026','quick2026'].forEach(function(id){var el=document.getElementById(id);if(el)el.setAttribute('aria-pressed',String(year==='2026'))});
+    ['year2025','quick2025'].forEach(function(id){var el=document.getElementById(id);if(el)el.setAttribute('aria-pressed',String(year==='2025'))});
     document.title='Baitul Qowwam Grant Report '+year;
     if(scrollTop)window.scrollTo({top:0,behavior:'smooth'});
   }
@@ -959,18 +1133,51 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
   document.querySelectorAll('[data-settheme]').forEach(function(b){b.addEventListener('click',function(){setTheme(b.dataset.settheme)})});
   document.querySelectorAll('[data-setyear]').forEach(function(b){b.addEventListener('click',function(){setYear(b.dataset.setyear,!b.closest('.year-switch'))})});
 
-  /* AI Apps Carousel */
-  var carIdx=0, carSlides=document.querySelectorAll('.car-slide'), carTabs=document.querySelectorAll('[data-car]'), carCount=document.getElementById('carCount');
-  function setCar(idx){
+  /* Active section scroll-spy on sticky nav */
+  var navLinks=document.querySelectorAll('nav a');
+  if('IntersectionObserver' in window){
+    var spy=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          var id='#'+en.target.id;
+          navLinks.forEach(function(a){
+            var act=a.getAttribute('href')===id;
+            a.classList.toggle('active',act);
+          });
+        }
+      });
+    },{rootMargin:'-20% 0px -65% 0px'});
+    document.querySelectorAll('section[id]').forEach(function(s){spy.observe(s)});
+  }
+
+  /* AI Apps Carousel (with mobile pill scroll sync & touch swipe) */
+  var carIdx=0, carSlides=document.querySelectorAll('.car-slide'), carTabs=document.querySelectorAll('[data-car]'), carCount=document.getElementById('carCount'), carWrap=document.querySelector('.car-wrap');
+  function setCar(idx,scrollTab){
     carIdx=(idx+carSlides.length)%carSlides.length;
     carSlides.forEach(function(s,i){s.classList.toggle('active',i===carIdx)});
-    carTabs.forEach(function(t,i){t.setAttribute('aria-selected',String(i===carIdx))});
+    carTabs.forEach(function(t,i){
+      var sel=i===carIdx;
+      t.setAttribute('aria-selected',String(sel));
+      if(sel&&scrollTab&&t.scrollIntoView)t.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+    });
     if(carCount)carCount.textContent=(carIdx+1)+' / '+carSlides.length;
   }
-  carTabs.forEach(function(t){t.addEventListener('click',function(){setCar(Number(t.dataset.car))})});
+  carTabs.forEach(function(t){t.addEventListener('click',function(){setCar(Number(t.dataset.car),true)})});
   var cp=document.getElementById('carPrev'), cn=document.getElementById('carNext');
-  if(cp)cp.addEventListener('click',function(){setCar(carIdx-1)});
-  if(cn)cn.addEventListener('click',function(){setCar(carIdx+1)});
+  if(cp)cp.addEventListener('click',function(){setCar(carIdx-1,true)});
+  if(cn)cn.addEventListener('click',function(){setCar(carIdx+1,true)});
+  if(carWrap){
+    var tx=0, ty=0;
+    carWrap.addEventListener('touchstart',function(e){if(e.touches[0]){tx=e.touches[0].clientX;ty=e.touches[0].clientY}},{passive:true});
+    carWrap.addEventListener('touchend',function(e){
+      if(!e.changedTouches[0])return;
+      var dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty;
+      if(Math.abs(dx)>48 && Math.abs(dx)>Math.abs(dy)*1.4){
+        if(e.target&&e.target.closest&&e.target.closest('.car-tabs'))return;
+        setCar(dx<0?carIdx+1:carIdx-1,true);
+      }
+    },{passive:true});
+  }
 
   /* YouTube Kajian videos (using API from Qur-anan + initial channel seed) */
   var YT_KEY='AIzaSyDb25hksl_CYu-34bFK6xduDnVuS9kXOMA';
@@ -1001,8 +1208,9 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
       var b=document.createElement('button');
       b.type='button'; b.className='yt-card';
       var thumb=v.thumb||('https://i.ytimg.com/vi/'+v.id+'/hqdefault.jpg');
+      var isShort=(v.kind||'').indexOf('Short')!==-1;
       b.innerHTML='<div class="yt-thumb"><img src="'+thumb+'" alt="" loading="lazy"><div class="yt-play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>'+(v.dur?'<span class="yt-dur">'+v.dur+'</span>':'')+'</div>'+
-        '<div class="yt-meta"><span>'+(v.kind||'YouTube')+'</span><span>'+v.date+'</span></div>'+
+        '<div class="yt-meta"><span class="yt-badge'+(isShort?' short':'')+'">'+(v.kind||'YouTube')+'</span><span>'+v.date+'</span></div>'+
         '<div class="yt-title"></div>';
       b.querySelector('.yt-title').textContent=v.title;
       b.addEventListener('click',function(){openYt(v.id,v.title)});
@@ -1049,15 +1257,36 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
 
   setYear(year,false); setLang(lang); syncThemeButtons();
 
-  var lb=document.getElementById('lb'), img=document.getElementById('lbImg'), cap=document.getElementById('lbCap');
+  /* Lightbox with Prev / Next across visible triggers */
+  var lb=document.getElementById('lb'), img=document.getElementById('lbImg'), cap=document.getElementById('lbCap'), lbCount=document.getElementById('lbCount');
+  var lbList=[], lbIdx=0;
+  function showLbAt(i){
+    if(!lbList.length)return;
+    lbIdx=(i+lbList.length)%lbList.length;
+    var b=lbList[lbIdx];
+    var c=lang==='jv'?b.dataset.capJv:lang==='id'?b.dataset.capId:b.dataset.capEn;
+    img.src=b.dataset.src; img.alt=c||''; cap.textContent=c||'';
+    if(lbCount)lbCount.textContent=(lbIdx+1)+' / '+lbList.length;
+  }
   document.querySelectorAll('button[data-src]').forEach(function(b){
     b.addEventListener('click',function(){
-      var c=lang==='jv'?b.dataset.capJv:lang==='id'?b.dataset.capId:b.dataset.capEn;
-      img.src=b.dataset.src; img.alt=c; cap.textContent=c; lb.showModal();
+      lbList=Array.prototype.slice.call(document.querySelectorAll('button[data-src]')).filter(function(el){return el.offsetParent!==null});
+      var idx=lbList.indexOf(b);
+      if(idx===-1){lbList=[b];idx=0;}
+      showLbAt(idx);
+      lb.showModal();
     });
   });
+  document.getElementById('lbPrev').addEventListener('click',function(){showLbAt(lbIdx-1)});
+  document.getElementById('lbNext').addEventListener('click',function(){showLbAt(lbIdx+1)});
   document.getElementById('lbClose').addEventListener('click',function(){lb.close()});
   lb.addEventListener('click',function(e){if(e.target===lb)lb.close()});
+  document.addEventListener('keydown',function(e){
+    if(lb.open){
+      if(e.key==='ArrowLeft')showLbAt(lbIdx-1);
+      if(e.key==='ArrowRight')showLbAt(lbIdx+1);
+    }
+  });
 })();
 </script>
 
