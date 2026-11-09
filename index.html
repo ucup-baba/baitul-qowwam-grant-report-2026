@@ -26,6 +26,24 @@
 :root[data-lang="id"] [data-l="en"],
 :root[data-lang="jv"] [data-l="en"]{display:none!important}
 
+/* year switching (2026 default, 2025 first grant) */
+:root:not([data-year="2025"]) [data-y="2025"],
+:root[data-year="2025"] [data-y="2026"]{display:none!important}
+
+/* grant year switcher banner */
+.year-switch{display:inline-flex;border:1.5px solid var(--accent);border-radius:12px;padding:4px;background:var(--surface);gap:4px;flex-wrap:wrap}
+.year-switch button{all:unset;cursor:pointer;font:700 .88rem var(--body);color:var(--muted);padding:7px 14px;border-radius:8px;display:inline-flex;align-items:center;gap:8px;transition:background .15s,color .15s}
+.year-switch button:hover{color:var(--fg);background:var(--accent-soft)}
+.year-switch button[aria-pressed="true"]{background:var(--accent);color:var(--bg)}
+.year-switch .ybadge{font:600 .72rem var(--mono);padding:2px 7px;border-radius:999px;background:rgba(128,128,128,.16)}
+.year-switch button[aria-pressed="true"] .ybadge{background:rgba(255,255,255,.22);color:inherit}
+.book-cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:6px}
+.book-cat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:6px;align-content:start}
+.book-cat b{font-size:.96rem;color:var(--fg)}
+.book-cat span{font-size:.86rem;color:var(--muted);line-height:1.45}
+.btn-switch-year{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:var(--bg);padding:8px 16px;border-radius:8px;font:700 .88rem var(--body);margin-top:4px;width:fit-content}
+.btn-switch-year:hover{opacity:.92}
+
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6;padding-inline:20px}
 .wrap{max-width:920px;margin-inline:auto;padding-block:24px 72px;display:grid;gap:64px}
@@ -176,16 +194,40 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
       </div>
     </div>
   </div>
-  <h1><span data-l="en">Baitul Qowwam Orphanage<br>Grant Report 2026</span><span data-l="id">Panti Asuhan Baitul Qowwam<br>Laporan Hibah 2026</span><span data-l="jv">Panti Asuhan Baitul Qowwam<br>Laporan Hibah 2026</span></h1>
-  <p class="lead"><span data-l="en">How the USD 5,000 grant from GM Children Foundation was spent on the girls' dormitory, documentation cameras and AI learning tools, and what comes next.</span><span data-l="id">Penggunaan hibah USD 5.000 dari GM Children Foundation untuk asrama putri, kamera dokumentasi, dan perangkat belajar AI, serta rencana berikutnya.</span><span data-l="jv">Panganggening hibah USD 5.000 saking GM Children Foundation kangge asrama putri, kamera dokumentasi, saha piranti sinau AI, ugi rancangan salajengipun.</span></p>
-  <div class="meta">
-    <span><span data-l="en">Grantee</span><span data-l="id">Penerima</span><span data-l="jv">Ingkang nampi</span> <b>Panti Asuhan Baitul Qowwam</b>, Tempel, Sleman, Yogyakarta</span>
-    <span><span data-l="en">Agreement <b>26 June 2026</b></span><span data-l="id">Perjanjian <b>26 Juni 2026</b></span><span data-l="jv">Prajanjian <b>26 Juni 2026</b></span></span>
-    <span><span data-l="en">Report due <b>15 December 2026</b></span><span data-l="id">Batas laporan <b>15 Desember 2026</b></span><span data-l="jv">Wates laporan <b>15 Desember 2026</b></span></span>
+
+  <div class="year-switch" role="group" aria-label="Grant Year / Tahun Hibah">
+    <button type="button" id="year2026" data-setyear="2026" aria-pressed="true">
+      <span><span data-l="en">2026 · Grant II</span><span data-l="id">2026 · Hibah Kedua</span><span data-l="jv">2026 · Hibah II</span></span>
+      <span class="ybadge">USD 5,000</span>
+    </button>
+    <button type="button" id="year2025" data-setyear="2025" aria-pressed="false">
+      <span><span data-l="en">2025 · Grant I</span><span data-l="id">2025 · Hibah Pertama</span><span data-l="jv">2025 · Hibah I</span></span>
+      <span class="ybadge">USD 6,200</span>
+    </button>
+  </div>
+
+  <div data-y="2026" style="display:contents">
+    <h1><span data-l="en">Baitul Qowwam Orphanage<br>Grant Report 2026</span><span data-l="id">Panti Asuhan Baitul Qowwam<br>Laporan Hibah 2026</span><span data-l="jv">Panti Asuhan Baitul Qowwam<br>Laporan Hibah 2026</span></h1>
+    <p class="lead"><span data-l="en">How the USD 5,000 grant from GM Children Foundation was spent on the girls' dormitory, documentation cameras and AI learning tools, and what comes next.</span><span data-l="id">Penggunaan hibah USD 5.000 dari GM Children Foundation untuk asrama putri, kamera dokumentasi, dan perangkat belajar AI, serta rencana berikutnya.</span><span data-l="jv">Panganggening hibah USD 5.000 saking GM Children Foundation kangge asrama putri, kamera dokumentasi, saha piranti sinau AI, ugi rancangan salajengipun.</span></p>
+    <div class="meta">
+      <span><span data-l="en">Grantee</span><span data-l="id">Penerima</span><span data-l="jv">Ingkang nampi</span> <b>Panti Asuhan Baitul Qowwam</b>, Tempel, Sleman, Yogyakarta</span>
+      <span><span data-l="en">Agreement <b>26 June 2026</b></span><span data-l="id">Perjanjian <b>26 Juni 2026</b></span><span data-l="jv">Prajanjian <b>26 Juni 2026</b></span></span>
+      <span><span data-l="en">Report due <b>15 December 2026</b></span><span data-l="id">Batas laporan <b>15 Desember 2026</b></span><span data-l="jv">Wates laporan <b>15 Desember 2026</b></span></span>
+    </div>
+  </div>
+
+  <div data-y="2025" style="display:contents">
+    <h1><span data-l="en">Baitul Qowwam Orphanage<br>Grant Report 2025</span><span data-l="id">Panti Asuhan Baitul Qowwam<br>Laporan Hibah 2025</span><span data-l="jv">Panti Asuhan Baitul Qowwam<br>Laporan Hibah 2025</span></h1>
+    <p class="lead"><span data-l="en">How the first USD 6,200 grant from GM Children Foundation established our 10-PC Digital Learning Lab, gigabit WiFi 6 network, projector, and 178-book Library Collection.</span><span data-l="id">Penggunaan hibah pertama USD 6.200 dari GM Children Foundation untuk membangun Lab Digital 10 unit PC, jaringan WiFi 6 Gigabit, proyektor, serta Perpustakaan 178 koleksi buku.</span><span data-l="jv">Panganggening hibah sepisanan USD 6.200 saking GM Children Foundation kangge mbangun Lab Digital 10 unit PC, jaringan WiFi 6 Gigabit, proyektor, saha Perpustakaan 178 koleksi buku.</span></p>
+    <div class="meta">
+      <span><span data-l="en">Grantee</span><span data-l="id">Penerima</span><span data-l="jv">Ingkang nampi</span> <b>Panti Asuhan Baitul Qowwam</b>, Tempel, Sleman, Yogyakarta</span>
+      <span><span data-l="en">Agreement <b>17 September 2025</b></span><span data-l="id">Perjanjian <b>17 September 2025</b></span><span data-l="jv">Prajanjian <b>17 September 2025</b></span></span>
+      <span><span data-l="en">Report due <b>15 December 2025</b></span><span data-l="id">Batas laporan <b>15 Desember 2025</b></span><span data-l="jv">Wates laporan <b>15 Desember 2025</b></span></span>
+    </div>
   </div>
 </header>
 
-<nav aria-label="Sections">
+<nav aria-label="Sections" data-y="2026">
   <a href="#summary"><span data-l="en">Summary</span><span data-l="id">Ringkasan</span><span data-l="jv">Ringkesan</span></a>
   <a href="#dormitory"><span data-l="en">Dormitory</span><span data-l="id">Asrama</span><span data-l="jv">Asrama</span></a>
   <a href="#funds"><span data-l="en">Use of funds</span><span data-l="id">Penggunaan dana</span><span data-l="jv">Panganggening dana</span></a>
@@ -196,6 +238,16 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
   <a href="#next"><span data-l="en">What's next</span><span data-l="id">Rencana</span><span data-l="jv">Rancangan</span></a>
 </nav>
 
+<nav aria-label="Sections 2025" data-y="2025">
+  <a href="#summary-2025"><span data-l="en">Summary</span><span data-l="id">Ringkasan</span><span data-l="jv">Ringkesan</span></a>
+  <a href="#library-2025"><span data-l="en">Library &amp; Lab</span><span data-l="id">Perpustakaan &amp; Lab</span><span data-l="jv">Perpustakaan &amp; Lab</span></a>
+  <a href="#funds-2025"><span data-l="en">Use of funds</span><span data-l="id">Penggunaan dana</span><span data-l="jv">Panganggening dana</span></a>
+  <a href="#books-2025"><span data-l="en">Book collection</span><span data-l="id">Koleksi buku</span><span data-l="jv">Koleksi buku</span></a>
+  <a href="#receipts-2025"><span data-l="en">Receipts</span><span data-l="id">Nota</span><span data-l="jv">Nota</span></a>
+  <a href="#impact-2025"><span data-l="en">Impact &amp; 2026</span><span data-l="id">Dampak &amp; 2026</span><span data-l="jv">Dampak &amp; 2026</span></a>
+</nav>
+
+<div data-y="2026" style="display:contents">
 <section id="summary">
   <span class="eyebrow"><span data-l="en">Summary</span><span data-l="id">Ringkasan</span><span data-l="jv">Ringkesan</span></span>
   <div class="figs">
@@ -311,7 +363,7 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
   <h2><span data-l="en">From the first visit to delivery</span><span data-l="id">Dari kunjungan pertama hingga barang tiba</span><span data-l="jv">Saking rawuh sepisanan ngantos barang dumugi</span></h2>
   <ol class="tl">
     <li><time><span data-l="en">AUG 2025</span><span data-l="id">AGU 2025</span><span data-l="jv">AGU 2025</span></time><span class="t"><span data-l="en">GM team visits Baitul Qowwam</span><span data-l="id">Tim GM berkunjung ke Baitul Qowwam</span><span data-l="jv">Tim GM rawuh wonten Baitul Qowwam</span></span></li>
-    <li><time>SEP 2025</time><span class="t"><span data-l="en">Digital Lab and Library funded, USD 6,200</span><span data-l="id">Lab Digital dan Perpustakaan didanai, USD 6.200</span><span data-l="jv">Lab Digital lan Perpustakaan dipun danani, USD 6.200</span></span></li>
+    <li><time>SEP 2025</time><span class="t"><span data-l="en">Digital Lab and Library funded, USD 6,200</span><span data-l="id">Lab Digital dan Perpustakaan didanai, USD 6.200</span><span data-l="jv">Lab Digital lan Perpustakaan dipun danani, USD 6.200</span></span><span><button type="button" data-setyear="2025" style="all:unset;cursor:pointer;color:var(--accent);font-weight:600;text-decoration:underline"><span data-l="en">View 2025 Grant Report &rarr;</span><span data-l="id">Lihat Laporan Hibah 2025 &rarr;</span><span data-l="jv">Pirsani Laporan Hibah 2025 &rarr;</span></button></span></li>
     <li class="g26"><time>26 JUN 2026</time><span class="t"><span data-l="en">Second grant agreed, USD 5,000</span><span data-l="id">Hibah kedua disepakati, USD 5.000</span><span data-l="jv">Hibah kaping kalih dipun sarujuki, USD 5.000</span></span><span><span data-l="en">Beds and mattresses, two cameras, one year of AI tools</span><span data-l="id">Ranjang dan kasur, dua kamera, satu tahun perangkat AI</span><span data-l="jv">Ranjang lan kasur, kalih kamera, setunggal taun piranti AI</span></span></li>
     <li class="g26"><time><span data-l="en">14 AUG 2026</span><span data-l="id">14 AGU 2026</span><span data-l="jv">14 AGU 2026</span></time><span class="t"><span data-l="en">Claude subscription active</span><span data-l="id">Langganan Claude aktif</span><span data-l="jv">Langganan Claude aktif</span></span></li>
     <li class="g26"><time><span data-l="en">28 AUG 2026</span><span data-l="id">28 AGU 2026</span><span data-l="jv">28 AGU 2026</span></time><span class="t"><span data-l="en">15 bunk beds purchased and paid in full</span><span data-l="id">15 ranjang tingkat dibeli dan lunas</span><span data-l="jv">15 ranjang susun dipun tumbas lan lunas</span></span></li>
@@ -429,6 +481,143 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
     </article>
   </div>
 </section>
+</div>
+
+<div data-y="2025" style="display:contents">
+
+<section id="summary-2025">
+  <span class="eyebrow"><span data-l="en">Summary · 2025 First Grant</span><span data-l="id">Ringkasan · Hibah Pertama 2025</span><span data-l="jv">Ringkesan · Hibah Sepisanan 2025</span></span>
+  <div class="figs">
+    <div class="fig"><span class="n mono">10</span><span class="l"><span data-l="en">Desktop PC sets with tables &amp; chairs</span><span data-l="id">set PC Desktop lengkap meja &amp; kursi</span><span data-l="jv">set PC Desktop sajangkepipun meja &amp; kursi</span></span></div>
+    <div class="fig"><span class="n mono">178</span><span class="l"><span data-l="en">books across 120 curated titles</span><span data-l="id">eksemplar buku dari 120 judul pilihan</span><span data-l="jv">eksemplar buku saking 120 irah-irahan</span></span></div>
+    <div class="fig"><span class="n mono">3</span><span class="l"><span data-l="en">wooden bookshelves for Lab &amp; Library</span><span data-l="id">lemari rak buku kayu Lab &amp; Perpustakaan</span><span data-l="jv">lemari rak buku kajeng Lab &amp; Perpustakaan</span></span></div>
+    <div class="fig"><span class="n mono">1</span><span class="l"><span data-l="en">Epson projector &amp; Gigabit WiFi 6 network</span><span data-l="id">proyektor Epson &amp; jaringan Gigabit WiFi 6</span><span data-l="jv">proyektor Epson &amp; jaringan Gigabit WiFi 6</span></span></div>
+  </div>
+  <div class="callout">
+    <p data-l="en"><b>Both 2025 grant purposes — Digital Learning Lab and Library Book Collection — are 100% delivered and active.</b> Total spending reached Rp100,599,216 against the Rp100,500,000 (USD 6,200) budget, with the Rp99,216 excess covered by Baitul Qowwam.</p>
+    <p data-l="id"><b>Kedua tujuan hibah 2025 — Lab Pembelajaran Digital dan Koleksi Buku Perpustakaan — telah 100% terwujud dan aktif digunakan.</b> Total belanja mencapai Rp100.599.216 dari anggaran Rp100.500.000 (USD 6.200), dengan selisih lebih Rp99.216 ditalangi oleh Baitul Qowwam.</p>
+    <p data-l="jv"><b>Kalih ancas hibah 2025 — Lab Pasinaon Digital saha Koleksi Buku Perpustakaan — sampun 100% kaleksanan lan aktif dipun ginakaken.</b> Gunggung blanja dumugi Rp100.599.216 saking anggaran Rp100.500.000 (USD 6.200), kanthi kaluwihan Rp99.216 dipun talangi dening Baitul Qowwam.</p>
+  </div>
+</section>
+
+<section id="library-2025">
+  <span class="eyebrow"><span data-l="en">Library &amp; Digital Lab</span><span data-l="id">Perpustakaan &amp; Lab Digital</span><span data-l="jv">Perpustakaan &amp; Lab Digital</span></span>
+  <h2><span data-l="en">Building a reading culture &amp; digital literacy</span><span data-l="id">Membangun budaya literasi &amp; keterampilan digital</span><span data-l="jv">Mbangun budaya maos &amp; kaprigelan digital</span></h2>
+  <p data-l="en">Following the August 2025 visit from GM Global Foundation, the first grant transformed our learning spaces: a dedicated 10-station computer lab with Ryzen 5 processors and Gigabit networking, paired with a 178-book library spanning literature, coding, science encyclopedias, and Islamic studies.</p>
+  <p data-l="id">Pasca kunjungan tim GM Global Foundation pada Agustus 2025, hibah pertama ini mentransformasi ruang belajar panti: menghadirkan Lab Digital dengan 10 komputer berbasis AMD Ryzen 5 dan jaringan Gigabit, berdampingan dengan perpustakaan berisi 178 buku lintas disiplin (sastra, pemrograman, ensiklopedia sains, hingga studi Islam).</p>
+  <p data-l="jv">Sasampunipun rawuh tim GM Global Foundation ing Agustus 2025, hibah sepisanan menika ngowahi ruang sinau panti: mujudaken Lab Digital kanthi 10 komputer AMD Ryzen 5 lan jaringan Gigabit, sesarengan kaliyan perpustakaan ingkang isi 178 buku (sastra, pemrograman, ensiklopedia sains, ngantos studi Islam).</p>
+
+  <div class="ba">
+    <button class="after" data-src="photos/lib-books.jpg" data-cap-en="Unpacking and cataloging the 178 new books across 120 titles for the Baitul Qowwam Library" data-cap-id="Pemeriksaan dan pendataan koleksi buku baru (178 buku dari 120 judul) untuk Perpustakaan Baitul Qowwam" data-cap-jv="Pamriksan lan pendataan koleksi buku enggal (178 buku saking 120 irah-irahan) kangge Perpustakaan Baitul Qowwam">
+      <img src="photos/lib-books.jpg" alt="Dozens of new books laid out on the floor for inspection including Madilog, Atomic Habits, Start With Why, Filosofi Teras, and Indonesian literature">
+      <span class="lbl"><span data-l="en">Book Arrival &amp; Cataloging</span><span data-l="id">Kedatangan &amp; Pendataan Buku</span><span data-l="jv">Dumuginipun Koleksi Buku</span></span>
+      <span class="cap"><span data-l="en">178 books (120 titles) unpacked, covered in protective plastic, and cataloged</span><span data-l="id">178 eksemplar (120 judul) tiba, disampul pelindung, dan didata ke katalog perpustakaan</span><span data-l="jv">178 eksemplar (120 irah-irahan) dumugi, dipun sampuli, lan kacaosaken ing katalog</span></span>
+    </button>
+    <button class="after" data-src="photos/lib-shelf.jpg" data-cap-en="New wooden library bookshelves filled with literature, IT/coding books, encyclopedias, and self-development titles" data-cap-id="Rak buku kayu perpustakaan yang telah terisi rapi dengan buku sastra, pemrograman/IT, ensiklopedia, dan pengembangan diri" data-cap-jv="Rak buku kajeng perpustakaan ingkang sampun kebak katata rapi kanthi buku sastra, IT, ensiklopedia, lan pengembangan dhiri">
+      <img src="photos/lib-shelf.jpg" alt="Wooden library bookshelves neatly stocked with covered books">
+      <span class="lbl"><span data-l="en">Library Bookshelves in Use</span><span data-l="id">Rak Perpustakaan Siap Pakai</span><span data-l="jv">Rak Perpustakaan Siap Dipunginakaken</span></span>
+      <span class="cap"><span data-l="en">Neatly organized on the new wooden bookshelves for daily reading by foster children</span><span data-l="id">Tertata rapi di lemari rak kayu baru dan diakses setiap hari oleh santri asrama</span><span data-l="jv">Katata rapi wonten ing lemari rak kajeng enggal kangge waosan padintenan santri</span></span>
+    </button>
+  </div>
+</section>
+
+<section id="funds-2025">
+  <span class="eyebrow"><span data-l="en">Use of funds · 2025</span><span data-l="id">Penggunaan dana · 2025</span><span data-l="jv">Panganggening dana · 2025</span></span>
+  <h2><span data-l="en">Planned vs. actual (2025 Grant)</span><span data-l="id">Rencana vs. realisasi (Hibah 2025)</span><span data-l="jv">Rancangan vs. kasunyatan (Hibah 2025)</span></h2>
+  <p data-l="en">The USD 6,200 grant was budgeted at Rp100,500,000 across two main allocations: Rp85,500,000 for the Digital Learning Lab and Rp15,000,000 for the Library &amp; Book Collection.</p>
+  <p data-l="id">Hibah USD 6.200 dianggarkan senilai Rp100.500.000 dalam dua pos utama: Rp85.500.000 untuk Lab Pembelajaran Digital dan Rp15.000.000 untuk Perpustakaan &amp; Koleksi Buku.</p>
+  <p data-l="jv">Hibah USD 6.200 dipun anggaraken Rp100.500.000 wonten ing kalih pos utama: Rp85.500.000 kangge Lab Pasinaon Digital lan Rp15.000.000 kangge Perpustakaan &amp; Koleksi Buku.</p>
+  <div class="legend"><span><i class="sw" style="background:var(--plan)"></i><span data-l="en">Planned</span><span data-l="id">Rencana</span><span data-l="jv">Rancangan</span></span><span><i class="sw" style="background:var(--accent)"></i><span data-l="en">Actual</span><span data-l="id">Realisasi</span><span data-l="jv">Kasunyatan</span></span></div>
+  <div class="rows" id="bars2025"></div>
+
+  <div class="tablebox">
+    <table>
+      <thead><tr>
+        <th><span data-l="en">Item</span><span data-l="id">Barang</span><span data-l="jv">Barang</span></th>
+        <th><span data-l="en">Specification / store</span><span data-l="id">Spesifikasi / toko</span><span data-l="jv">Spesifikasi / toko</span></th>
+        <th class="num"><span data-l="en">Qty</span><span data-l="id">Jml</span><span data-l="jv">Cacah</span></th>
+        <th class="num"><span data-l="en">Unit (Rp)</span><span data-l="id">Satuan (Rp)</span><span data-l="jv">Reregan (Rp)</span></th>
+        <th class="num">Total (Rp)</th>
+      </tr></thead>
+      <tbody>
+        <tr><td><span data-l="en">Desktop PC sets</span><span data-l="id">Set PC Desktop</span><span data-l="jv">Set PC Desktop</span><span class="by"><span data-l="en">Digital Lab</span><span data-l="id">Lab Digital</span><span data-l="jv">Lab Digital</span></span></td><td>AMD Ryzen 5 5600GT, Asrock A520M/AC, 16GB DDR4 RGB, 512GB NVMe SSD, MSI 22" 100Hz Monitor, Keyboard &amp; Mouse, Win 11 (Red Rocket Computer)</td><td class="num">10</td><td class="num" data-n="6671000"></td><td class="num" data-n="66710000"></td></tr>
+        <tr><td><span data-l="en">Computer tables &amp; chairs</span><span data-l="id">Meja &amp; kursi komputer</span><span data-l="jv">Meja &amp; kursi komputer</span><span class="by"><span data-l="en">Digital Lab</span><span data-l="id">Lab Digital</span><span data-l="jv">Lab Digital</span></span></td><td><span data-l="en">120×59×74 cm iron/particle board table + chrome-leg padded chair</span><span data-l="id">Meja rangka besi 120×59×74 cm + kursi busa kaki chrome</span><span data-l="jv">Meja wesi 120×59×74 cm + kursi busa suku chrome</span></td><td class="num">10</td><td class="num" data-n="610000"></td><td class="num" data-n="6100000"></td></tr>
+        <tr><td><span data-l="en">Projector</span><span data-l="id">Proyektor</span><span data-l="jv">Proyektor</span><span class="by"><span data-l="en">Digital Lab</span><span data-l="id">Lab Digital</span><span data-l="jv">Lab Digital</span></span></td><td>Epson EB-E600 XGA 3400 Lumens</td><td class="num">1</td><td class="num" data-n="4970840"></td><td class="num" data-n="4970840"></td></tr>
+        <tr><td><span data-l="en">Lab bookshelf</span><span data-l="id">Rak buku Lab</span><span data-l="jv">Rak buku Lab</span><span class="by"><span data-l="en">Digital Lab</span><span data-l="id">Lab Digital</span><span data-l="jv">Lab Digital</span></span></td><td><span data-l="en">Custom wooden storage cabinet &amp; bookshelf</span><span data-l="id">Lemari rak buku kayu Lab Digital</span><span data-l="jv">Lemari rak buku kajeng Lab Digital</span></td><td class="num">1</td><td class="num" data-n="4550000"></td><td class="num" data-n="4550000"></td></tr>
+        <tr><td><span data-l="en">Gigabit &amp; WiFi 6 network package</span><span data-l="id">Paket jaringan Gigabit &amp; WiFi 6</span><span data-l="jv">Paket jaringan Gigabit &amp; WiFi 6</span><span class="by"><span data-l="en">Digital Lab</span><span data-l="id">Lab Digital</span><span data-l="jv">Lab Digital</span></span></td><td>TP-Link TL-SG1016D 16-Port Gigabit Switch, TP-Link Archer AX53 AX3000 Dual Band Gigabit WiFi 6 Router, Vention Cat6 UTP 305m Cable, 100× RJ45</td><td class="num">1</td><td class="num" data-n="2117791"></td><td class="num" data-n="2117791"></td></tr>
+        <tr><td><span data-l="en">Electrical installation</span><span data-l="id">Instalasi listrik Lab</span><span data-l="jv">Instalasi listrik Lab</span><span class="by"><span data-l="en">Digital Lab</span><span data-l="id">Lab Digital</span><span data-l="jv">Lab Digital</span></span></td><td><span data-l="en">NYM 2×1.5 cable (1 roll), 5× 4-gang sockets, 2× 1-gang sockets, Broco 10A MCB &amp; box</span><span data-l="id">Kabel NYM 2×1.5 (1 roll), 5 stopkontak 4 lubang, 2 stopkontak 1 lubang, MCB Broco 10A &amp; box</span><span data-l="jv">Kabel NYM 2×1.5 (1 roll), stopkontak, MCB Broco 10A &amp; box</span></td><td class="num">1</td><td class="num" data-n="724000"></td><td class="num" data-n="724000"></td></tr>
+        <tr><td><span data-l="en">Spiral cable sleeve &amp; LAN tool kit</span><span data-l="id">Pelindung kabel spiral &amp; tool kit LAN</span><span data-l="jv">Pelindung kabel spiral &amp; tool kit LAN</span><span class="by"><span data-l="en">Digital Lab</span><span data-l="id">Lab Digital</span><span data-l="jv">Lab Digital</span></span></td><td><span data-l="en">50m 25mm spiral cable wrap (Rp226,000) + PixelLink network repair tool kit (Rp132,240)</span><span data-l="id">Pelindung kabel spiral 25mm 50m (Rp226.000) + PixelLink network tool kit (Rp132.240)</span><span data-l="jv">Pelindung kabel spiral 25mm 50m (Rp226.000) + PixelLink network tool kit (Rp132.240)</span></td><td class="num">1</td><td class="num" data-n="358240"></td><td class="num" data-n="358240"></td></tr>
+        <tr><td><span data-l="en">Library book collection</span><span data-l="id">Koleksi buku perpustakaan</span><span data-l="jv">Koleksi buku perpustakaan</span><span class="by"><span data-l="en">Library (120 titles)</span><span data-l="id">Perpustakaan (120 judul)</span><span data-l="jv">Perpustakaan (120 irah-irahan)</span></span></td><td><span data-l="en">178 books across 120 titles (Gate of Literacy, Penerbit Andi IT/coding, Mizan, Rene Turos, encyclopedias) + protective covers</span><span data-l="id">178 eksemplar dari 120 judul buku (Gate of Literacy, Penerbit Andi IT/coding, Mizan, Rene Turos, ensiklopedia) + sampul plastik</span><span data-l="jv">178 eksemplar saking 120 irah-irahan buku + sampul plastik</span></td><td class="num">178</td><td class="num" data-n="67800"></td><td class="num" data-n="12068345"></td></tr>
+        <tr><td><span data-l="en">Library bookshelves</span><span data-l="id">Rak buku perpustakaan</span><span data-l="jv">Rak buku perpustakaan</span><span class="by"><span data-l="en">Library</span><span data-l="id">Perpustakaan</span><span data-l="jv">Perpustakaan</span></span></td><td><span data-l="en">2 wooden display bookshelves for the reading room</span><span data-l="id">2 unit rak buku kayu ruang baca perpustakaan</span><span data-l="jv">2 unit rak buku kajeng ruang waos perpustakaan</span></td><td class="num">2</td><td class="num" data-n="1500000"></td><td class="num" data-n="3000000"></td></tr>
+      </tbody>
+      <tfoot>
+        <tr><td colspan="4"><span data-l="en">Total spent (Digital Lab Rp85,530,871 + Library Rp15,068,345)</span><span data-l="id">Total belanja (Lab Digital Rp85.530.871 + Perpustakaan Rp15.068.345)</span><span data-l="jv">Gunggung blanja (Lab Digital Rp85.530.871 + Perpustakaan Rp15.068.345)</span></td><td class="num" data-n="100599216"></td></tr>
+        <tr class="sub"><td colspan="4"><span data-l="en">Grant budget (USD 6,200 · Digital Lab Rp85,500,000 + Library Rp15,000,000)</span><span data-l="id">Anggaran hibah (USD 6.200 · Lab Digital Rp85.500.000 + Perpustakaan Rp15.000.000)</span><span data-l="jv">Anggaran hibah (USD 6.200 · Lab Digital Rp85.500.000 + Perpustakaan Rp15.000.000)</span></td><td class="num" data-n="100500000"></td></tr>
+        <tr class="bal"><td colspan="4"><span data-l="en">Remaining balance / excess covered by Baitul Qowwam</span><span data-l="id">Sisa dana / selisih lebih ditalangi Baitul Qowwam</span><span data-l="jv">Sisa dana / kaluwihan dipun talangi Baitul Qowwam</span></td><td class="num" data-n="-99216"></td></tr>
+      </tfoot>
+    </table>
+  </div>
+</section>
+
+<section id="books-2025">
+  <span class="eyebrow"><span data-l="en">Book Collection · 178 Books (120 Titles)</span><span data-l="id">Koleksi Buku · 178 Eksemplar (120 Judul)</span><span data-l="jv">Koleksi Buku · 178 Eksemplar (120 Irah-irahan)</span></span>
+  <h2><span data-l="en">What the children are reading</span><span data-l="id">Ragam koleksi buku perpustakaan</span><span data-l="jv">Maneka koleksi buku perpustakaan</span></h2>
+  <p data-l="en">The 178 books were curated to balance technical computer skills, Indonesian and world literature, science encyclopedias, mindset &amp; financial literacy, and Islamic heritage.</p>
+  <p data-l="id">Sebanyak 178 buku dipilih secara cermat untuk menyeimbangkan keterampilan teknis komputer, sastra Indonesia &amp; dunia, ensiklopedia sains, literasi finansial &amp; pola pikir, serta khazanah Islam.</p>
+  <p data-l="jv">Cacahipun 178 buku dipun pilih kanthi tliti kangge nyimbangaken kaprigelan teknis komputer, sastra Indonesia &amp; donya, ensiklopedia sains, literasi finansial, saha khazanah Islam.</p>
+
+  <div class="book-cats">
+    <div class="book-cat">
+      <b><span data-l="en">Coding, IT &amp; Digital Design</span><span data-l="id">Pemrograman, IT &amp; Desain Digital</span><span data-l="jv">Pemrograman, IT &amp; Desain Digital</span></b>
+      <span><span data-l="en">Web Programming (HTML/CSS/JS), Java, Arduino &amp; Proteus, UI/UX Design, Graphic Design, Photography, Video Editing, Mastering Excel, Word &amp; PowerPoint (Penerbit Andi).</span><span data-l="id">Pemrograman Web, Java, Arduino &amp; Proteus, Desain UI/UX, Desain Grafis, Fotografi, Editing Video, Kupas Tuntas Excel, Word &amp; PowerPoint (Penerbit Andi).</span><span data-l="jv">Pemrograman Web, Java, Arduino &amp; Proteus, Desain UI/UX, Desain Grafis, Fotografi, Editing Video, Excel, Word &amp; PowerPoint.</span></span>
+    </div>
+    <div class="book-cat">
+      <b><span data-l="en">Indonesian &amp; World Literature</span><span data-l="id">Sastra Indonesia &amp; Dunia</span><span data-l="jv">Sastra Indonesia &amp; Donya</span></b>
+      <span><span data-l="en">Pramoedya Ananta Toer (<i>Bumi Manusia</i>), Andrea Hirata (<i>Laskar Pelangi</i>, <i>Sang Pemimpi</i>, <i>Guru Aini</i>), A. Fuadi (<i>Negeri 5 Menara</i>), Leila S. Chudori (<i>Laut Bercerita</i>), Tere Liye, J.S. Khairen (<i>Kami (Bukan) Sarjana Kertas</i>), George Orwell (<i>Animal Farm</i>), Sherlock Holmes series.</span><span data-l="id">Pramoedya Ananta Toer (<i>Bumi Manusia</i>), Andrea Hirata (<i>Laskar Pelangi</i>, <i>Sang Pemimpi</i>), A. Fuadi (<i>Negeri 5 Menara</i>), Leila S. Chudori (<i>Laut Bercerita</i>), Tere Liye, J.S. Khairen, George Orwell (<i>Animal Farm</i>), seri Sherlock Holmes.</span><span data-l="jv">Pramoedya Ananta Toer (<i>Bumi Manusia</i>), Andrea Hirata (<i>Laskar Pelangi</i>), A. Fuadi (<i>Negeri 5 Menara</i>), <i>Laut Bercerita</i>, Tere Liye, J.S. Khairen, <i>Animal Farm</i>, seri Sherlock Holmes.</span></span>
+    </div>
+    <div class="book-cat">
+      <b><span data-l="en">Mindset, Philosophy &amp; Finance</span><span data-l="id">Pola Pikir, Filsafat &amp; Finansial</span><span data-l="jv">Pola Pikir, Filsafat &amp; Finansial</span></b>
+      <span><span data-l="en">Tan Malaka (<i>Madilog</i>), Henry Manampiring (<i>Filosofi Teras</i>), James Clear (<i>Atomic Habits</i>), Simon Sinek (<i>Start With Why</i>), Morgan Housel (<i>The Psychology of Money</i>), Robert Kiyosaki (<i>Rich Dad Poor Dad</i>), <i>Think and Grow Rich</i>, <i>Mindset</i>, <i>Ikigai</i>, <i>Grit</i>.</span><span data-l="id">Tan Malaka (<i>Madilog</i>), Henry Manampiring (<i>Filosofi Teras</i>), James Clear (<i>Atomic Habits</i>), Simon Sinek (<i>Start With Why</i>), <i>The Psychology of Money</i>, <i>Rich Dad Poor Dad</i>, <i>Think and Grow Rich</i>, <i>Mindset</i>, <i>Ikigai</i>, <i>Grit</i>.</span><span data-l="jv">Tan Malaka (<i>Madilog</i>), <i>Filosofi Teras</i>, <i>Atomic Habits</i>, <i>Start With Why</i>, <i>The Psychology of Money</i>, <i>Rich Dad Poor Dad</i>, <i>Mindset</i>, <i>Ikigai</i>.</span></span>
+    </div>
+    <div class="book-cat">
+      <b><span data-l="en">Science Encyclopedias &amp; Islamic Studies</span><span data-l="id">Ensiklopedia Sains &amp; Khazanah Islam</span><span data-l="jv">Ensiklopedia Sains &amp; Khazanah Islam</span></b>
+      <span><span data-l="en">4D Earth &amp; Space Encyclopedias, Endemic Animals of Indonesia, Doomsday Climate, History of Muhammadiyah, Gus Dur, <i>Riyadhus Shalihin</i>, <i>Qashashul Anbiya</i>, <i>Tafsir Al-Jalalain</i>, <i>Ar-Rahiq Al-Makhtum</i>, <i>Fikih Sunnah</i>, and Arabic Dictionaries.</span><span data-l="id">Ensiklopedia 4D Bumi &amp; Antariksa, Hewan Endemik Indonesia, Sejarah Muhammadiyah, Biografi Gus Dur, <i>Riyadhus Shalihin</i>, <i>Qashashul Anbiya</i>, <i>Tafsir Al-Jalalain</i>, <i>Ar-Rahiq Al-Makhtum</i>, <i>Fikih Sunnah</i>, serta Kamus Arab-Indonesia.</span><span data-l="jv">Ensiklopedia 4D Bumi &amp; Antariksa, Kewan Endemik Indonesia, Sejarah Muhammadiyah, Gus Dur, <i>Riyadhus Shalihin</i>, <i>Qashashul Anbiya</i>, <i>Tafsir Al-Jalalain</i>, saha Kamus Arab.</span></span>
+    </div>
+  </div>
+</section>
+
+<section id="receipts-2025">
+  <span class="eyebrow"><span data-l="en">Receipts · 2025</span><span data-l="id">Nota · 2025</span><span data-l="jv">Nota · 2025</span></span>
+  <h2><span data-l="en">Proof of purchase (2025 Grant)</span><span data-l="id">Bukti pembelian (Hibah 2025)</span><span data-l="jv">Bukti tumbas (Hibah 2025)</span></h2>
+  <p data-l="en">Select a receipt to enlarge it. Originals are archived for inspection until 30 December 2030, in accordance with Attachment D clause 5 of the 2025 agreement.</p>
+  <p data-l="id">Klik nota untuk memperbesar. Dokumen asli disimpan untuk pemeriksaan hingga 30 Desember 2030, sesuai Lampiran D poin 5 perjanjian hibah 2025.</p>
+  <p data-l="jv">Klik nota kangge nggedhekaken. Dokumen asli dipun simpen kangge pamriksan ngantos 30 Desember 2030, miturut Lampiran D poin 5 prajanjian hibah 2025.</p>
+  <div class="receipts">
+    <button class="rc" data-src="receipts/2025-computers.jpg" data-cap-en="Red Rocket Computer, 10 sets AMD Ryzen 5 5600GT Desktop PCs with MSI 22-inch monitors, Rp66,710,000" data-cap-id="Red Rocket Computer, 10 set PC Desktop AMD Ryzen 5 5600GT dengan monitor MSI 22 inci, Rp66.710.000" data-cap-jv="Red Rocket Computer, 10 set PC Desktop AMD Ryzen 5 5600GT kanthi monitor MSI 22 inci, Rp66.710.000"><img src="receipts/2025-computers.jpg" alt="Invoice from Red Rocket Computer for 10 PC sets"><span class="rl"><span data-l="en">10 Desktop PC sets, Red Rocket</span><span data-l="id">10 Set PC Desktop, Red Rocket</span><span data-l="jv">10 Set PC Desktop, Red Rocket</span><small>Rp66.710.000</small></span></button>
+    <button class="rc" data-src="receipts/2025-tables.jpg" data-cap-en="10 sets of computer tables and padded chairs, Rp6,100,000" data-cap-id="10 set meja komputer dan kursi busa, Rp6.100.000" data-cap-jv="10 set meja komputer lan kursi busa, Rp6.100.000"><img src="receipts/2025-tables.jpg" alt="Receipt for 10 computer tables and chairs"><span class="rl"><span data-l="en">10 Computer tables &amp; chairs</span><span data-l="id">10 Meja &amp; kursi komputer</span><span data-l="jv">10 Meja &amp; kursi komputer</span><small>Rp6.100.000</small></span></button>
+    <button class="rc" data-src="receipts/2025-projector.jpg" data-cap-en="Epson EB-E600 Projector for Digital Lab, Rp4,970,840" data-cap-id="Proyektor Epson EB-E600 untuk Lab Digital, Rp4.970.840" data-cap-jv="Proyektor Epson EB-E600 kangge Lab Digital, Rp4.970.840"><img src="receipts/2025-projector.jpg" alt="Order receipt for Epson EB-E600 projector"><span class="rl"><span data-l="en">Epson EB-E600 Projector</span><span data-l="id">Proyektor Epson EB-E600</span><span data-l="jv">Proyektor Epson EB-E600</span><small>Rp4.970.840</small></span></button>
+    <button class="rc" data-src="receipts/2025-network.jpg" data-cap-en="TP-Link 16-Port Gigabit Switch, Archer AX53 AX3000 WiFi 6 Router &amp; LAN accessories, Rp2,117,791" data-cap-id="TP-Link 16-Port Gigabit Switch, Router WiFi 6 Archer AX53 AX3000 &amp; perlengkapan LAN, Rp2.117.791" data-cap-jv="TP-Link 16-Port Gigabit Switch, Router WiFi 6 Archer AX53 AX3000 &amp; piranti LAN, Rp2.117.791"><img src="receipts/2025-network.jpg" alt="Order receipt for TP-Link Gigabit Switch and WiFi 6 Router"><span class="rl"><span data-l="en">Gigabit Switch &amp; WiFi 6 Router</span><span data-l="id">Gigabit Switch &amp; Router WiFi 6</span><span data-l="jv">Gigabit Switch &amp; Router WiFi 6</span><small>TP-LINK</small></span></button>
+    <button class="rc" data-src="receipts/2025-cables.jpg" data-cap-en="Vention Cat6 UTP 305m LAN Cable, RJ45 connectors, and network tool kit" data-cap-id="Kabel LAN Vention Cat6 UTP 305m, konektor RJ45, dan network tool kit" data-cap-jv="Kabel LAN Vention Cat6 UTP 305m, konektor RJ45, lan network tool kit"><img src="receipts/2025-cables.jpg" alt="Order receipt for Vention Cat6 305m LAN cable"><span class="rl"><span data-l="en">Vention Cat6 305m &amp; RJ45</span><span data-l="id">Kabel LAN Cat6 305m &amp; RJ45</span><span data-l="jv">Kabel LAN Cat6 305m &amp; RJ45</span><small>VENTION</small></span></button>
+    <button class="rc" data-src="receipts/2025-bookshelf.jpg" data-cap-en="Wooden bookshelves for Digital Lab (Rp4,550,000) and Library (Rp3,000,000)" data-cap-id="Lemari rak buku kayu untuk Lab Digital (Rp4.550.000) dan Perpustakaan (Rp3.000.000)" data-cap-jv="Lemari rak buku kajeng kangge Lab Digital (Rp4.550.000) lan Perpustakaan (Rp3.000.000)"><img src="receipts/2025-bookshelf.jpg" alt="Invoice for wooden bookshelves"><span class="rl"><span data-l="en">Wooden Bookshelves (3 units)</span><span data-l="id">Rak Buku Kayu (3 unit)</span><span data-l="jv">Rak Buku Kajeng (3 unit)</span><small>LAB &amp; LIBRARY</small></span></button>
+    <button class="rc" data-src="receipts/2025-books-1.jpg" data-cap-en="Book collection invoice (Gate of Literacy &amp; publishers), part 1 of 178 books (Rp12,068,345 total books)" data-cap-id="Nota pembelian koleksi buku perpustakaan (Gate of Literacy &amp; penerbit), bagian 1 dari 178 buku (total buku Rp12.068.345)" data-cap-jv="Nota tumbas koleksi buku perpustakaan, perangan 1 saking 178 buku (gunggung buku Rp12.068.345)"><img src="receipts/2025-books-1.jpg" alt="Invoice for library book collection part 1"><span class="rl"><span data-l="en">Book Collection Invoice I</span><span data-l="id">Nota Koleksi Buku I</span><span data-l="jv">Nota Koleksi Buku I</span><small>178 BOOKS</small></span></button>
+    <button class="rc" data-src="receipts/2025-books-2.jpg" data-cap-en="Book collection &amp; Penerbit Andi IT/coding books invoice, part 2" data-cap-id="Nota pembelian buku pemrograman/IT Penerbit Andi &amp; literatur perpustakaan, bagian 2" data-cap-jv="Nota tumbas buku pemrograman/IT Penerbit Andi &amp; literatur perpustakaan, perangan 2"><img src="receipts/2025-books-2.jpg" alt="Invoice for library book collection part 2"><span class="rl"><span data-l="en">Book Collection Invoice II</span><span data-l="id">Nota Koleksi Buku II</span><span data-l="jv">Nota Koleksi Buku II</span><small>IT &amp; LITERATURE</small></span></button>
+  </div>
+</section>
+
+<section id="impact-2025">
+  <span class="eyebrow"><span data-l="en">Continuity · 2025 to 2026</span><span data-l="id">Kesinambungan · 2025 ke 2026</span><span data-l="jv">Kesinambungan · 2025 dhateng 2026</span></span>
+  <h2><span data-l="en">The foundation for our 2026 AI &amp; content classes</span><span data-l="id">Fondasi bagi kelas AI &amp; kreator konten 2026</span><span data-l="jv">Landhesan kangge kelas AI &amp; konten 2026</span></h2>
+  <p data-l="en">The 10 Ryzen 5 computers, Gigabit WiFi 6 network, and programming books funded by this 2025 grant became the launchpad for our 2026 grant initiatives — where children and alumni now build live web applications (<i>CuanTracker</i>, <i>BangunKas</i>, <i>Level Up</i>, <i>Math Strike</i>) and edit videos filmed with the DJI Osmo Pocket cameras.</p>
+  <p data-l="id">Sepuluh komputer Ryzen 5, jaringan Gigabit WiFi 6, serta buku-buku pemrograman dari hibah pertama 2025 ini menjadi fondasi utama bagi program hibah kedua 2026 — tempat anak-anak dan alumni kini membangun aplikasi web nyata (<i>CuanTracker</i>, <i>BangunKas</i>, <i>Level Up</i>, <i>Math Strike</i>) serta mengedit video dari kamera DJI Osmo Pocket.</p>
+  <p data-l="jv">Sedasa komputer Ryzen 5, jaringan Gigabit WiFi 6, saha buku-buku pemrograman saking hibah sepisanan 2025 menika dados landhesan utama kangge program hibah kaping kalih 2026 — papan lare-lare lan alumni samangke damel aplikasi web nyata (<i>CuanTracker</i>, <i>BangunKas</i>, <i>Level Up</i>, <i>Math Strike</i>) saha ngedit video saking kamera DJI Osmo Pocket.</p>
+  <button type="button" class="btn-switch-year" data-setyear="2026">
+    <span data-l="en">View 2026 Second Grant Report (USD 5,000) &rarr;</span>
+    <span data-l="id">Lihat Laporan Hibah Kedua 2026 (USD 5.000) &rarr;</span>
+    <span data-l="jv">Pirsani Laporan Hibah Kaping Kalih 2026 (USD 5.000) &rarr;</span>
+  </button>
+</section>
+
+</div>
 
 <footer>
   <span data-l="en">Prepared by Yusuf Syaifulloh for Panti Asuhan Baitul Qowwam, Tempel, Sleman, Yogyakarta.</span>
@@ -450,12 +639,13 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
   function store(k,v){try{localStorage.setItem(k,v)}catch(e){}}
   function load(k){try{return localStorage.getItem(k)}catch(e){return null}}
   var saved=load('bq-lang'); var lang=(saved==='id'||saved==='jv')?saved:'en';
+  var savedYear=load('bq-year'); var year=(location.hash.indexOf('2025')!==-1||savedYear==='2025')?'2025':'2026';
 
   function fmt(v){return v.toLocaleString(lang==='en'?'en-US':'id-ID')}
   function pick(o,base){return lang==='jv'?o[base+'jv']:lang==='id'?o[base+'id']:o[base+'en']}
   function rp(v){return 'Rp'+fmt(v)}
 
-  var items=[
+  var items2026=[
     {nen:"Bunk beds",nid:"Ranjang tingkat",njv:"Ranjang susun",sen:"Planned 12, received 15",sid:"Rencana 12, terealisasi 15",sjv:"Rancangan 12, kasunyatan 15",p:42000000,a:42000000},
     {nen:"Mattresses",nid:"Kasur",njv:"Kasur",sen:"52 units, incl. shipping",sid:"52 unit, termasuk ongkir",sjv:"52 unit, kalebet ongkos kirim",p:20800000,a:19205000},
     {nen:"Cameras",nid:"Kamera",njv:"Kamera",sen:"2 units",sid:"2 unit",sjv:"2 unit",p:18500000,a:20312000},
@@ -463,10 +653,15 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
     {nen:"Gemini / Google AI",nid:"Gemini / Google AI",njv:"Gemini / Google AI",sen:"1 year",sid:"1 tahun",sjv:"1 taun",p:2400000,a:2551890},
     {nen:"TWS AI Headsets",nid:"Headset TWS AI",njv:"Headset TWS AI",sen:"7 units (AI translation)",sid:"7 unit (penerjemah AI)",sjv:"7 unit (panerjemah AI)",p:0,a:881580}
   ];
-  var max=42000000, box=document.getElementById('bars');
-  function drawBars(){
+  var items2025=[
+    {nen:"Digital Learning Lab",nid:"Lab Pembelajaran Digital",njv:"Lab Pasinaon Digital",sen:"10 PC sets, tables/chairs, projector, WiFi 6, shelf",sid:"10 set PC, meja/kursi, proyektor, WiFi 6, rak",sjv:"10 set PC, meja/kursi, proyektor, WiFi 6, rak",p:85500000,a:85530871},
+    {nen:"Library & Book Collection",nid:"Perpustakaan & Koleksi Buku",njv:"Perpustakaan & Koleksi Buku",sen:"178 books (120 titles) + 2 bookshelves",sid:"178 buku (120 judul) + 2 rak buku",sjv:"178 buku (120 irah-irahan) + 2 rak buku",p:15000000,a:15068345}
+  ];
+  function renderBarList(boxId,list,max){
+    var box=document.getElementById(boxId);
+    if(!box)return;
     box.innerHTML='';
-    items.forEach(function(it){
+    list.forEach(function(it){
       var d=it.a-it.p, cls=d>0?'up':'down';
       var diff=d===0?'':'<span class="diff '+cls+'">'+(d>0?'+':'−')+rp(Math.abs(d))+'</span>';
       var row=document.createElement('div'); row.className='row';
@@ -478,10 +673,24 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
       box.appendChild(row);
     });
   }
+  function drawBars(){
+    renderBarList('bars',items2026,42000000);
+    renderBarList('bars2025',items2025,86000000);
+  }
   function fillNums(){document.querySelectorAll('[data-n]').forEach(function(td){
     var n=Number(td.dataset.n);
     td.textContent=(n<0?'-':'')+fmt(Math.abs(n));
   })}
+
+  function setYear(y,scrollTop){
+    year=(y==='2025')?'2025':'2026';
+    root.setAttribute('data-year',year);
+    store('bq-year',year);
+    document.getElementById('year2026').setAttribute('aria-pressed',String(year==='2026'));
+    document.getElementById('year2025').setAttribute('aria-pressed',String(year==='2025'));
+    document.title='Baitul Qowwam Grant Report '+year;
+    if(scrollTop)window.scrollTo({top:0,behavior:'smooth'});
+  }
 
   function setLang(l){
     lang=l; root.setAttribute('data-lang',l); root.lang=l; store('bq-lang',l);
@@ -505,8 +714,9 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
 
   document.querySelectorAll('[data-setlang]').forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.setlang)})});
   document.querySelectorAll('[data-settheme]').forEach(function(b){b.addEventListener('click',function(){setTheme(b.dataset.settheme)})});
+  document.querySelectorAll('[data-setyear]').forEach(function(b){b.addEventListener('click',function(){setYear(b.dataset.setyear,!b.closest('.year-switch'))})});
 
-  setLang(lang); syncThemeButtons();
+  setYear(year,false); setLang(lang); syncThemeButtons();
 
   var lb=document.getElementById('lb'), img=document.getElementById('lbImg'), cap=document.getElementById('lbCap');
   document.querySelectorAll('button[data-src]').forEach(function(b){
