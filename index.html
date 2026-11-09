@@ -208,10 +208,13 @@ dialog .close{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));right
 .btn-about:hover{opacity:.9}
 
 /* YouTube Kajian video grid */
-.yt-head-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.yt-head-links{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .btn-yt{display:inline-flex;align-items:center;gap:7px;background:#CC0000;color:#fff;padding:7px 14px;border-radius:999px;font:700 .84rem var(--body);text-decoration:none;transition:opacity .2s}
 .btn-yt:hover{opacity:.9}
 .btn-yt svg{width:16px;height:16px;fill:currentColor}
+.btn-ig{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff;padding:7px 14px;border-radius:999px;font:700 .84rem var(--body);text-decoration:none;transition:opacity .2s}
+.btn-ig:hover{opacity:.9}
+.btn-ig svg{width:15px;height:15px;fill:currentColor}
 .yt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:14px}
 .yt-card{all:unset;cursor:pointer;display:grid;gap:8px;background:var(--bg);border:1px solid var(--line);border-radius:12px;overflow:hidden;padding:10px;align-content:start;transition:transform .2s,border-color .2s,box-shadow .2s}
 .yt-card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 6px 20px rgba(0,0,0,.07)}
@@ -550,16 +553,16 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
 
         <!-- Slide 4: Perpus BQ -->
         <div class="car-slide" data-slide="4">
-          <button type="button" class="car-shot" data-src="photos/app-perpusbq.jpg" data-cap-en="Perpus BQ — Bilingual digital library catalog, DDC AI classification, and donor transparency portal" data-cap-id="Perpus BQ — Katalog perpustakaan digital dwibahasa, klasifikasi DDC berbasis AI, dan transparansi donatur" data-cap-jv="Perpus BQ — Katalog perpustakaan digital dwibahasa, klasifikasi DDC berbasis AI, lan transparansi donatur">
+          <button type="button" class="car-shot" data-src="photos/app-perpusbq.jpg" data-cap-en="Perpus BQ — Open community library catalog & borrowing tracker so the GM Children Foundation books benefit the wider public" data-cap-id="Perpus BQ — Katalog & pencatatan peminjaman buku agar manfaat buku hibah GM Children Foundation meluas ke masyarakat umum" data-cap-jv="Perpus BQ — Katalog & pencatatan peminjaman buku supados manfaat buku hibah GM Children Foundation mboten mandheg ing panti kemawon">
             <img src="photos/app-perpusbq.jpg" alt="Screenshot of Perpus BQ digital library catalog">
             <span class="car-shot-badge"><span data-l="en">Click to zoom</span><span data-l="id">Klik perbesar</span><span data-l="jv">Klik nggedhekaken</span></span>
           </button>
           <div class="car-info">
-            <span class="car-kicker"><span data-l="en">Digital Library · 232 Titles &amp; AI DDC</span><span data-l="id">Perpustakaan Digital · 232 Judul &amp; AI DDC</span><span data-l="jv">Perpustakaan Digital · 232 Irah-irahan &amp; AI DDC</span></span>
+            <span class="car-kicker"><span data-l="en">Open Community Library · Extending Grant Impact</span><span data-l="id">Perpustakaan Terbuka · Meluaskan Manfaat Hibah</span><span data-l="jv">Perpustakaan Tinarbuka · Njembaraken Manfaat Hibah</span></span>
             <h4>Perpus BQ</h4>
-            <p data-l="en">Bilingual public catalog and borrowing system for the Baitul Qowwam Library (connecting the 2025 book collection with ongoing waqf donations). Uses Gemini AI for automated Dewey Decimal Classification (DDC) call numbers and printable spine labels.</p>
-            <p data-l="id">Katalog publik dwibahasa dan sistem peminjaman buku Perpustakaan Baitul Qowwam (mengintegrasikan koleksi buku hibah 2025 dengan wakaf buku). Memakai Gemini AI untuk klasifikasi kode panggil DDC otomatis dan cetak label punggung buku.</p>
-            <p data-l="jv">Katalog publik dwibahasa lan sistem peminjaman buku Perpustakaan Baitul Qowwam ingkang ngginakaken Gemini AI kangge klasifikasi nomor panggil DDC otomatis saha cetak label buku.</p>
+            <p data-l="en">Built so the books funded by GM Children Foundation do not stop at Baitul Qowwam alone, but also benefit anyone in the wider community who wishes to read. Visitors simply browse the online catalog, sign in with their account to record their loan, and visit Baitul Qowwam to pick up the book.</p>
+            <p data-l="id">Dibuat agar koleksi buku dari GM Children Foundation tidak berhenti manfaatnya di internal Baitul Qowwam saja, tetapi juga bisa dipinjam oleh masyarakat luar. Peminjam cukup masuk dengan akun untuk pencatatan peminjaman di web, lalu datang langsung ke Baitul Qowwam untuk mengambil bukunya.</p>
+            <p data-l="jv">Dipun damel supados manfaat koleksi buku saking GM Children Foundation mboten mandheg ing Baitul Qowwam kemawon, nanging ugi saged dipun sambut masyarakat umum. Ingkang badhe nyambut cekap mlebet akun kangge pencatatan ing web, lajeng rawuh dhateng Baitul Qowwam mendhet bukunipun.</p>
             <div class="car-actions">
               <a href="https://perpusbq.vercel.app/id" target="_blank" rel="noopener" class="btn-about"><span data-l="en">Open Perpus BQ Catalog &rarr;</span><span data-l="id">Buka Katalog Perpus BQ &rarr;</span><span data-l="jv">Bikak Katalog Perpus BQ &rarr;</span></a>
             </div>
@@ -581,6 +584,10 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
           <a href="https://www.youtube.com/@yayasanbaitulqowwam9014" target="_blank" rel="noopener" class="btn-yt">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
             <span>@yayasanbaitulqowwam9014</span>
+          </a>
+          <a href="https://www.instagram.com/panti_baitulqowwam/" target="_blank" rel="noopener" class="btn-ig">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8 0 3.2 0 3.6-.1 4.8-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1-3.2 0-3.6 0-4.8-.1-3.3-.1-4.8-1.7-4.9-4.9-.1-1.3-.1-1.6-.1-4.8 0-3.2 0-3.6.1-4.8.1-3.2 1.7-4.8 4.9-4.9 1.2-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg>
+            <span>@panti_baitulqowwam</span>
           </a>
         </div>
       </div>
@@ -705,6 +712,11 @@ footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:6px;fo
       <span class="lbl"><span data-l="en">Library Bookshelves in Use</span><span data-l="id">Rak Perpustakaan Siap Pakai</span><span data-l="jv">Rak Perpustakaan Siap Dipunginakaken</span></span>
       <span class="cap"><span data-l="en">Neatly organized on the new wooden bookshelves for daily reading by foster children</span><span data-l="id">Tertata rapi di lemari rak kayu baru dan diakses setiap hari oleh santri asrama</span><span data-l="jv">Katata rapi wonten ing lemari rak kajeng enggal kangge waosan padintenan santri</span></span>
     </button>
+  </div>
+  <div class="callout">
+    <p data-l="en"><b>Opened to the wider community via Perpus BQ:</b> So the books from GM Children Foundation's grant benefit more than just Baitul Qowwam internally, alumni built the <a href="https://perpusbq.vercel.app/id" target="_blank" rel="noopener"><b>Perpus BQ</b></a> online catalog and borrowing tracker — anyone can sign in with their account to record a loan and come to Baitul Qowwam to borrow a book.</p>
+    <p data-l="id"><b>Dibuka untuk masyarakat luas lewat Perpus BQ:</b> Agar manfaat buku dari hibah GM Children Foundation tidak berhenti di internal Baitul Qowwam saja, alumni membangun web <a href="https://perpusbq.vercel.app/id" target="_blank" rel="noopener"><b>Perpus BQ</b></a> untuk pencatatan peminjaman — siapa pun yang ingin meminjam cukup masuk akun di web lalu datang ke Baitul Qowwam untuk mengambil bukunya.</p>
+    <p data-l="jv"><b>Kabikak kangge masyarakat umum lumantar Perpus BQ:</b> Supados manfaat buku saking hibah GM Children Foundation mboten mandheg ing internal Baitul Qowwam kemawon, alumni mbangun web <a href="https://perpusbq.vercel.app/id" target="_blank" rel="noopener"><b>Perpus BQ</b></a> kangge pencatatan peminjaman — sinten kemawon saged mlebet akun ing web lajeng rawuh dhateng Baitul Qowwam mendhet bukunipun.</p>
   </div>
 </section>
 
